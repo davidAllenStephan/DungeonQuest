@@ -1,5 +1,6 @@
 package davidmarino;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -51,8 +52,17 @@ public class GeometryUtils {
      * @return {@code boolean}
      */
     private static boolean isInsideHalfPlane(Point p, Line bisector, Point site) {
-        double signP = p.y - (bisector.m * p.x + bisector.b);
-        double signSite = site.y - (bisector.m * site.x + bisector.b);
+        double signP, signSite;
+
+        if (bisector.isVertical) {
+            double xLine = bisector.A.x;
+            signP = p.x - xLine;
+            signSite = site.x - xLine;
+        } else {
+            signP = p.y - (bisector.m * p.x + bisector.b);
+            signSite = site.y - (bisector.m * site.x + bisector.b);
+        }
+
         return signP * signSite >= 0;
     }
 
@@ -67,11 +77,18 @@ public class GeometryUtils {
         double dx = B.x - A.x;
         double dy = B.y - A.y;
 
+        if (bisector.isVertical) {
+            double xLine = bisector.A.x;
+            if (Math.abs(dx) < 1e-10) return null; // segment is vertical, no intersection
+            double t = (xLine - A.x) / dx;
+            double y = A.y + t * dy;
+            return new Point(xLine, y);
+        }
+
         double denominator = dy - bisector.m * dx;
-        if (Math.abs(denominator) < 1e-10) return null; // Parallel, no intersection
+        if (Math.abs(denominator) < 1e-10) return null; // Lines are (almost) parallel
 
         double t = (bisector.m * A.x + bisector.b - A.y) / denominator;
-
         double x = A.x + t * dx;
         double y = A.y + t * dy;
 

@@ -1,5 +1,6 @@
 package davidmarino;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -45,16 +46,14 @@ public class Polygon {
      * @param allSites is a list of all sites that exist
      * @return {@code ArrayList<Point>}
      */
-    public static ArrayList<Point> computeVoronoiCell(Point site, ArrayList<Point> allSites) {
+    public static Polygon computeVoronoiCell(Point site, ArrayList<Point> allSites) {
         Polygon cell = getBoundingBox(Parameters.width, Parameters.height);
-
         for (Point other : allSites) {
             if (other == site) continue;
             Line bisector = new Line(site, other).findBisector();
             cell = GeometryUtils.clipPolygon(cell, bisector, site);
         }
-
-        return cell.vertices;
+        return cell;
     }
 
     @Override

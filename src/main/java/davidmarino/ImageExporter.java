@@ -13,7 +13,7 @@ import java.io.IOException;
 public class ImageExporter {
     public static void exportToPNG(BufferedImage image) {
         try {
-            ImageIO.write(image, "png", new File("drawing.png"));
+            ImageIO.write(image, "png", new File(Parameters.imageFileName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

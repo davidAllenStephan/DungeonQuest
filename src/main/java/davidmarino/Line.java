@@ -22,6 +22,7 @@ public class Line {
      */
     public double b;
 
+    public boolean isVertical = false;
     /**
      * Constructs {@code Line} using point A and B.
      * @param A point
@@ -30,8 +31,14 @@ public class Line {
     public Line(Point A, Point B) {
         this.A = A;
         this.B = B;
-        this.m = (B.y - A.y) / (B.x - A.x);
-        this.b = A.y - this.m * A.x;
+        if (B.x != A.x) {
+            m = (B.y - A.y) / (B.x - A.x);
+            b = A.y - m * A.x;
+        } else {
+            m = Double.POSITIVE_INFINITY;
+            b = Double.NaN;
+            isVertical = true;
+        }
     }
 
     /**
@@ -41,11 +48,12 @@ public class Line {
      * @param m is slope
      * @param b is y index
      */
-    public Line(Point A, Point B, double m, double b) {
+    public Line(Point A, Point B, double m, double b, boolean isVertical) {
         this.A = A;
         this.B = B;
         this.m = m;
         this.b = b;
+        this.isVertical = isVertical;
     }
 
     /**
@@ -55,7 +63,20 @@ public class Line {
     public Line findBisector() {
         double midX = (A.x + B.x) / 2;
         double midY = (A.y + B.y) / 2;
-        Line l = new Line(this.A, this.B, (-1.0 / this.m), (midY - ((-1.0 / this.m) * midX)));
+        double pM;
+        if (m == 0) {
+            pM = Double.POSITIVE_INFINITY;
+        } else if (Double.isInfinite(m)) {
+            pM = 0;
+        } else {
+            pM = -1.0 / m;
+        }
+
+        if (Double.isInfinite(pM)) {
+            return new Line(new Point(midX, 0), new Point(midX, Parameters.height), pM, Double.NaN, true);
+        }
+
+        Line l = new Line(this.A, this.B, pM, midY - (pM * midX), false);
         int width = Parameters.width;
         int height = Parameters.height;
         ArrayList<Point> validPoints = new ArrayList<>();
@@ -88,6 +109,17 @@ public class Line {
             }
         }
 
+        if (validPoints.isEmpty()) {
+            System.out.println(midX + ", " + midY);
+            System.out.println(pM);
+            System.out.println(l);
+        }
+
         return new Line(validPoints.get(0), validPoints.get(1));
+    }
+
+    @Override
+    public String toString() {
+        return "Line [A=" + A + ", B=" + B + ", m=" + m + ", b=" + b + "]";
     }
 }

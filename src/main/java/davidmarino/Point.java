@@ -1,6 +1,7 @@
 package davidmarino;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The {@code Point} class represents a point in euclidean space.
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class Point {
     public double x;
     public double y;
+    public double z;
 
     /**
      * Copy constructor
@@ -20,6 +22,12 @@ public class Point {
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Point(double x, double y, double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     /**
@@ -37,6 +45,20 @@ public class Point {
             if (res) return true;
         }
         return false;
+    }
+
+    public static ArrayList<Point> generateRandomPoints(int count) {
+        ArrayList<Point> points = new ArrayList<>();
+        Random random = new Random();
+        while (count > 0) {
+            int x = random.nextInt(0, Parameters.width);
+            int y = random.nextInt(0, Parameters.height);
+            if (!Point.withinBounds(points, x, y, 100)) {
+                points.add(new Point(x, y, PerlinNoise.getNoise(x * 0.1, y * 0.1)));
+                count--;
+            }
+        }
+        return points;
     }
 
     @Override
