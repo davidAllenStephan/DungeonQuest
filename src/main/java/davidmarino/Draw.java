@@ -21,8 +21,8 @@ public class Draw {
      * @param x 0 <= x < image width
      * @param y 0 <= y < image height
      */
-    private void drawPoint(Graphics2D g2, int x, int y) {
-        g2.setColor(Color.BLACK);
+    private void drawPoint(Graphics2D g2, int x, int y, Color color) {
+        g2.setColor(color);
         g2.fillOval(x - (Parameters.vertexSize / 2), y - (Parameters.vertexSize / 2), Parameters.vertexSize, Parameters.vertexSize);
     }
 
@@ -40,16 +40,28 @@ public class Draw {
             yPoints[i] = (int) Math.round(polygon.vertices.get(i).y);
         }
 
-//        g2.setColor(Color.WHITE);
-//        g2.setStroke(new BasicStroke(Parameters.edgeSize));
-//        g2.drawPolygon(xPoints, yPoints, n);
-
         g2.setColor(color);
         g2.fillPolygon(xPoints, yPoints, n);
     }
 
-    public void setBackground(Graphics2D g2) {
-        g2.setColor(Color.WHITE);
+    private void drawPolygonBorder(Graphics2D g2, Polygon polygon, Color color) {
+        int n = polygon.vertices.size();
+        int[] xPoints = new int[n];
+        int[] yPoints = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            xPoints[i] = (int) Math.round(polygon.vertices.get(i).x);
+            yPoints[i] = (int) Math.round(polygon.vertices.get(i).y);
+        }
+
+        g2.setColor(color);
+        g2.setStroke(new BasicStroke(Parameters.edgeSize));
+        g2.drawPolygon(xPoints, yPoints, n);
+
+    }
+
+    public void setBackground(Graphics2D g2, Color color) {
+        g2.setColor(color);
         g2.fillRect(0, 0, Parameters.width, Parameters.height);
     }
 
@@ -138,6 +150,18 @@ public class Draw {
         }
     }
 
+    public void drawPolygonBorders(Graphics2D g2, ArrayList<Polygon> polygons, Color color) {
+        for (Polygon polygon : polygons) {
+            drawPolygonBorder(g2, polygon, color);
+        }
+    }
+
+    public void drawPoints(Graphics2D g2, ArrayList<Point> points, Color color) {
+        for (Point point : points) {
+            drawPoint(g2, (int) point.x, (int) point.y, color);
+        }
+    }
+
     /**
      * Executes the start of the generation.
      */
@@ -145,23 +169,36 @@ public class Draw {
         BufferedImage image = new BufferedImage(Parameters.width, Parameters.height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = image.createGraphics();
 
-        setBackground(g2);
+        setBackground(g2, Parameters.backgroundColor);
 
         ArrayList<Point> sitePoints = generatePoints();
 
         ArrayList<Polygon> voronoiPolygons = generateVoronoiPolygons(sitePoints);
 
         findNeighbors(voronoiPolygons);
-        applyRadial(voronoiPolygons);
 
+//        applyRadial(voronoiPolygons);
+//
+//        CoastMask cm = new CoastMask();
+//        ArrayList<Polygon> coastMask = cm.getCoastMask(voronoiPolygons);
+//        cm.erodeInwardFromRandomCoastPoints(coastMask, Parameters.startPercent, Parameters.spreadChance, Parameters.maxChunks, Parameters.maxStepsPerChunk);
+//
+//        drawPolygons(g2, voronoiPolygons);
 
-        CoastMask cm = new CoastMask();
-        cm.applyCoastMask(voronoiPolygons);
+        /**
+         * We need to find the quadrilaterals of each polygon.
+         * The quadrilaterals must be made of the polygon and its neighbor which we have.
+         * If a polygon has two matching vertices with a neighbor then that is the connection of the quadrilateral.
+         */
 
-        drawPolygons(g2, voronoiPolygons);
+        ArrayList<Point> polygonPoints = new ArrayList<>();
+        for (Polygon polygon : voronoiPolygons) {
+            polygonPoints.addAll(polygon.vertices);
+        }
 
-
-
+        drawPolygonBorders(g2, voronoiPolygons, Parameters.polygonBorderColor);
+        drawPoints(g2, sitePoints, Parameters.polygonSiteColor);
+        drawPoints(g2, polygonPoints, Parameters.polygonVertexColor);
 
         g2.dispose();
         ImageExporter.exportToPNG(image);

@@ -1,7 +1,6 @@
 package davidmarino;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Class {@code CoastMask}
@@ -15,9 +14,10 @@ public class CoastMask {
      * Finds the coast site points by checking that a polygon has at least one neighbor that is seaLevel and not all
      * neighbors are at seaLevel (isolated sea tile)
      * @param polygons
-     * @return {@code ArrayList<Point>}
+     * @return {@code ArrayList<Polygon>}
      */
-    public void applyCoastMask(ArrayList<Polygon> polygons) {
+    public ArrayList<Polygon> getCoastMask(ArrayList<Polygon> polygons) {
+        ArrayList<Polygon> coastMask = new ArrayList<>();
         for (Polygon polygon : polygons) {
             int seaNeighborCount = 0;
             if (polygon.site.z >= 0.5) {
@@ -27,8 +27,57 @@ public class CoastMask {
                     }
                 }
                 if (0 < seaNeighborCount && seaNeighborCount < polygon.neighbors.size()) {
-                    polygon.site.z = 0.99;
+                    coastMask.add(polygon);
                 }
+            }
+        }
+        return coastMask;
+    }
+
+    /**
+     * Turns land to sea randomly in a inward direction.
+     * @param coastMask holds the polygons that are on the coast
+     * @param startPercent is the chance for erosion to start
+     * @param spreadChance is the chance for an eroding tile to spread
+     * @param maxChunks is the max number of erosion start events
+     * @param maxStepsPerChunk is the maximum number of tiles to change to sea
+     */
+    public void erodeInwardFromRandomCoastPoints(ArrayList<Polygon> coastMask, double startPercent, double spreadChance, int maxChunks, int maxStepsPerChunk) {
+        Random r = new Random();
+        Set<Polygon> globalVisited = new HashSet<>();
+        Collections.shuffle(coastMask);
+        int numStarts = Math.min((int)(coastMask.size() * startPercent), maxChunks);
+
+        for (int i = 0; i < numStarts; i++) {
+            Polygon start = coastMask.get(i);
+
+            if (globalVisited.contains(start)) continue;
+
+            Queue<Polygon> queue = new LinkedList<>();
+            Set<Polygon> localVisited = new HashSet<>();
+
+            queue.add(start);
+            localVisited.add(start);
+            globalVisited.add(start);
+
+            int steps = 0;
+
+            while (!queue.isEmpty() && steps < maxStepsPerChunk) {
+                Polygon current = queue.poll();
+                current.site.z = 0.49; // mark as sea
+
+                for (Polygon neighbor : current.neighbors) {
+                    if (neighbor.site.z >= 0.5 && // it's land
+                            !localVisited.contains(neighbor)) {
+
+                        if (r.nextDouble() < spreadChance) {
+                            queue.add(neighbor);
+                            localVisited.add(neighbor);
+                            globalVisited.add(neighbor);
+                        }
+                    }
+                }
+                steps++;
             }
         }
     }
