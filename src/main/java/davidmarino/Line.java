@@ -118,6 +118,14 @@ public class Line {
         return new Line(validPoints.get(0), validPoints.get(1));
     }
 
+    public double equateY(double value) {
+        return (m * value) + b;
+    }
+
+    public double equateX(double value) {
+        return ((m * value) + b) / m;
+    }
+
     @Override
     public String toString() {
         return "Line [A=" + A + ", B=" + B + ", m=" + m + ", b=" + b + "]";

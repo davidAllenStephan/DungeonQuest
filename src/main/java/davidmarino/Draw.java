@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * The {@code Draw} class is used to set up and render all objects.
@@ -97,19 +96,18 @@ public class Draw {
     }
 
     public void findNeighbors(ArrayList<Polygon> polygons) {
-        HashMap<Point, ArrayList<Polygon>> vertexToPolygonsMap = new HashMap<>();
-
+        HashMap<Point, HashSet<Polygon>> vertexToPolygonsMap = new HashMap<>();
         for (Polygon polygon : polygons) {
             for (Point vertex : polygon.vertices) {
                 vertexToPolygonsMap
-                        .computeIfAbsent(vertex, k -> new ArrayList<>())
+                        .computeIfAbsent(vertex, k -> new HashSet<>())
                         .add(polygon);
             }
         }
 
         for (Polygon polygon : polygons) {
             for (Point vertex : polygon.vertices) {
-                ArrayList<Polygon> adjacentPolygons = vertexToPolygonsMap.get(vertex);
+                HashSet<Polygon> adjacentPolygons = vertexToPolygonsMap.get(vertex);
                 if (adjacentPolygons != null) {
                     for (Polygon neighbor : adjacentPolygons) {
                         if (neighbor != polygon) {
@@ -162,6 +160,12 @@ public class Draw {
         }
     }
 
+    public void drawLine(Graphics2D g2, Line line, Color color) {
+        g2.setColor(color);
+        g2.setStroke(new BasicStroke(Parameters.edgeSize));
+        g2.drawLine((int) line.A.x, (int) line.A.y, (int) line.B.x, (int) line.B.y);
+    }
+
     /**
      * Executes the start of the generation.
      */
@@ -172,16 +176,14 @@ public class Draw {
         setBackground(g2, Parameters.backgroundColor);
 
         ArrayList<Point> sitePoints = generatePoints();
-
         ArrayList<Polygon> voronoiPolygons = generateVoronoiPolygons(sitePoints);
-
         findNeighbors(voronoiPolygons);
 
-//        applyRadial(voronoiPolygons);
-//
-//        CoastMask cm = new CoastMask();
-//        ArrayList<Polygon> coastMask = cm.getCoastMask(voronoiPolygons);
-//        cm.erodeInwardFromRandomCoastPoints(coastMask, Parameters.startPercent, Parameters.spreadChance, Parameters.maxChunks, Parameters.maxStepsPerChunk);
+        applyRadial(voronoiPolygons);
+
+        CoastMask cm = new CoastMask();
+        ArrayList<Polygon> coastMask = cm.getCoastMask(voronoiPolygons);
+        cm.erodeInwardFromRandomCoastPoints(coastMask, Parameters.startPercent, Parameters.spreadChance, Parameters.maxChunks, Parameters.maxStepsPerChunk);
 //
 //        drawPolygons(g2, voronoiPolygons);
 
@@ -191,14 +193,79 @@ public class Draw {
          * If a polygon has two matching vertices with a neighbor then that is the connection of the quadrilateral.
          */
 
-        ArrayList<Point> polygonPoints = new ArrayList<>();
+//        for (Polygon polygon : voronoiPolygons) {
+//            polygon.applyNoisyBoarder();
+//        }
+
+
+//        ArrayList<Point> polygonPoints = new ArrayList<>();
+//        for (Polygon polygon : voronoiPolygons) {
+//            polygonPoints.addAll(polygon.vertices);
+//        }
+
+
+
+//        ArrayList<Polygon> quadrilaterals = new ArrayList<>(); // initial quads
+//        for (Polygon polygon : voronoiPolygons) {
+//            quadrilaterals.addAll(polygon.findQuadrilaterals());
+//        }
+
+//        for (Polygon polygon : quadrilaterals) {
+//            ArrayList<Polygon> subdivided = polygon.subdivideByDiversion(0.6);
+//            Line l1 = new Line(subdivided.getFirst().vertices.get(2), polygon.vertices.get(1));
+//            Line l2 = new Line(subdivided.getFirst().vertices.get(2), polygon.vertices.get(3));
+//            drawLine(g2, l1, Color.BLUE);
+//            drawLine(g2, l2, Color.BLUE);
+//            drawPolygonBorder(g2, polygon, Color.GREEN);
+//            drawPolygonBorders(g2, subdivided, Color.RED);
+//            ArrayList<Polygon> inverse = Polygon.inverseQuadrilateral(polygon, subdivided);
+//            drawPolygonBorder(g2, inverse.getFirst(), new Color(255,0,255));
+//            drawPolygonBorder(g2, inverse.get(1), new Color(255,0,255));
+//        }
+
         for (Polygon polygon : voronoiPolygons) {
-            polygonPoints.addAll(polygon.vertices);
+            polygon.applyNoisyBorder(0.7);
         }
 
-        drawPolygonBorders(g2, voronoiPolygons, Parameters.polygonBorderColor);
-        drawPoints(g2, sitePoints, Parameters.polygonSiteColor);
-        drawPoints(g2, polygonPoints, Parameters.polygonVertexColor);
+        drawPolygons(g2, voronoiPolygons);
+
+
+
+//        Polygon polygon = quadrilaterals.get(0);
+//        ArrayList<Polygon> subdivided = polygon.subdivideByDiversion(0.6);
+//        Line l1 = new Line(subdivided.getFirst().vertices.get(2), polygon.vertices.get(1));
+//        Line l2 = new Line(subdivided.getFirst().vertices.get(2), polygon.vertices.get(3));
+//        drawLine(g2, l1, Color.BLUE);
+//        drawLine(g2, l2, Color.BLUE);
+//        drawPolygonBorder(g2, polygon, Color.GREEN);
+//        drawPolygonBorders(g2, subdivided, Color.RED);
+//        ArrayList<Polygon> inverse = Polygon.inverseQuadrilateral(polygon, subdivided);
+//        drawPolygonBorder(g2, inverse.getFirst(), new Color(255,0,255));
+//        drawPolygonBorder(g2, inverse.get(1), new Color(255,0,255));
+
+
+
+
+//        ArrayList<Polygon> quad2 = inverse.getFirst().findQuadrilaterals();
+//        ArrayList<Polygon> subdivided2 = quad2.getFirst().subdivideByDiversion(0.7);
+//
+//        drawPolygonBorders(g2, subdivided2, Color.RED);
+//        Line l3 = new Line(subdivided2.getFirst().vertices.get(2), quadrilaterals.getFirst().vertices.get(1));
+//        Line l4 = new Line(subdivided2.getFirst().vertices.get(2), quadrilaterals.getFirst().vertices.get(3));
+//
+//        drawLine(g2, l3, Color.BLUE);
+//        drawLine(g2, l4, Color.BLUE);
+
+
+
+
+//        Line l = new Line(quadrilaterals.getFirst().vertices.getFirst(), quadrilaterals.getFirst().vertices.get(2));
+//        drawLine(g2, l, Color.RED);
+
+
+
+//        drawPoints(g2, polygonPoints, Parameters.polygonVertexColor);
+//        drawPoints(g2, sitePoints, Parameters.polygonSiteColor);
 
         g2.dispose();
         ImageExporter.exportToPNG(image);

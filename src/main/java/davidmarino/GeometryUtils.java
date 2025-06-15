@@ -19,12 +19,11 @@ public class GeometryUtils {
      * @return {@code Polygon}
      */
     public static Polygon clipPolygon(Polygon polygon, Line bisector, Point site) {
-        ArrayList<Point> inputList = polygon.vertices;
         ArrayList<Point> outputList = new ArrayList<>();
 
-        for (int i = 0; i < inputList.size(); i++) {
-            Point current = inputList.get(i);
-            Point prev = inputList.get((i + inputList.size() - 1) % inputList.size());
+        for (int i = 0; i < polygon.vertices.size(); i++) {
+            Point current = polygon.vertices.get(i);
+            Point prev = polygon.vertices.get((i + polygon.vertices.size() - 1) % polygon.vertices.size());
 
             boolean currInside = isInsideHalfPlane(current, bisector, site);
             boolean prevInside = isInsideHalfPlane(prev, bisector, site);
@@ -73,7 +72,7 @@ public class GeometryUtils {
      * @param bisector of the site point and other
      * @return
      */
-    private static Point intersect(Point A, Point B, Line bisector) {
+    public static Point intersect(Point A, Point B, Line bisector) {
         double dx = B.x - A.x;
         double dy = B.y - A.y;
 
