@@ -38,7 +38,7 @@ public class GeometryUtils {
                 outputList.add(current);
             }
         }
-        return new Polygon(outputList);
+        return new Polygon(outputList, site);
     }
 
     /**

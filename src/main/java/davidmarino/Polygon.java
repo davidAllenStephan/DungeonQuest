@@ -1,7 +1,7 @@
 package davidmarino;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Class {@code Polygon} goal is to create a voronoi diagram. This diagram creates natural looking polygons that can be
@@ -17,12 +17,22 @@ public class Polygon {
      * 2 < ∣S∣ < ∞
      */
     public ArrayList<Point> vertices;
+    public HashSet<Polygon> neighbors;
+    public Point site;
 
     /**
      * Contracts a Polygon list of vertices.
      */
-    public Polygon(ArrayList<Point> vertices) {
+    public Polygon(ArrayList<Point> vertices, Point site) {
         this.vertices = vertices;
+        this.neighbors = new HashSet<>();
+        this.site = site;
+    }
+
+    public Polygon(ArrayList<Point> vertices, HashSet<Polygon> neighbors, Point site) {
+        this.vertices = vertices;
+        this.neighbors = neighbors;
+        this.site = site;
     }
 
     /**
@@ -37,7 +47,7 @@ public class Polygon {
         box.add(new Point(width, 0));
         box.add(new Point(width, height));
         box.add(new Point(0, height));
-        return new Polygon(box);
+        return new Polygon(box, null);
     }
 
     /**
@@ -48,6 +58,7 @@ public class Polygon {
      */
     public static Polygon computeVoronoiCell(Point site, ArrayList<Point> allSites) {
         Polygon cell = getBoundingBox(Parameters.width, Parameters.height);
+        cell.site = site;
         for (Point other : allSites) {
             if (other == site) continue;
             Line bisector = new Line(site, other).findBisector();

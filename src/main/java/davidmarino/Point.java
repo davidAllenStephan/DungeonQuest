@@ -1,6 +1,7 @@
 package davidmarino;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -64,5 +65,25 @@ public class Point {
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
+    }
+
+    private static final double EPSILON = 1e-9;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Point)) return false;
+        Point other = (Point) obj;
+        return Math.abs(x - other.x) < EPSILON &&
+                Math.abs(y - other.y) < EPSILON &&
+                Math.abs(z - other.z) < EPSILON;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                (int)(x / EPSILON),
+                (int)(y / EPSILON),
+                (int)(z / EPSILON)
+        );
     }
 }

@@ -9,13 +9,22 @@ package davidmarino;
 
 public class PerlinNoise {
 
+    private static int baseSeed = 1337;
+
+    public static void setSeed(int seed) {
+        baseSeed = seed;
+    }
+
     private static double[] gradient(int x, int y) {
-        int seed = x * 374761393 + y * 668265263; // large, distinct primes
-        seed = (seed ^ (seed >> 13)) * 1274126177;
-        seed ^= seed >> 16;
-        double angle = (seed & 0xFFFF) / 65536.0 * 2 * Math.PI;
+        int hash = x * 374761393 + y * 668265263;
+        hash = (hash ^ (hash >> 13)) * 1274126177;
+        hash ^= baseSeed; // Fold in the seed after mixing x/y
+        hash ^= (hash >> 16);
+
+        double angle = (hash & 0xFFFF) / 65536.0 * 2 * Math.PI;
         return new double[]{Math.cos(angle), Math.sin(angle)};
     }
+
 
     private static double dot(double[] g, double[] d) {
         return g[0] * d[0] + g[1] * d[1];
@@ -25,7 +34,7 @@ public class PerlinNoise {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
 
-    private static double lerp(double a, double b, double t) {
+    public static double lerp(double a, double b, double t) {
         return a + t * (b - a);
     }
 
