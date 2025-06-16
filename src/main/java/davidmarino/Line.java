@@ -1,5 +1,6 @@
 package davidmarino;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,6 @@ import java.util.ArrayList;
  * @author David Marino
  * @version 13 Jun 2025
  */
-
 public class Line {
     public Point A;
     public Point B;
@@ -23,6 +23,7 @@ public class Line {
     public double b;
 
     public boolean isVertical = false;
+
     /**
      * Constructs {@code Line} using point A and B.
      * @param A point
@@ -42,7 +43,7 @@ public class Line {
     }
 
     /**
-     * Copy Constructor
+     * Line copy constructor
      * @param A point
      * @param B point
      * @param m is slope
@@ -57,7 +58,7 @@ public class Line {
     }
 
     /**
-     * Finds the bisector line of this object.
+     * Finds the bisector line of this line and returns it as a new line.
      * @return {@code Line}
      */
     public Line findBisector() {
@@ -71,59 +72,46 @@ public class Line {
         } else {
             pM = -1.0 / m;
         }
-
         if (Double.isInfinite(pM)) {
             return new Line(new Point(midX, 0), new Point(midX, Parameters.height), pM, Double.NaN, true);
         }
-
         Line l = new Line(this.A, this.B, pM, midY - (pM * midX), false);
         int width = Parameters.width;
         int height = Parameters.height;
         ArrayList<Point> validPoints = new ArrayList<>();
-
-        // Intersect with left (x = 0)
         double y0 = l.m * 0.0 + l.b;
         if (y0 >= 0 && y0 <= height) {
             validPoints.add(new Point(0, y0));
         }
-
-        // Intersect with right (x = width)
         double yWidth = l.m * width + l.b;
         if (yWidth >= 0 && yWidth <= height) {
             validPoints.add(new Point(width, yWidth));
         }
-
-        // Intersect with top (y = 0)
         if (l.m != 0) {
             double x0 = (0.0 - l.b) / l.m;
             if (x0 >= 0 && x0 <= width) {
                 validPoints.add(new Point(x0, 0));
             }
         }
-
-        // Intersect with bottom (y = height)
         if (l.m != 0) {
             double xHeight = (height - l.b) / l.m;
             if (xHeight >= 0 && xHeight <= width) {
                 validPoints.add(new Point(xHeight, height));
             }
         }
-
-        if (validPoints.isEmpty()) {
-            System.out.println(midX + ", " + midY);
-            System.out.println(pM);
-            System.out.println(l);
-        }
-
         return new Line(validPoints.get(0), validPoints.get(1));
     }
 
-    public double equateY(double value) {
-        return (m * value) + b;
-    }
-
-    public double equateX(double value) {
-        return ((m * value) + b) / m;
+    /**
+     * Draws line using render library Graphics2D.
+     * @param g2 is the render library
+     * @param line to be rendered
+     * @param color of the line
+     */
+    public static void drawLine(Graphics2D g2, Line line, Color color) {
+        g2.setColor(color);
+        g2.setStroke(new BasicStroke(Parameters.edgeSize));
+        g2.drawLine((int) line.A.x, (int) line.A.y, (int) line.B.x, (int) line.B.y);
     }
 
     @Override

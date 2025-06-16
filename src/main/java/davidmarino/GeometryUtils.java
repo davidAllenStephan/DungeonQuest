@@ -1,6 +1,5 @@
 package davidmarino;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +7,6 @@ import java.util.ArrayList;
  * @version 13 Jun 2025
  * @author david marino
  */
-
 public class GeometryUtils {
 
     /**
@@ -20,14 +18,11 @@ public class GeometryUtils {
      */
     public static Polygon clipPolygon(Polygon polygon, Line bisector, Point site) {
         ArrayList<Point> outputList = new ArrayList<>();
-
         for (int i = 0; i < polygon.vertices.size(); i++) {
             Point current = polygon.vertices.get(i);
             Point prev = polygon.vertices.get((i + polygon.vertices.size() - 1) % polygon.vertices.size());
-
             boolean currInside = isInsideHalfPlane(current, bisector, site);
             boolean prevInside = isInsideHalfPlane(prev, bisector, site);
-
             if (currInside && prevInside) {
                 outputList.add(current);
             } else if (prevInside && !currInside) {
@@ -52,7 +47,6 @@ public class GeometryUtils {
      */
     private static boolean isInsideHalfPlane(Point p, Line bisector, Point site) {
         double signP, signSite;
-
         if (bisector.isVertical) {
             double xLine = bisector.A.x;
             signP = p.x - xLine;
@@ -61,7 +55,6 @@ public class GeometryUtils {
             signP = p.y - (bisector.m * p.x + bisector.b);
             signSite = site.y - (bisector.m * site.x + bisector.b);
         }
-
         return signP * signSite >= 0;
     }
 
@@ -75,7 +68,6 @@ public class GeometryUtils {
     public static Point intersect(Point A, Point B, Line bisector) {
         double dx = B.x - A.x;
         double dy = B.y - A.y;
-
         if (bisector.isVertical) {
             double xLine = bisector.A.x;
             if (Math.abs(dx) < 1e-10) return null; // segment is vertical, no intersection
@@ -83,14 +75,11 @@ public class GeometryUtils {
             double y = A.y + t * dy;
             return new Point(xLine, y);
         }
-
         double denominator = dy - bisector.m * dx;
         if (Math.abs(denominator) < 1e-10) return null; // Lines are (almost) parallel
-
         double t = (bisector.m * A.x + bisector.b - A.y) / denominator;
         double x = A.x + t * dx;
         double y = A.y + t * dy;
-
         return new Point(x, y);
     }
 

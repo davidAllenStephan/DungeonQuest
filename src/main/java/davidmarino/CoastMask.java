@@ -7,7 +7,6 @@ import java.util.*;
  * @author David Marino
  * @version 14 Jun 2025
  */
-
 public class CoastMask {
 
     /**
@@ -20,9 +19,9 @@ public class CoastMask {
         ArrayList<Polygon> coastMask = new ArrayList<>();
         for (Polygon polygon : polygons) {
             int seaNeighborCount = 0;
-            if (polygon.site.z >= 0.5) {
+            if (polygon.site.z >= Parameters.waterLevel) {
                 for (Polygon neighbor : polygon.neighbors) {
-                    if (neighbor.site.z < 0.5) {
+                    if (neighbor.site.z < Parameters.waterLevel) {
                         seaNeighborCount++;
                     }
                 }
@@ -47,29 +46,21 @@ public class CoastMask {
         Set<Polygon> globalVisited = new HashSet<>();
         Collections.shuffle(coastMask);
         int numStarts = Math.min((int)(coastMask.size() * startPercent), maxChunks);
-
         for (int i = 0; i < numStarts; i++) {
             Polygon start = coastMask.get(i);
-
             if (globalVisited.contains(start)) continue;
-
             Queue<Polygon> queue = new LinkedList<>();
             Set<Polygon> localVisited = new HashSet<>();
-
             queue.add(start);
             localVisited.add(start);
             globalVisited.add(start);
-
             int steps = 0;
-
             while (!queue.isEmpty() && steps < maxStepsPerChunk) {
                 Polygon current = queue.poll();
-                current.site.z = 0.49; // mark as sea
-
+                current.site.z = Parameters.waterLevel - 0.001; // mark as sea
                 for (Polygon neighbor : current.neighbors) {
-                    if (neighbor.site.z >= 0.5 && // it's land
+                    if (neighbor.site.z >= Parameters.waterLevel && // it's land
                             !localVisited.contains(neighbor)) {
-
                         if (r.nextDouble() < spreadChance) {
                             queue.add(neighbor);
                             localVisited.add(neighbor);
