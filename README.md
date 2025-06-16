@@ -7,6 +7,7 @@
 
 
 Repository: [https://github.com/davidAllenStephan/map](https://github.com/davidAllenStephan/map)
+Documentation: [https://davidallenstephan.github.io/map/](https://davidallenstephan.github.io/map/)
 
 ## Features
 Procedurally generates maps
