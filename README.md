@@ -6,6 +6,8 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/davidAllenStephan/map)
 
 
+This is built using the implementation guide made by Amit Patel at [http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/](http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/) 
+
 Repository: [https://github.com/davidAllenStephan/map](https://github.com/davidAllenStephan/map)
 
 Documentation: [https://davidallenstephan.github.io/map/](https://davidallenstephan.github.io/map/)
