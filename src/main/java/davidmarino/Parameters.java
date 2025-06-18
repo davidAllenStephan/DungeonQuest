@@ -6,9 +6,9 @@ import java.awt.*;
  * Class {@code Parameters} holds the values that influence the model.
  */
 public class Parameters {
-    public static final int height = 20000;
-    public static final int width = 20000;
-    public static final int numberOfPoints = 4000;
+    public static final int height = 5000;
+    public static final int width = 5000;
+    public static final int numberOfPoints = 1000;
 
     public static final int vertexSize = 50;
     public static final int edgeSize = 25;

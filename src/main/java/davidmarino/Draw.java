@@ -1,5 +1,12 @@
 package davidmarino;
 
+import davidmarino.controller.LineController;
+import davidmarino.controller.PointController;
+import davidmarino.controller.PolygonController;
+import davidmarino.model.Point;
+import davidmarino.model.Polygon;
+import davidmarino.view.PolygonView;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -31,15 +38,19 @@ public class Draw {
 
         setBackground(g2, Parameters.backgroundColor);
 
-        ArrayList<Point> sitePoints = Point.generateRandomPoints(Parameters.numberOfPoints);
+        PointController pc = new PointController();
+        PolygonController pcp = new PolygonController();
+
+
+        ArrayList<Point> sitePoints = pc.generateRandomPoints(Parameters.numberOfPoints);
         sitePoints = LloydRelaxation.applyLloydRelaxation(sitePoints);
 
-        ArrayList<Polygon> voronoiPolygons = Polygon.generateVoronoiPolygons(sitePoints);
+        ArrayList<Polygon> voronoiPolygons = pcp.generateVoronoiPolygons(sitePoints);
 
-        Polygon.findNeighbors(voronoiPolygons);
+        pcp.findNeighbors(voronoiPolygons);
 
         for (Polygon polygon : voronoiPolygons) {
-            polygon.applyNoisyBorder(0.7);
+            pcp.applyNoisyBorder(polygon, 0.7);
         }
 
         RadialHeightMap.applyRadialHeightMap(voronoiPolygons);
@@ -59,7 +70,7 @@ public class Draw {
             polygonPoints.addAll(p.vertices);
         }
 
-        Polygon.drawFilledPolygons(g2, voronoiPolygons);
+        PolygonView.drawFilledPolygons(g2, voronoiPolygons);
         g2.dispose();
         ImageExporter.exportToPNG(image, 500, 500);
     }

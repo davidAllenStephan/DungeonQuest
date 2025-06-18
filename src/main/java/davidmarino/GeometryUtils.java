@@ -1,5 +1,9 @@
 package davidmarino;
 
+import davidmarino.model.Line;
+import davidmarino.model.Point;
+import davidmarino.model.Polygon;
+
 import java.util.ArrayList;
 
 /**

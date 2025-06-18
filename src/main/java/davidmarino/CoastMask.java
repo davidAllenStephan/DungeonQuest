@@ -1,5 +1,7 @@
 package davidmarino;
 
+import davidmarino.model.Polygon;
+
 import java.util.*;
 
 /**
