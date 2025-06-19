@@ -3,9 +3,14 @@ package davidmarino;
 import davidmarino.controller.LineController;
 import davidmarino.controller.PointController;
 import davidmarino.controller.PolygonController;
+import davidmarino.controller.RoomController;
+import davidmarino.model.Line;
 import davidmarino.model.Point;
 import davidmarino.model.Polygon;
+import davidmarino.model.Room;
+import davidmarino.view.LineView;
 import davidmarino.view.PolygonView;
+import davidmarino.view.RoomView;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -38,40 +43,18 @@ public class Draw {
 
         setBackground(g2, Parameters.backgroundColor);
 
-        PointController pc = new PointController();
-        PolygonController pcp = new PolygonController();
+        Room roomA = new Room(new Point(200, 200), 6, 10);
+        Room roomB = new Room(new Point(250, 300), 10, 23);
+
+        RoomView.drawRoom(g2, roomA, Color.RED);
+        RoomView.drawRoom(g2, roomB, Color.BLUE);
+
+        LineView.drawLine(g2, new Line(roomA.center, roomB.center), Color.BLACK);
+
+        System.out.println(RoomController.getDistance(roomA, roomB));
 
 
-        ArrayList<Point> sitePoints = pc.generateRandomPoints(Parameters.numberOfPoints);
-        sitePoints = LloydRelaxation.applyLloydRelaxation(sitePoints);
-
-        ArrayList<Polygon> voronoiPolygons = pcp.generateVoronoiPolygons(sitePoints);
-
-        pcp.findNeighbors(voronoiPolygons);
-
-        for (Polygon polygon : voronoiPolygons) {
-            pcp.applyNoisyBorder(polygon, 0.7);
-        }
-
-        RadialHeightMap.applyRadialHeightMap(voronoiPolygons);
-
-        CoastMask cm = new CoastMask();
-        ArrayList<Polygon> coastMask = cm.getCoastMask(voronoiPolygons);
-        cm.erodeInwardFromRandomCoastPoints(coastMask, Parameters.startPercent, Parameters.spreadChance, Parameters.maxChunks, Parameters.maxStepsPerChunk);
-
-        ArrayList<Polygon> coast = cm.getCoastMask(voronoiPolygons);
-        Random r = new Random();
-        for (Polygon polygon : coast) {
-            polygon.site.z = r.nextDouble(Parameters.waterLevel, Parameters.coastLevel);
-        }
-
-        ArrayList<Point> polygonPoints = new ArrayList<>();
-        for (Polygon p : voronoiPolygons) {
-            polygonPoints.addAll(p.vertices);
-        }
-
-        PolygonView.drawFilledPolygons(g2, voronoiPolygons);
         g2.dispose();
-        ImageExporter.exportToPNG(image, 500, 500);
+        ImageExporter.exportToPNG(image, 400, 400);
     }
 }

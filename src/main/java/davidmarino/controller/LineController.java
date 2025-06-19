@@ -51,4 +51,21 @@ public class LineController {
         }
         return new Line(validPoints.get(0), validPoints.get(1));
     }
+
+    public static boolean isBelow(Line line, Point point) {
+        double res = (line.m * point.x) + line.b;
+        return res > point.y;
+    }
+
+    public static Point intersect(Line A, Line B) {
+        if (A.m == B.m) {
+            return null;
+        }
+        double x = (B.b - A.b) / (A.m - B.m);
+        double y = A.m * x + A.b;
+        Point intersection = new Point(x, y);
+        return intersection;
+
+    }
+
 }

@@ -16,19 +16,17 @@ public class PointView {
      */
     public static void drawPoints(Graphics2D g2, ArrayList<Point> points, Color color) {
         for (Point point : points) {
-            drawPoint(g2, (int) point.x, (int) point.y, color);
+            drawPoint(g2, point, color);
         }
     }
 
     /**
      * Renders a point.
      * @param g2 is the render library
-     * @param x
-     * @param y
      */
-    private static void drawPoint(Graphics2D g2, int x, int y, Color color) {
+    public static void drawPoint(Graphics2D g2, Point p, Color color) {
         g2.setColor(color);
         int size = Parameters.vertexSize;
-        g2.fillOval(x - (size / 2), y - (size / 2), size, size);
+        g2.fillOval((int) (p.x - (double) (size / 2)), (int) (p.y - (double) (size / 2)), size, size);
     }
 }
