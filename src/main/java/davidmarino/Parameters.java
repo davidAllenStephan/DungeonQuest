@@ -9,6 +9,12 @@ public class Parameters {
     public static final int height = 400;
     public static final int width = 400;
     public static final int numberOfPoints = 1000;
+    public static final int numberOfRooms = 7;
+    public static final int distanceBetweenRooms = 10;
+    public static final int minRoomWidth = 20;
+    public static final int maxRoomWidth = 50;
+    public static final int minRoomHeight = 20;
+    public static final int maxRoomHeight = 50;
 
     public static final int vertexSize = 5;
     public static final int edgeSize = 1;

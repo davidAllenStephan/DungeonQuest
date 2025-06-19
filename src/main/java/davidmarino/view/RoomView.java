@@ -1,17 +1,19 @@
 package davidmarino.view;
 
-import davidmarino.Parameters;
-import davidmarino.model.Line;
 import davidmarino.model.Room;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class RoomView {
     public static void drawRoom(Graphics2D g2, Room room, Color color) {
-        PointView.drawPoint(g2, room.center, color);
-        LineView.drawLine(g2, new Line(room.bounds.get(0), room.bounds.get(1)), color);
-        LineView.drawLine(g2, new Line(room.bounds.get(1), room.bounds.get(2)), color);
-        LineView.drawLine(g2, new Line(room.bounds.get(2), room.bounds.get(3)), color);
-        LineView.drawLine(g2, new Line(room.bounds.get(3), room.bounds.get(0)), color);
+        g2.setColor(color);
+        g2.fillRect((int) (room.center.x - room.xRadius), (int) (room.center.y - room.yRadius), (int) room.xRadius * 2, (int) room.yRadius * 2);
+    }
+
+    public static void drawRooms(Graphics2D g2, ArrayList<Room> rooms, Color color) {
+        for (Room room : rooms) {
+            drawRoom(g2, room, color);
+        }
     }
 }

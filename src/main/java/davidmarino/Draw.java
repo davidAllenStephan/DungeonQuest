@@ -1,21 +1,17 @@
 package davidmarino;
 
-import davidmarino.controller.LineController;
-import davidmarino.controller.PointController;
-import davidmarino.controller.PolygonController;
-import davidmarino.controller.RoomController;
-import davidmarino.model.Line;
+import davidmarino.controller.*;
+import davidmarino.model.*;
 import davidmarino.model.Point;
 import davidmarino.model.Polygon;
-import davidmarino.model.Room;
-import davidmarino.view.LineView;
-import davidmarino.view.PolygonView;
-import davidmarino.view.RoomView;
+import davidmarino.view.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * The {@code Draw} class is used to set up and render all objects.
@@ -43,16 +39,8 @@ public class Draw {
 
         setBackground(g2, Parameters.backgroundColor);
 
-        Room roomA = new Room(new Point(200, 200), 6, 10);
-        Room roomB = new Room(new Point(250, 300), 10, 23);
-
-        RoomView.drawRoom(g2, roomA, Color.RED);
-        RoomView.drawRoom(g2, roomB, Color.BLUE);
-
-        LineView.drawLine(g2, new Line(roomA.center, roomB.center), Color.BLACK);
-
-        System.out.println(RoomController.getDistance(roomA, roomB));
-
+        ArrayList<Zone> zones = ZoneController.generateZones();
+        ZoneView.drawZones(g2, zones);
 
         g2.dispose();
         ImageExporter.exportToPNG(image, 400, 400);
