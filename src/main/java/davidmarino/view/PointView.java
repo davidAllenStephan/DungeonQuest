@@ -1,6 +1,6 @@
 package davidmarino.view;
 
-import davidmarino.Parameters;
+import davidmarino.service.Parameters;
 import davidmarino.model.Point;
 
 import java.awt.*;
@@ -14,21 +14,18 @@ public class PointView {
      * @param points to be rendered
      * @param color of the points
      */
-    public static void drawPoints(Graphics2D g2, ArrayList<Point> points, Color color) {
+    public static void drawPoints(Graphics2D g2, ArrayList<Point> points, int vertexRadius, Color color) {
         for (Point point : points) {
-            drawPoint(g2, (int) point.x, (int) point.y, color);
+            drawPoint(g2, point, vertexRadius, color);
         }
     }
 
     /**
      * Renders a point.
      * @param g2 is the render library
-     * @param x
-     * @param y
      */
-    private static void drawPoint(Graphics2D g2, int x, int y, Color color) {
+    public static void drawPoint(Graphics2D g2, Point p, int vertexRadius, Color color) {
         g2.setColor(color);
-        int size = Parameters.vertexSize;
-        g2.fillOval(x - (size / 2), y - (size / 2), size, size);
+        g2.fillOval((int) (p.x - (double) (vertexRadius / 2)), (int) (p.y - (double) (vertexRadius / 2)), vertexRadius, vertexRadius);
     }
 }

@@ -1,12 +1,6 @@
 package davidmarino.model;
 
-import davidmarino.GeometryUtils;
-import davidmarino.Parameters;
-import davidmarino.controller.LineController;
-
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -65,7 +59,6 @@ public class Polygon {
         this.neighbors = neighbors;
         this.site = site;
     }
-
 
     @Override
     public String toString() {

@@ -1,12 +1,11 @@
-package davidmarino.controller;
+package davidmarino.service;
 
-import davidmarino.Parameters;
 import davidmarino.model.Point;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PointController {
+public class PointService {
 
     /**
      * Checks if a point is within a certain distance of another point.
@@ -30,12 +29,12 @@ public class PointController {
      * @param count of the points created
      * @return {@code ArrayList<Point>}
      */
-    public ArrayList<Point> generateRandomPoints(int count) {
+    public ArrayList<Point> generateRandomPoints(int count, int width, int height) {
         ArrayList<Point> points = new ArrayList<>();
         Random random = new Random();
         while (count > 0) {
-            int x = random.nextInt(0, Parameters.width);
-            int y = random.nextInt(0, Parameters.height);
+            int x = random.nextInt(0, width);
+            int y = random.nextInt(0, height);
             if (!withinBounds(points, x, y, 100)) {
                 points.add(new Point(x, y));
                 count--;

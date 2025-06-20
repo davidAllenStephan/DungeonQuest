@@ -1,4 +1,4 @@
-package davidmarino;
+package davidmarino.service;
 
 import davidmarino.model.Line;
 import davidmarino.model.Point;

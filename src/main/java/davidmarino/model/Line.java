@@ -33,8 +33,8 @@ public class Line {
             m = (B.y - A.y) / (B.x - A.x);
             b = A.y - m * A.x;
         } else {
-            m = Double.POSITIVE_INFINITY;
-            b = Double.NaN;
+            m = 0;
+            b = A.y - m * A.x;;
             isVertical = true;
         }
     }

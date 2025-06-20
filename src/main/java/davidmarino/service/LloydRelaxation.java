@@ -1,6 +1,5 @@
-package davidmarino;
+package davidmarino.service;
 
-import davidmarino.controller.PolygonController;
 import davidmarino.model.Point;
 import davidmarino.model.Polygon;
 
@@ -35,12 +34,12 @@ public class LloydRelaxation {
      * @param points to apply Lloyd Relaxation
      * @return {@code ArrayList<Point>}
      */
-    public static ArrayList<Point> applyLloydRelaxation(ArrayList<Point> points) {
-        PolygonController pcp = new PolygonController();
-        for (int i = 0; i < Parameters.maxLloydIterations; i++) {
+    public static ArrayList<Point> applyLloydRelaxation(ArrayList<Point> points, int numberOfLloydIterations, int width, int height) {
+        PolygonService pcp = new PolygonService();
+        for (int i = 0; i < numberOfLloydIterations; i++) {
             ArrayList<Point> adjustedSitePoints = new ArrayList<>();
             for (Point point : points) {
-                Polygon p = pcp.computeVoronoiCell(point, points);
+                Polygon p = pcp.computeVoronoiCell(point, points, width, height);
                 adjustedSitePoints.add(findCentroid(p));
             }
             points = adjustedSitePoints;
