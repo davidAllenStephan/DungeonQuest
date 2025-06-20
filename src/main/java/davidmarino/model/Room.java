@@ -1,6 +1,6 @@
 package davidmarino.model;
 
-import davidmarino.Parameters;
+import davidmarino.service.Parameters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,13 +29,13 @@ public class Room {
         bounds.add(new Point(center.x + xRadius, center.y - yRadius));
     }
 
-    public Room() {
+    public Room(int width, int height, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
         while (true) {
             Random random = new Random();
-            center = new Point(random.nextDouble(0, Parameters.width), random.nextDouble(0, Parameters.height));
-            xRadius = random.nextDouble(Parameters.minRoomWidth, Parameters.maxRoomWidth);
-            yRadius = random.nextDouble(Parameters.minRoomHeight, Parameters.maxRoomHeight);
-            if (center.x + xRadius > Parameters.width || center.x - xRadius < 0 || center.y + yRadius > Parameters.height || center.y - yRadius < 0) {
+            center = new Point(random.nextDouble(0, width), random.nextDouble(0, height));
+            xRadius = random.nextDouble(minimumRoomWidth, maximumRoomWidth);
+            yRadius = random.nextDouble(minimumRoomHeight, maximumRoomHeight);
+            if (center.x + xRadius > width || center.x - xRadius < 0 || center.y + yRadius > height || center.y - yRadius < 0) {
                 continue;
             }
             bounds = new ArrayList<>();

@@ -1,6 +1,6 @@
 package davidmarino.view;
 
-import davidmarino.Parameters;
+import davidmarino.service.Parameters;
 import davidmarino.model.Line;
 
 import java.awt.*;
@@ -12,9 +12,9 @@ public class LineView {
      * @param line to be rendered
      * @param color of the line
      */
-    public static void drawLine(Graphics2D g2, Line line, Color color) {
+    public static void drawLine(Graphics2D g2, Line line, int edgeWeight, Color color) {
         g2.setColor(color);
-        g2.setStroke(new BasicStroke(Parameters.edgeSize));
+        g2.setStroke(new BasicStroke(edgeWeight));
         g2.drawLine((int) line.A.x, (int) line.A.y, (int) line.B.x, (int) line.B.y);
     }
 }

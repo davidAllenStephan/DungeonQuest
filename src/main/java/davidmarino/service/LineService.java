@@ -1,17 +1,16 @@
-package davidmarino.controller;
+package davidmarino.service;
 
-import davidmarino.Parameters;
 import davidmarino.model.Line;
 import davidmarino.model.Point;
 
 import java.util.ArrayList;
 
-public class LineController {
+public class LineService {
     /**
      * Finds the bisector line of this line and returns it as a new line.
      * @return {@code Line}
      */
-    public Line findBisector(Line line) {
+    public Line findBisector(Line line, int width, int height) {
         double midX = (line.A.x + line.B.x) / 2;
         double midY = (line.A.y + line.B.y) / 2;
         double pM;
@@ -23,11 +22,9 @@ public class LineController {
             pM = -1.0 / line.m;
         }
         if (Double.isInfinite(pM)) {
-            return new Line(new davidmarino.model.Point(midX, 0), new davidmarino.model.Point(midX, Parameters.height), pM, Double.NaN, true);
+            return new Line(new davidmarino.model.Point(midX, 0), new davidmarino.model.Point(midX, height), pM, Double.NaN, true);
         }
         Line l = new Line(line.A, line.B, pM, midY - (pM * midX), false);
-        int width = Parameters.width;
-        int height = Parameters.height;
         ArrayList<Point> validPoints = new ArrayList<>();
         double y0 = l.m * 0.0 + l.b;
         if (y0 >= 0 && y0 <= height) {

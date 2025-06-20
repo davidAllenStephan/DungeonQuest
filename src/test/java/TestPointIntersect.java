@@ -1,4 +1,4 @@
-import davidmarino.GeometryUtils;
+import davidmarino.service.GeometryUtils;
 import davidmarino.model.Line;
 import davidmarino.model.Point;
 import org.junit.Assert;

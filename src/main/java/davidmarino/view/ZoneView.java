@@ -1,6 +1,6 @@
 package davidmarino.view;
 
-import davidmarino.controller.RoomController;
+import davidmarino.service.RoomService;
 import davidmarino.model.Edge;
 import davidmarino.model.Room;
 import davidmarino.model.Zone;
@@ -31,13 +31,13 @@ public class ZoneView {
         g2.setFont(originalFont);
     }
 
-    public static void drawZones(Graphics2D g2, ArrayList<Zone> zones) {
+    public static void drawZones(Graphics2D g2, ArrayList<Zone> zones, int edgeWeight) {
         ArrayList<Room> rooms = new ArrayList<>();
         for (Zone zone : zones) {
             rooms.add(zone.room);
         }
-        Set<Edge> edges = RoomController.primMST(rooms);
-        EdgeView.drawEdges(g2, edges, Color.BLACK);
+        Set<Edge> edges = RoomService.primMST(rooms);
+        EdgeView.drawEdges(g2, edges, edgeWeight, Color.BLACK);
 
         for (Zone zone : zones) {
             drawZone(g2, zone);

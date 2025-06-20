@@ -1,4 +1,4 @@
-package davidmarino;
+package davidmarino.service;
 
 import davidmarino.model.Polygon;
 
@@ -17,13 +17,13 @@ public class CoastMask {
      * @param polygons
      * @return {@code ArrayList<Polygon>}
      */
-    public ArrayList<Polygon> getCoastMask(ArrayList<Polygon> polygons) {
+    public ArrayList<Polygon> getCoastMask(ArrayList<Polygon> polygons, double waterLevel) {
         ArrayList<Polygon> coastMask = new ArrayList<>();
         for (Polygon polygon : polygons) {
             int seaNeighborCount = 0;
-            if (polygon.site.z >= Parameters.waterLevel) {
+            if (polygon.site.z >= waterLevel) {
                 for (Polygon neighbor : polygon.neighbors) {
-                    if (neighbor.site.z < Parameters.waterLevel) {
+                    if (neighbor.site.z < waterLevel) {
                         seaNeighborCount++;
                     }
                 }
@@ -43,7 +43,7 @@ public class CoastMask {
      * @param maxChunks is the max number of erosion start events
      * @param maxStepsPerChunk is the maximum number of tiles to change to sea
      */
-    public void erodeInwardFromRandomCoastPoints(ArrayList<Polygon> coastMask, double startPercent, double spreadChance, int maxChunks, int maxStepsPerChunk) {
+    public void erodeInwardFromRandomCoastPoints(ArrayList<Polygon> coastMask, double startPercent, double spreadChance, int maxChunks, int maxStepsPerChunk, double waterLevel) {
         Random r = new Random();
         Set<Polygon> globalVisited = new HashSet<>();
         Collections.shuffle(coastMask);
@@ -59,9 +59,9 @@ public class CoastMask {
             int steps = 0;
             while (!queue.isEmpty() && steps < maxStepsPerChunk) {
                 Polygon current = queue.poll();
-                current.site.z = Parameters.waterLevel - 0.001; // mark as sea
+                current.site.z = waterLevel - 0.001; // mark as sea
                 for (Polygon neighbor : current.neighbors) {
-                    if (neighbor.site.z >= Parameters.waterLevel && // it's land
+                    if (neighbor.site.z >= waterLevel && // it's land
                             !localVisited.contains(neighbor)) {
                         if (r.nextDouble() < spreadChance) {
                             queue.add(neighbor);

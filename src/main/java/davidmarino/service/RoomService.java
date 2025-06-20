@@ -1,6 +1,5 @@
-package davidmarino.controller;
+package davidmarino.service;
 
-import davidmarino.Parameters;
 import davidmarino.model.Edge;
 import davidmarino.model.Line;
 import davidmarino.model.Point;
@@ -8,26 +7,26 @@ import davidmarino.model.Room;
 
 import java.util.*;
 
-public class RoomController {
+public class RoomService {
 
     public static Point findBoundIntersection(Room A, Room B) {
         Line intersection_AB = new Line(A.center, B.center);
         Line L_ap = new Line(A.center, new Point(A.center.x + A.xRadius, A.center.y + A.yRadius));
         Line L_an = new Line(A.center, new Point(A.center.x + A.xRadius, A.center.y - A.yRadius));
-        boolean isBelowL_ap = LineController.isBelow(L_ap, B.center);
-        boolean isBelowL_an = LineController.isBelow(L_an, B.center);
+        boolean isBelowL_ap = LineService.isBelow(L_ap, B.center);
+        boolean isBelowL_an = LineService.isBelow(L_an, B.center);
         if (isBelowL_ap && isBelowL_an) {
             Line edge = new Line(A.bounds.get(1), A.bounds.get(0));
-            return LineController.intersect(edge, intersection_AB);
+            return LineService.intersect(edge, intersection_AB);
         } else if (isBelowL_ap && !isBelowL_an) {
             Line edge = new Line(A.bounds.get(1), A.bounds.get(2));
-            return LineController.intersect(edge, intersection_AB);
+            return LineService.intersect(edge, intersection_AB);
         } else if (!isBelowL_ap && !isBelowL_an) {
             Line edge = new Line(A.bounds.get(2), A.bounds.get(3));
-            return LineController.intersect(edge, intersection_AB);
+            return LineService.intersect(edge, intersection_AB);
         } else if (!isBelowL_ap && isBelowL_an) {
             Line edge = new Line(A.bounds.get(0), A.bounds.get(3));
-            return LineController.intersect(edge, intersection_AB);
+            return LineService.intersect(edge, intersection_AB);
         }
         return null;
     }
@@ -65,7 +64,7 @@ public class RoomController {
         Set<Room> visited = new HashSet<>();
         PriorityQueue<Edge> minHeap = new PriorityQueue<>(Comparator.comparingDouble(e -> e.weight));
         Set<Edge> mst = new HashSet<>();
-        Room start = rooms.getFirst();
+        Room start = rooms.get(0);
         visited.add(start);
         for (Map.Entry<Room, Double> entry : start.neighbors.entrySet()) {
             minHeap.add(new Edge(start, entry.getKey(), entry.getValue()));
@@ -84,16 +83,16 @@ public class RoomController {
         return mst;
     }
 
-    public static ArrayList<Room> generateRooms() {
+    public static ArrayList<Room> generateRooms(int numberOfRooms, int width, int height, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
         ArrayList<Room> rooms = new ArrayList<>();
-        for (int i = 0; i < Parameters.numberOfRooms; i++) {
+        for (int i = 0; i < numberOfRooms; i++) {
             if (rooms.isEmpty()) {
-                rooms.add(new Room());
+                rooms.add(new Room(width, height, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight));
                 continue;
             }
             while (true) {
-                Room room = new Room();
-                if (RoomController.isValid(rooms, room)) {
+                Room room = new Room(width, height, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
+                if (RoomService.isValid(rooms, room)) {
                     rooms.add(room);
                     break;
                 }

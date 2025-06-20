@@ -1,7 +1,5 @@
-package davidmarino.controller;
+package davidmarino.service;
 
-import davidmarino.GeometryUtils;
-import davidmarino.Parameters;
 import davidmarino.model.Line;
 import davidmarino.model.Point;
 import davidmarino.model.Polygon;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class PolygonController {
+public class PolygonService {
 
     /**
      * Generates the initial polygon that is the size of the image.
@@ -34,13 +32,13 @@ public class PolygonController {
      * @param allSites is a list of all sites that exist
      * @return {@code Polygon}
      */
-    public Polygon computeVoronoiCell(Point site, ArrayList<Point> allSites) {
-        Polygon cell = getBoundingBox(Parameters.width, Parameters.height);
+    public Polygon computeVoronoiCell(Point site, ArrayList<Point> allSites, int width, int height) {
+        Polygon cell = getBoundingBox(width, height);
         cell.site = site;
         for (davidmarino.model.Point other : allSites) {
             if (other == site) continue;
-            LineController lc = new LineController();
-            Line bisector = lc.findBisector(new Line(site, other));
+            LineService lc = new LineService();
+            Line bisector = lc.findBisector(new Line(site, other), width, height);
             cell = GeometryUtils.clipPolygon(cell, bisector, site);
         }
         return cell;
@@ -131,10 +129,10 @@ public class PolygonController {
      * @param sitePoints to determine Voronoi polygon
      * @return {@code ArrayList<Polygon>}
      */
-    public ArrayList<Polygon> generateVoronoiPolygons(ArrayList<Point> sitePoints) {
+    public ArrayList<Polygon> generateVoronoiPolygons(ArrayList<Point> sitePoints, int width, int height) {
         ArrayList<Polygon> polygons = new ArrayList<>();
         for (Point point : sitePoints) {
-            Polygon poly = computeVoronoiCell(point, sitePoints);
+            Polygon poly = computeVoronoiCell(point, sitePoints, width, height);
             polygons.add(poly);
         }
         return polygons;
