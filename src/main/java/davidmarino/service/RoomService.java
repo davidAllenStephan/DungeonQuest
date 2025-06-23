@@ -4,9 +4,11 @@ import davidmarino.model.Edge;
 import davidmarino.model.Line;
 import davidmarino.model.Point;
 import davidmarino.model.Room;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class RoomService {
 
     public static Point findBoundIntersection(Room A, Room B) {

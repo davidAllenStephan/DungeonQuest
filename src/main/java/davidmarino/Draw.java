@@ -1,6 +1,5 @@
 package davidmarino;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import davidmarino.model.*;
 import davidmarino.model.Point;
 import davidmarino.model.Polygon;
@@ -22,10 +21,19 @@ import java.util.Random;
  */
 public class Draw {
 
-    public Parameters parameters;
+    private final Parameters parameters;
 
     public Draw(Parameters parameters) {
         this.parameters = parameters;
+    }
+
+    private byte[] renderToPng(BufferedImage image) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(image, "png", baos);
+            return baos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Image rendering failed", e);
+        }
     }
 
     /**
@@ -51,15 +59,7 @@ public class Draw {
         ZoneView.drawZones(g2Dungeon, zones, parameters.edgeSize);
 
         g2Dungeon.dispose();
-        ByteArrayOutputStream baosDungeon = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(dungeon, "png", baosDungeon);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        byte[] dungeonBytes = baosDungeon.toByteArray();
-
-        return dungeonBytes;
+        return renderToPng(dungeon);
     }
 
     public byte[] runMap() {
@@ -103,13 +103,6 @@ public class Draw {
         PolygonView.drawFilledPolygons(g2, voronoiPolygons, parameters.waterLevel, parameters.coastLevel, parameters.whiteCapLevel);
         g2.dispose();
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(map, "png", baos);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        byte[] mapBytes = baos.toByteArray();
-        return mapBytes;
+        return renderToPng(map);
     }
 }

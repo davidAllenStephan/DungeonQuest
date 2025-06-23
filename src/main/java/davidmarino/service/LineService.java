@@ -2,9 +2,11 @@ package davidmarino.service;
 
 import davidmarino.model.Line;
 import davidmarino.model.Point;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service
 public class LineService {
     /**
      * Finds the bisector line of this line and returns it as a new line.

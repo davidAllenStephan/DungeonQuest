@@ -1,6 +1,5 @@
 package davidmarino.view;
 
-import davidmarino.service.Parameters;
 import davidmarino.model.Line;
 
 import java.awt.*;

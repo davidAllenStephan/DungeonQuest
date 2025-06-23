@@ -3,11 +3,13 @@ package davidmarino.service;
 import davidmarino.model.Line;
 import davidmarino.model.Point;
 import davidmarino.model.Polygon;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+@Service
 public class PolygonService {
 
     /**

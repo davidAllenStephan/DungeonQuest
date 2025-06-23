@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import davidmarino.controller.MainController;
+import davidmarino.model.Parameters;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 

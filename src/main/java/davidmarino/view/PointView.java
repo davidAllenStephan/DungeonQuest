@@ -1,6 +1,5 @@
 package davidmarino.view;
 
-import davidmarino.service.Parameters;
 import davidmarino.model.Point;
 
 import java.awt.*;
