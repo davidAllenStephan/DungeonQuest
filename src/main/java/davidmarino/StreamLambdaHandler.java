@@ -18,6 +18,31 @@ public class StreamLambdaHandler implements RequestHandler<APIGatewayProxyReques
 
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
-        return controller.handleGetRequest(input, context);
+        if (input == null || input.getPath() == null || input.getHttpMethod() == null) {
+            return controller.buildResponse("Invalid request: missing path or method", 400);
+        }
+
+        String path = input.getPath();
+        String httpMethod = input.getHttpMethod();
+
+        switch (path) {
+            case "/dungeon":
+                if ("POST".equals(httpMethod)) {
+                    return controller.handleDungeonPost(input, context);
+                } else {
+                    return controller.buildResponse("Invalid HTTP method for /dungeon", 400);
+                }
+
+            case "/map":
+                if ("POST".equals(httpMethod)) {
+                    return controller.handleMapPost(input, context);
+                } else {
+                    return controller.buildResponse("Invalid HTTP method for /map", 400);
+                }
+
+            default:
+                return controller.buildResponse("Invalid path: " + path, 404);
+        }
     }
+
 }
