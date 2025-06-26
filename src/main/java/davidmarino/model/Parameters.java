@@ -63,7 +63,34 @@ public class Parameters {
     @JsonProperty("maxStepsPerChunk")
     public int maxStepsPerChunk;
 
-    public Parameters(int height, int width, int numberOfPoints, int numberOfRooms, int distanceBetweenRooms, int minimumRoomWidth, int maximumRoomWidth, int minimumRoomHeight, int maximumRoomHeight, int vertexSize, int edgeSize, int numberOfLloydIterations, double waterLevel, double coastLevel, double whiteCapLevel, String imageFileName, int[] backgroundColor, int[] polygonVertexColor, int[] polygonSiteColor, int[] polygonBorderColor, double startPercent, double spreadChance, int maxChunks, int maxStepsPerChunk) {
+    @JsonProperty("monsterScrapeUrl")
+    public String monsterScrapeUrl;
+
+    public Parameters(int height,
+                      int width,
+                      int numberOfPoints,
+                      int numberOfRooms,
+                      int distanceBetweenRooms,
+                      int minimumRoomWidth,
+                      int maximumRoomWidth,
+                      int minimumRoomHeight,
+                      int maximumRoomHeight,
+                      int vertexSize,
+                      int edgeSize,
+                      int numberOfLloydIterations,
+                      double waterLevel,
+                      double coastLevel,
+                      double whiteCapLevel,
+                      String imageFileName,
+                      int[] backgroundColor,
+                      int[] polygonVertexColor,
+                      int[] polygonSiteColor,
+                      int[] polygonBorderColor,
+                      double startPercent,
+                      double spreadChance,
+                      int maxChunks,
+                      int maxStepsPerChunk,
+                      String monsterScrapeUrl) {
         this.height = height;
         this.width = width;
         this.numberOfPoints = numberOfPoints;
@@ -88,6 +115,7 @@ public class Parameters {
         this.spreadChance = spreadChance;
         this.maxChunks = maxChunks;
         this.maxStepsPerChunk = maxStepsPerChunk;
+        this.monsterScrapeUrl = monsterScrapeUrl;
     }
     public Parameters() {
 
