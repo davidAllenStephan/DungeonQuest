@@ -2,10 +2,14 @@ package davidmarino.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 /**
+ *
  * Class {@code Parameters} holds the values that influence the model.
  */
+
+@Component
 @Data
 public class Parameters {
     @JsonProperty("height")

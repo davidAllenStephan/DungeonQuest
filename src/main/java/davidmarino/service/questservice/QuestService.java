@@ -49,49 +49,7 @@ public class QuestService {
         removeBlank(element.getAllElements());
     }
 
-    public MonsterCollection objectify(Elements elementsToMonsterCategories, Elements elementsToMonsterIndividuals, HashMap<Element, Integer> lineNumbers) {
-        MonsterCollection monsterCollection = new MonsterCollection();
 
-        ArrayList<Element> categoryElements = new ArrayList<>(elementsToMonsterCategories);
-        ArrayList<MonsterCategory> monsterCategories = new ArrayList<>();
-
-        Map<Element, MonsterCategory> elementToMonsterCategory = new HashMap<>();
-
-        for (Element element : categoryElements) {
-            String categoryName = element.text();
-            MonsterCategory monsterCategory = new MonsterCategory(categoryName);
-            monsterCategories.add(monsterCategory);
-            elementToMonsterCategory.put(element, monsterCategory);
-        }
-
-        for (Element element : elementsToMonsterIndividuals) {
-            int monsterLine = lineNumbers.get(element);
-            MonsterCategory targetCategory = null;
-
-            for (Element _element : categoryElements) {
-                int catLine = lineNumbers.get(_element);
-                if (catLine < monsterLine) {
-                    targetCategory = elementToMonsterCategory.get(_element);
-                } else {
-                    break;
-                }
-            }
-
-            if (targetCategory != null) {
-                String monsterName = element.text();
-                if (!monsterName.isBlank()) {
-                    Monster monster = new Monster(monsterName);
-                    targetCategory.addMonster(monster);
-                }
-            }
-        }
-
-        for (MonsterCategory category : monsterCategories) {
-            monsterCollection.addCategory(category);
-        }
-
-        return monsterCollection;
-    }
 
     public HashMap<Element, Integer> getLineNumbers(Element elements) {
         HashMap<Element, Integer> lineNumbers = new HashMap<>();
