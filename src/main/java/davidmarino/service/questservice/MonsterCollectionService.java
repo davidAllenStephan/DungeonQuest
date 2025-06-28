@@ -3,14 +3,21 @@ package davidmarino.service.questservice;
 import davidmarino.model.questmodels.Monster;
 import davidmarino.model.questmodels.MonsterCategory;
 import davidmarino.model.questmodels.MonsterCollection;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class MonsterCollectionService {
+
+    @Autowired
+    private QuestScraperService questScraperService;
 
     public static MonsterCollection objectify(Elements elementsToMonsterCategories, Elements elementsToMonsterIndividuals, HashMap<Element, Integer> lineNumbers) {
         MonsterCollection monsterCollection = new MonsterCollection();
@@ -54,5 +61,16 @@ public class MonsterCollectionService {
         }
 
         return monsterCollection;
+    }
+
+    public MonsterCollection getQuest() {
+        Document doc = QuestScraperService.getDocument("https://list.fandom.com/wiki/List_of_monsters");
+        Element body = doc.body();
+        questScraperService.removeBlank(body);
+        HashMap<Element, Integer> lineNumberMap = questScraperService.getLineNumbers(body);
+        Elements headlines = questScraperService.getByClassName(body, "mw-headline", 2, 67);
+        Elements monsters = questScraperService.getByTag(body, "a", 210, 42);
+        MonsterCollection mc = MonsterCollectionService.objectify(headlines, monsters, lineNumberMap);
+        return mc;
     }
 }

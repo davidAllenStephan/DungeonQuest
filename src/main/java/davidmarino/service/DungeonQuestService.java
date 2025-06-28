@@ -33,20 +33,6 @@ public class DungeonQuestService {
         g2.fillRect(0, 0, parameters.width, parameters.height);
     }
 
-//    public static String getBase64(String requestBody, boolean isDungeon) {
-//        Parameters parameters = null;
-//        try {
-//            parameters = objectMapper.readValue(requestBody, Parameters.class);
-//        } catch (JsonProcessingException e) {
-//            logger.error(e.getMessage());
-//            throw new RuntimeException(e);
-//        }
-//
-//        DungeonService dungeonService = new DungeonService(parameters);
-//        byte[] imageBytes = isDungeon ? dungeonService.runDungeon() : dungeonService.runMap();
-//        return Base64.getEncoder().encodeToString(imageBytes);
-//    }
-
     public byte[] getBytes(BufferedImage image) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             ImageIO.write(image, "png", baos);

@@ -1,6 +1,5 @@
 package davidmarino.service.questservice;
 
-import davidmarino.model.questmodels.MonsterCollection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
@@ -33,14 +33,44 @@ public class QuestScraperService {
         return doc;
     }
 
-    public static MonsterCollection getQuest() {
-        Document doc = getDocument("https://list.fandom.com/wiki/List_of_monsters");
-        Element body = doc.body();
-        questService.removeBlank(body);
-        HashMap<Element, Integer> lineNumberMap = questService.getLineNumbers(body);
-        Elements headlines = questService.getByClassName(body, "mw-headline", 2, 67);
-        Elements monsters = questService.getByTag(body, "a", 210, 42);
-        MonsterCollection mc = MonsterCollectionService.objectify(headlines, monsters, lineNumberMap);
-        return mc;
+    public void trim(int removeFromFront, int removeFromEnd, Elements elements) {
+        ArrayList<Element> _elements = new ArrayList<>();
+        _elements.addAll(elements.subList(0, removeFromFront));
+        _elements.addAll(elements.subList(elements.size() - removeFromEnd, elements.size()));
+        elements.removeAll(_elements);
+    }
+
+    public Elements getByClassName(Element element, String className, int trimFromFront, int trimFromEnd) {
+        Elements elements = element.getElementsByClass(className);
+        trim(trimFromFront, trimFromEnd, elements);
+        return elements;
+    }
+
+    public Elements getByTag(Element element, String tagName, int trimFromFront, int trimFromEnd) {
+        Elements elements = element.getElementsByTag(tagName);
+        trim(trimFromFront, trimFromEnd, elements);
+        return elements;
+    }
+
+    public void removeBlank(Elements elements) {
+        elements = new Elements(
+                elements.stream()
+                        .filter(e -> !e.text().isBlank())
+                        .toList()
+        );
+    }
+
+    public void removeBlank(Element element) {
+        removeBlank(element.getAllElements());
+    }
+
+    public HashMap<Element, Integer> getLineNumbers(Element elements) {
+        HashMap<Element, Integer> lineNumbers = new HashMap<>();
+        int i = 0;
+        for (Element element: elements) {
+            lineNumbers.put(element, i);
+            i++;
+        }
+        return lineNumbers;
     }
 }
