@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import davidmarino.controller.Router;
-import davidmarino.model.MapDungeon;
+import davidmarino.service.dungeonservice.DungeonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class StreamLambdaHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     @Autowired
-    private static final Logger logger = LoggerFactory.getLogger(MapDungeon.class);
+    private static final Logger logger = LoggerFactory.getLogger(DungeonService.class);
     private final Router router = new Router();
 
     @Override

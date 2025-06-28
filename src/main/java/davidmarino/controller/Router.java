@@ -3,6 +3,7 @@ package davidmarino.controller;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import davidmarino.GLOBAL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +24,14 @@ public class Router {
     public APIGatewayProxyResponseEvent route(APIGatewayProxyRequestEvent request, Context context) {
         String path = request.getPath();
         logger.info("Routing path: {}", path);
+
+        boolean makeMap = Boolean.parseBoolean(request.getQueryStringParameters().get("makeMap"));
+        boolean makeDungeon = Boolean.parseBoolean(request.getQueryStringParameters().get("makeDungeon"));
+        boolean makeQuest = Boolean.parseBoolean(request.getQueryStringParameters().get("makeQuest"));
+
+        GLOBAL.makeMap = makeMap;
+        GLOBAL.makeDungeon = makeDungeon;
+        GLOBAL.makeQuest= makeQuest;
 
         try {
             return switch (path) {

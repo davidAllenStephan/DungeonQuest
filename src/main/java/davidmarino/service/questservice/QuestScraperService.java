@@ -19,8 +19,6 @@ public class QuestScraperService {
     @Autowired
     private static QuestService questService = new QuestService();
 
-
-
     @Autowired
     public static final Logger logger = LoggerFactory.getLogger(QuestScraperService.class);
 
@@ -36,14 +34,12 @@ public class QuestScraperService {
     }
 
     public static MonsterCollection getQuest() {
-
         Document doc = getDocument("https://list.fandom.com/wiki/List_of_monsters");
         Element body = doc.body();
         questService.removeBlank(body);
         HashMap<Element, Integer> lineNumberMap = questService.getLineNumbers(body);
         Elements headlines = questService.getByClassName(body, "mw-headline", 2, 67);
         Elements monsters = questService.getByTag(body, "a", 210, 42);
-
         MonsterCollection mc = MonsterCollectionService.objectify(headlines, monsters, lineNumberMap);
         return mc;
     }

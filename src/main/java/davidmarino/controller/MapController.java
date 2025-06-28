@@ -3,7 +3,7 @@ package davidmarino.controller;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import davidmarino.model.MapDungeon;
+import davidmarino.service.dungeonservice.DungeonService;
 import davidmarino.model.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,14 +23,14 @@ public class MapController {
 
     @PostMapping("/map")
     public ResponseEntity map(@RequestBody Parameters parameters) {
-        MapDungeon mapDungeon = new MapDungeon(parameters);
-        byte[] imageBytes = mapDungeon.runMap();
+        DungeonService dungeonService = new DungeonService(parameters);
+        byte[] imageBytes = dungeonService.runMap();
         return ControllerUtil.getPngResponse(imageBytes);
     }
 
     public APIGatewayProxyResponseEvent handleMapPost(APIGatewayProxyRequestEvent input, Context context) {
         try {
-            String base64Image = MapDungeon.getBase64(input.getBody(), false);
+            String base64Image = DungeonService.getBase64(input.getBody(), false);
             return ControllerUtil.getLambdaPngResponse(base64Image);
         } catch (Exception e) {
             logger.error(e.toString());
