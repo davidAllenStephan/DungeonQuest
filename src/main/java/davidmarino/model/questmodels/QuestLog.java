@@ -5,9 +5,9 @@ import davidmarino.model.dungeonmodels.ZoneType;
 
 public class QuestLog {
     @JsonProperty("zoneType")
-    ZoneType zoneType;
+    public ZoneType zoneType;
     @JsonProperty("questLog")
-    String questLog;
+    public String questLog;
 
     public QuestLog(String questLog, ZoneType zoneType) {
         this.questLog = questLog;

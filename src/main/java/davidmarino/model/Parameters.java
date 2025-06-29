@@ -18,6 +18,8 @@ public class Parameters {
     public int width;
     @JsonProperty("numberOfPoints")
     public int numberOfPoints;
+    @JsonProperty("mapScale")
+    public int mapScale;
     @JsonProperty("numberOfRooms")
     public int numberOfRooms;
     @JsonProperty("distanceBetweenRooms")
@@ -73,6 +75,7 @@ public class Parameters {
     public Parameters(int height,
                       int width,
                       int numberOfPoints,
+                      int mapScale,
                       int numberOfRooms,
                       int distanceBetweenRooms,
                       int minimumRoomWidth,
@@ -98,6 +101,7 @@ public class Parameters {
         this.height = height;
         this.width = width;
         this.numberOfPoints = numberOfPoints;
+        this.mapScale = mapScale;
         this.numberOfRooms = numberOfRooms;
         this.distanceBetweenRooms = distanceBetweenRooms;
         this.minimumRoomWidth = minimumRoomWidth;

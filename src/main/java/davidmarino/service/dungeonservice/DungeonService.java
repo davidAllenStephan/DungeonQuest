@@ -4,13 +4,13 @@ import davidmarino.model.Parameters;
 import davidmarino.model.dungeonmodels.Zone;
 import davidmarino.service.DungeonQuestService;
 import davidmarino.view.dungeonviews.ZoneView;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-@Component
+@Service
 public class DungeonService extends DungeonQuestService {
 
     public DungeonService(Parameters parameters) {
@@ -31,12 +31,18 @@ public class DungeonService extends DungeonQuestService {
 //    }
 
     public ArrayList<Zone> getZones() {
-        ArrayList<Zone> zones = ZoneService.generateZones(parameters.numberOfRooms, parameters.width, parameters.height, parameters.minimumRoomWidth, parameters.minimumRoomHeight, parameters.maximumRoomWidth, parameters.maximumRoomHeight);
+        int width = 400;
+        int height = 400;
+
+        ArrayList<Zone> zones = ZoneService.generateZones(parameters.numberOfRooms, width, height, parameters.minimumRoomWidth, parameters.minimumRoomHeight, parameters.maximumRoomWidth, parameters.maximumRoomHeight);
         return zones;
     }
 
     public String getBase64(ArrayList<Zone> zones) {
-        BufferedImage dungeon = new BufferedImage(parameters.width, parameters.height, BufferedImage.TYPE_INT_ARGB);
+        int width = 400;
+        int height = 400;
+
+        BufferedImage dungeon = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2Dungeon = dungeon.createGraphics();
         setBackground(g2Dungeon, new Color(parameters.backgroundColor[0], parameters.backgroundColor[1], parameters.backgroundColor[2]));
         ZoneView.drawZones(g2Dungeon, zones, parameters.edgeSize);

@@ -1,10 +1,12 @@
 package davidmarino.service.mapservice;
 
 import davidmarino.model.mapmodels.Point;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+@Service
 public class PointService {
 
     /**
