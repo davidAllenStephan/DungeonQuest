@@ -33,12 +33,6 @@ public class MapService extends DungeonQuestService {
 
     public String getBase64() {
         int scale = parameters.mapScale;
-
-        if (scale <= 0) {
-            logger.error("Invalid map scale");
-            throw new IllegalArgumentException("Invalid map scale: must be > 0. Found: " + scale);
-        }
-
         int width = scale * 1000;
         int height = scale * 1000;
         int numberOfPoints = scale * 250;

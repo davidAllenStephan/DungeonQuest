@@ -29,8 +29,10 @@ public class DungeonQuestService {
     }
 
     public void setBackground(Graphics2D g2, Color color) {
+        int width = parameters.mapScale * 1000;
+        int height = parameters.mapScale * 1000;
         g2.setColor(color);
-        g2.fillRect(0, 0, parameters.width, parameters.height);
+        g2.fillRect(0, 0, width, height);
     }
 
     public byte[] getBytes(BufferedImage image) {
@@ -43,7 +45,11 @@ public class DungeonQuestService {
     }
 
     public String getBase64(BufferedImage image) {
-        byte[] bytes = getBytes(image);
+        BufferedImage resizedImage = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(image, 0, 0, 500, 500, null);
+        g.dispose();
+        byte[] bytes = getBytes(resizedImage);
         return Base64.getEncoder().encodeToString(bytes);
     }
 

@@ -12,12 +12,5 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class DungeonController {
 
     private final static Logger logger = LoggerFactory.getLogger(DungeonController.class);
-//
-//    @PostMapping("/dungeon")
-//    public ResponseEntity dungeon(@RequestBody Parameters parameters) {
-//        DungeonService dungeonService = new DungeonService(parameters);
-//        byte[] imageBytes = dungeonService.runDungeon();
-//        return ControllerUtil.getPngResponse(imageBytes);
-//    }
 
 }

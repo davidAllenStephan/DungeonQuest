@@ -34,6 +34,10 @@ public class DungeonQuest {
         quest = new Quest(dungeon);
     }
 
+    public static Map getMap(Parameters parameters) {
+        return new Map(parameters);
+    }
+
     public String getJson() {
         Gson gson = new Gson();
         return gson.toJson(this);
