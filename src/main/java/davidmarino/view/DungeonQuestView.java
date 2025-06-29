@@ -1,9 +1,6 @@
-package davidmarino.service;
+package davidmarino.view;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import davidmarino.service.dungeonservice.DungeonService;
-import davidmarino.model.Parameters;
+import davidmarino.view.dungeonviews.DungeonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +14,12 @@ import java.io.IOException;
 import java.util.Base64;
 
 @Service
-public class DungeonQuestService {
-    protected final Parameters parameters;
+public class DungeonQuestView {
     @Autowired
-    protected static final Logger logger = LoggerFactory.getLogger(DungeonService.class);
-    @Autowired
-    protected static final ObjectMapper objectMapper = new ObjectMapper();
+    protected static final Logger logger = LoggerFactory.getLogger(DungeonView.class);
 
-    public DungeonQuestService(Parameters parameters) {
-        this.parameters = parameters;
-    }
+    public DungeonQuestView() {
 
-    public void setBackground(Graphics2D g2, Color color) {
-        int width = parameters.mapScale * 1000;
-        int height = parameters.mapScale * 1000;
-        g2.setColor(color);
-        g2.fillRect(0, 0, width, height);
     }
 
     public byte[] getBytes(BufferedImage image) {
@@ -51,6 +38,11 @@ public class DungeonQuestService {
         g.dispose();
         byte[] bytes = getBytes(resizedImage);
         return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    public void setBackground(Graphics2D g2, Color color, int width, int height) {
+        g2.setColor(color);
+        g2.fillRect(0, 0, width, height);
     }
 
 }

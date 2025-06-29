@@ -1,6 +1,7 @@
 package davidmarino.service.mapservice;
 
 import davidmarino.model.mapmodels.Polygon;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -9,7 +10,8 @@ import java.util.*;
  * @author David Marino
  * @version 14 Jun 2025
  */
-public class CoastMask {
+@Service
+public class CoastMaskService {
 
     /**
      * Finds the coast site points by checking that a polygon has at least one neighbor that is seaLevel and not all
@@ -72,6 +74,16 @@ public class CoastMask {
                 }
                 steps++;
             }
+        }
+    }
+
+    public void degenerateCoast(ArrayList<Polygon> voronoiPolygons, double waterLevel, double startPercent, double spreadChance, int maxChunks, int maxStepsPerChunk, double coastLevel) {
+        ArrayList<Polygon> coastMask = getCoastMask(voronoiPolygons, waterLevel);
+        erodeInwardFromRandomCoastPoints(coastMask, startPercent, spreadChance, maxChunks, maxStepsPerChunk, waterLevel);
+        ArrayList<Polygon> coast = getCoastMask(voronoiPolygons, waterLevel);
+        Random r = new Random();
+        for (Polygon polygon : coast) {
+            polygon.site.z = r.nextDouble(waterLevel, coastLevel);
         }
     }
 }

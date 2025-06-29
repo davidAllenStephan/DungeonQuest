@@ -3,6 +3,7 @@ package davidmarino.service.mapservice;
 import davidmarino.model.mapmodels.Line;
 import davidmarino.model.mapmodels.Point;
 import davidmarino.model.mapmodels.Polygon;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +12,9 @@ import java.util.HashSet;
 
 @Service
 public class PolygonService {
+
+    @Autowired
+    private final PointService pointService = new PointService();
 
     /**
      * Generates the initial polygon that is the size of the image.
@@ -165,5 +169,11 @@ public class PolygonService {
                 }
             }
         }
+    }
+
+    public ArrayList<Polygon> createVoronoiPolygons(int numberOfPoints, int numberOfLloydIterations, int width, int height) {
+        ArrayList<Point> sitePoints = pointService.generateRandomPoints(numberOfPoints, width, height);
+        sitePoints = LloydRelaxation.applyLloydRelaxation(sitePoints, numberOfLloydIterations, width, height);
+        return generateVoronoiPolygons(sitePoints, width, height);
     }
 }

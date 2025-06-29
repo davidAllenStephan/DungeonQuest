@@ -1,53 +1,18 @@
 package davidmarino.service.dungeonservice;
 
-import davidmarino.model.Parameters;
 import davidmarino.model.dungeonmodels.Zone;
-import davidmarino.service.DungeonQuestService;
-import davidmarino.view.dungeonviews.ZoneView;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 @Service
-public class DungeonService extends DungeonQuestService {
+public class DungeonService {
+    public DungeonService() {
 
-    public DungeonService(Parameters parameters) {
-        super(parameters);
     }
-
-//    public byte[] runDungeon() {
-//        BufferedImage dungeon = new BufferedImage(parameters.width, parameters.height, BufferedImage.TYPE_INT_ARGB);
-//        Graphics2D g2Dungeon = dungeon.createGraphics();
-//
-//        setBackground(g2Dungeon, new Color(parameters.backgroundColor[0], parameters.backgroundColor[1], parameters.backgroundColor[2]));
-//
-//        ArrayList<Zone> zones = ZoneService.generateZones(parameters.numberOfRooms, parameters.width, parameters.height, parameters.minimumRoomWidth, parameters.minimumRoomHeight, parameters.maximumRoomWidth, parameters.maximumRoomHeight);
-//        ZoneView.drawZones(g2Dungeon, zones, parameters.edgeSize);
-//
-//        g2Dungeon.dispose();
-//        return getBytes(dungeon);
-//    }
-
-    public ArrayList<Zone> getZones() {
+    public ArrayList<Zone> getZones(int numberOfRooms, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
         int width = 400;
         int height = 400;
-
-        ArrayList<Zone> zones = ZoneService.generateZones(parameters.numberOfRooms, width, height, parameters.minimumRoomWidth, parameters.minimumRoomHeight, parameters.maximumRoomWidth, parameters.maximumRoomHeight);
-        return zones;
+        return ZoneService.generateZones(numberOfRooms, width, height, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
     }
-
-    public String getBase64(ArrayList<Zone> zones) {
-        int width = 400;
-        int height = 400;
-
-        BufferedImage dungeon = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2Dungeon = dungeon.createGraphics();
-        setBackground(g2Dungeon, new Color(parameters.backgroundColor[0], parameters.backgroundColor[1], parameters.backgroundColor[2]));
-        ZoneView.drawZones(g2Dungeon, zones, parameters.edgeSize);
-        g2Dungeon.dispose();
-        return getBase64(dungeon);
-    }
-
 }

@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class Parameters {
-    @JsonProperty("numberOfPoints")
-    public int numberOfPoints = 1000;
-
     @JsonProperty("mapScale")
     public int mapScale = 5;
+
+    @JsonProperty("numberOfDungeons")
+    public int numberOfDungeons = 5;
 
     @JsonProperty("numberOfRooms")
     public int numberOfRooms = 10;
@@ -84,10 +84,8 @@ public class Parameters {
     @JsonProperty("monsterScrapeUrl")
     public String monsterScrapeUrl;
 
-    public Parameters(int height,
-                      int width,
-                      int numberOfPoints,
-                      int mapScale,
+    public Parameters(int mapScale,
+                      int numberOfDungeons,
                       int numberOfRooms,
                       int distanceBetweenRooms,
                       int minimumRoomWidth,
@@ -100,7 +98,6 @@ public class Parameters {
                       double waterLevel,
                       double coastLevel,
                       double whiteCapLevel,
-                      String imageFileName,
                       int[] backgroundColor,
                       int[] polygonVertexColor,
                       int[] polygonSiteColor,
@@ -110,8 +107,8 @@ public class Parameters {
                       int maxChunks,
                       int maxStepsPerChunk,
                       String monsterScrapeUrl) {
-        this.numberOfPoints = numberOfPoints;
         this.mapScale = mapScale;
+        this.numberOfDungeons = numberOfDungeons;
         this.numberOfRooms = numberOfRooms;
         this.distanceBetweenRooms = distanceBetweenRooms;
         this.minimumRoomWidth = minimumRoomWidth;
@@ -124,7 +121,6 @@ public class Parameters {
         this.waterLevel = waterLevel;
         this.coastLevel = coastLevel;
         this.whiteCapLevel = whiteCapLevel;
-        this.imageFileName = imageFileName;
         this.backgroundColor = backgroundColor;
         this.polygonVertexColor = polygonVertexColor;
         this.polygonSiteColor = polygonSiteColor;
