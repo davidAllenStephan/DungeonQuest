@@ -16,8 +16,9 @@ import java.util.HashMap;
 @Service
 public class QuestScraperService {
 
-    @Autowired
-    private static QuestService questService = new QuestService();
+    public QuestScraperService() {
+
+    }
 
     @Autowired
     public static final Logger logger = LoggerFactory.getLogger(QuestScraperService.class);
@@ -25,7 +26,7 @@ public class QuestScraperService {
     public static Document getDocument(String url) {
         Document doc = null;
         try {
-            doc = Jsoup.connect("https://list.fandom.com/wiki/List_of_monsters").get();
+            doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             logger.error(e.getMessage());
             throw new RuntimeException(e);

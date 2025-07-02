@@ -17,27 +17,22 @@ import java.util.Map;
 public class MonsterCollectionService {
 
     @Autowired
-    private QuestScraperService questScraperService;
+    private final QuestScraperService questScraperService = new QuestScraperService();
 
     public static MonsterCollection objectify(Elements elementsToMonsterCategories, Elements elementsToMonsterIndividuals, HashMap<Element, Integer> lineNumbers) {
         MonsterCollection monsterCollection = new MonsterCollection();
-
         ArrayList<Element> categoryElements = new ArrayList<>(elementsToMonsterCategories);
         ArrayList<MonsterCategory> monsterCategories = new ArrayList<>();
-
         Map<Element, MonsterCategory> elementToMonsterCategory = new HashMap<>();
-
         for (Element element : categoryElements) {
             String categoryName = element.text();
             MonsterCategory monsterCategory = new MonsterCategory(categoryName);
             monsterCategories.add(monsterCategory);
             elementToMonsterCategory.put(element, monsterCategory);
         }
-
         for (Element element : elementsToMonsterIndividuals) {
             int monsterLine = lineNumbers.get(element);
             MonsterCategory targetCategory = null;
-
             for (Element _element : categoryElements) {
                 int catLine = lineNumbers.get(_element);
                 if (catLine < monsterLine) {
@@ -46,7 +41,6 @@ public class MonsterCollectionService {
                     break;
                 }
             }
-
             if (targetCategory != null) {
                 String monsterName = element.text();
                 if (!monsterName.isBlank()) {
@@ -55,15 +49,13 @@ public class MonsterCollectionService {
                 }
             }
         }
-
         for (MonsterCategory category : monsterCategories) {
             monsterCollection.addCategory(category);
         }
-
         return monsterCollection;
     }
 
-    public MonsterCollection getQuest() {
+    public MonsterCollection getMonsterCollection() {
         Document doc = QuestScraperService.getDocument("https://list.fandom.com/wiki/List_of_monsters");
         Element body = doc.body();
         questScraperService.removeBlank(body);

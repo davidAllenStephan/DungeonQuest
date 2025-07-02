@@ -1,5 +1,12 @@
 <h1>Map Generator</h1>
 
+<h2>TODO</h2>
+* <h3>Completeness – Usable, with clear README, install instructions, and working features.</h3>
+* <h3>Tech Stack – Use frameworks and tools relevant to the jobs you’re applying for.</h3>
+* <h3>Impact – Solves a problem or simulates a real-world use case.</h3>
+* <h3>Visibility – Hosted/demoed on GitHub Pages, Vercel, Heroku, AWS, etc.</h3>
+* <h3>Collaboration – If it was a group project, show how you used Git, issues, or CI/CD.</h3>
+
 ![GitHub Release](https://img.shields.io/github/v/release/davidAllenStephan/map)
 ![GitHub License](https://img.shields.io/github/license/davidAllenStephan/map)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/davidAllenStephan/map)

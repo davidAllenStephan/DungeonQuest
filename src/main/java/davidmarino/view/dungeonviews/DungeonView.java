@@ -16,8 +16,8 @@ public class DungeonView extends DungeonQuestView {
     }
 
     public String getBase64(ArrayList<Zone> zones, int[] backgroundColor, int edgeSize) {
-        int width = 400;
-        int height = 400;
+        int width = 500;
+        int height = 500;
         BufferedImage dungeon = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2Dungeon = dungeon.createGraphics();
         setBackground(g2Dungeon, new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]), width, height);
