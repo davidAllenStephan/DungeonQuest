@@ -2,9 +2,9 @@ package davidmarino.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
-import davidmarino.model.dungeonmodels.DungeonCollection;
-import davidmarino.model.mapmodels.Map;
-import davidmarino.model.questmodels.QuestCollection;
+import davidmarino.dungeon.dungeonmodels.DungeonCollection;
+import davidmarino.map.mapmodels.Map;
+import davidmarino.quest.questmodels.QuestCollection;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
