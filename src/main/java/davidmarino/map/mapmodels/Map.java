@@ -2,7 +2,7 @@ package davidmarino.map.mapmodels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
-import davidmarino.model.Parameters;
+import davidmarino.Parameters;
 import davidmarino.map.mapservice.MapService;
 import davidmarino.map.mapservice.SiteCollectionService;
 import davidmarino.map.mapviews.MapView;

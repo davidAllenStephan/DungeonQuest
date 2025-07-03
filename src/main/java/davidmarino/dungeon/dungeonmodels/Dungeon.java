@@ -1,7 +1,7 @@
 package davidmarino.dungeon.dungeonmodels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import davidmarino.model.Parameters;
+import davidmarino.Parameters;
 import davidmarino.dungeon.dungeonservice.DungeonService;
 import davidmarino.dungeon.dungeonviews.DungeonView;
 import org.springframework.beans.factory.annotation.Autowired;

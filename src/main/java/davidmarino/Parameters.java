@@ -1,4 +1,4 @@
-package davidmarino.model;
+package davidmarino;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

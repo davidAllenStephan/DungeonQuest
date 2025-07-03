@@ -1,8 +1,8 @@
-package davidmarino.controller;
+package davidmarino.api;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import davidmarino.model.Parameters;
+import davidmarino.Parameters;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

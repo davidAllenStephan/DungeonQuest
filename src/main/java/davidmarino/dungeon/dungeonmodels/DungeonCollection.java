@@ -1,7 +1,7 @@
 package davidmarino.dungeon.dungeonmodels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import davidmarino.model.Parameters;
+import davidmarino.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;

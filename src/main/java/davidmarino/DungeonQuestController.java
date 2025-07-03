@@ -1,10 +1,7 @@
-package davidmarino.controller;
+package davidmarino;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import davidmarino.model.DungeonQuest;
-import davidmarino.model.Parameters;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import davidmarino.api.ControllerUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
