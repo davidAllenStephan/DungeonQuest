@@ -24,21 +24,6 @@ public class ControllerUtil {
         return ResponseEntity.status(statusCode).header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).body(message);
     }
 
-    public static ResponseEntity getPngResponse(byte[] imageBytes) {
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"generated.png\"")
-                .body(imageBytes);
-    }
-
-    public static APIGatewayProxyResponseEvent getLambdaPngResponse(String base64Image) {
-        return new APIGatewayProxyResponseEvent()
-                .withStatusCode(200)
-                .withHeaders(getDefaultHeaders())
-                .withBody(base64Image)
-                .withIsBase64Encoded(true);
-    }
-
     public static APIGatewayProxyResponseEvent getLambdaStringResponse(String message, int statusCode) {
         return new APIGatewayProxyResponseEvent()
                 .withStatusCode(statusCode)
@@ -51,7 +36,7 @@ public class ControllerUtil {
                 "Access-Control-Allow-Headers", "Content-Type",
                 "Access-Control-Allow-Methods", "OPTIONS,POST",
                 "Access-Control-Allow-Origin", "*",
-                "Content-Type", "image/png"
+                "Content-Type", "application/json"
         );
     }
 

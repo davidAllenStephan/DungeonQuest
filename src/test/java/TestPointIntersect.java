@@ -1,6 +1,6 @@
-import davidmarino.service.mapservice.GeometryUtils;
-import davidmarino.model.mapmodels.Line;
-import davidmarino.model.mapmodels.Point;
+import davidmarino.map.mapservice.GeometryUtils;
+import davidmarino.map.mapmodels.Line;
+import davidmarino.map.mapmodels.Point;
 import org.junit.Assert;
 import org.junit.Test;
 

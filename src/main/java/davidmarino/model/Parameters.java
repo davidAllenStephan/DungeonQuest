@@ -12,67 +12,80 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class Parameters {
-    @JsonProperty("height")
-    public int height;
-    @JsonProperty("width")
-    public int width;
-    @JsonProperty("numberOfPoints")
-    public int numberOfPoints;
+    @JsonProperty("mapScale")
+    public int mapScale = 5;
+
+    @JsonProperty("numberOfDungeons")
+    public int numberOfDungeons = 5;
+
     @JsonProperty("numberOfRooms")
-    public int numberOfRooms;
+    public int numberOfRooms = 10;
+
     @JsonProperty("distanceBetweenRooms")
-    public int distanceBetweenRooms;
+    public int distanceBetweenRooms = 10;
+
     @JsonProperty("minimumRoomWidth")
-    public int minimumRoomWidth;
+    public int minimumRoomWidth = 20;
+
     @JsonProperty("maximumRoomWidth")
-    public int maximumRoomWidth;
+    public int maximumRoomWidth = 50;
+
     @JsonProperty("minimumRoomHeight")
-    public int minimumRoomHeight;
+    public int minimumRoomHeight = 20;
+
     @JsonProperty("maximumRoomHeight")
-    public int maximumRoomHeight;
+    public int maximumRoomHeight = 50;
 
     @JsonProperty("vertexSize")
-    public int vertexSize;
+    public int vertexSize = 5;
+
     @JsonProperty("edgeSize")
-    public int edgeSize;
+    public int edgeSize = 1;
 
     @JsonProperty("numberOfLloydIterations")
-    public int numberOfLloydIterations;
+    public int numberOfLloydIterations = 5;
 
     @JsonProperty("waterLevel")
-    public double waterLevel;
+    public double waterLevel = 0.4;
+
     @JsonProperty("coastLevel")
-    public double coastLevel;
+    public double coastLevel = 0.45;
+
     @JsonProperty("whiteCapLevel")
-    public double whiteCapLevel;
+    public double whiteCapLevel = 0.85;
 
     @JsonProperty("imageFileName")
-    public String imageFileName;
+    public String imageFileName = "output/map.png";
 
     @JsonProperty("backgroundColor")
-    public int[] backgroundColor;
+    public int[] backgroundColor = {255, 255, 255};
+
     @JsonProperty("polygonVertexColor")
-    public int[] polygonVertexColor;
+    public int[] polygonVertexColor = {0, 0, 255};
+
     @JsonProperty("polygonSiteColor")
-    public int[] polygonSiteColor;
+    public int[] polygonSiteColor = {255, 0, 0};
+
     @JsonProperty("polygonBorderColor")
-    public int[] polygonBorderColor;
+    public int[] polygonBorderColor = {0, 0, 255};
 
     @JsonProperty("startPercent")
-    public double startPercent;
+    public double startPercent = 0.5;
+
     @JsonProperty("spreadChance")
-    public double spreadChance;
+    public double spreadChance = 0.8;
+
     @JsonProperty("maxChunks")
-    public int maxChunks;
+    public int maxChunks = 20;
+
     @JsonProperty("maxStepsPerChunk")
-    public int maxStepsPerChunk;
+    public int maxStepsPerChunk = 20;
 
     @JsonProperty("monsterScrapeUrl")
     public String monsterScrapeUrl;
 
-    public Parameters(int height,
-                      int width,
-                      int numberOfPoints,
+    public Parameters(int mapScale,
+                      int numberOfDungeons,
                       int numberOfRooms,
                       int distanceBetweenRooms,
                       int minimumRoomWidth,
@@ -85,7 +98,6 @@ public class Parameters {
                       double waterLevel,
                       double coastLevel,
                       double whiteCapLevel,
-                      String imageFileName,
                       int[] backgroundColor,
                       int[] polygonVertexColor,
                       int[] polygonSiteColor,
@@ -95,9 +107,8 @@ public class Parameters {
                       int maxChunks,
                       int maxStepsPerChunk,
                       String monsterScrapeUrl) {
-        this.height = height;
-        this.width = width;
-        this.numberOfPoints = numberOfPoints;
+        this.mapScale = mapScale;
+        this.numberOfDungeons = numberOfDungeons;
         this.numberOfRooms = numberOfRooms;
         this.distanceBetweenRooms = distanceBetweenRooms;
         this.minimumRoomWidth = minimumRoomWidth;
@@ -110,7 +121,6 @@ public class Parameters {
         this.waterLevel = waterLevel;
         this.coastLevel = coastLevel;
         this.whiteCapLevel = whiteCapLevel;
-        this.imageFileName = imageFileName;
         this.backgroundColor = backgroundColor;
         this.polygonVertexColor = polygonVertexColor;
         this.polygonSiteColor = polygonSiteColor;
