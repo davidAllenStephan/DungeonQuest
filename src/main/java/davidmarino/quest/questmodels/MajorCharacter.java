@@ -1,6 +1,9 @@
 package davidmarino.quest.questmodels;
 
+import java.util.UUID;
+
 public class MajorCharacter {
+    public String id;
     public String name;
     public String sex;
     public String actor;
@@ -9,6 +12,7 @@ public class MajorCharacter {
     public String notes;
 
     public MajorCharacter() {
+        id = UUID.randomUUID().toString();
         name = "";
         sex = "";
         actor = "";
@@ -18,6 +22,7 @@ public class MajorCharacter {
     }
 
     public MajorCharacter(String name, String sex, String actor, String film, String year, String notes) {
+        id = UUID.randomUUID().toString();
         this.name = name;
         this.sex = sex;
         this.actor = actor;

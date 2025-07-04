@@ -20,7 +20,7 @@ public class Quest {
         questLogs = new ArrayList<>();
     }
 
-    public Quest(Dungeon dungeon) {
+    public Quest(Dungeon dungeon) { // Monster Collection, Character Collection, Artifact Collection
         questLogs = new ArrayList<>();
         QuestLogCollection questLogCollection = new QuestLogCollection();
         Random random = new Random();

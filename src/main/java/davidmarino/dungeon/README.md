@@ -12,4 +12,3 @@ Generate a set of semi random points on a 2D plane.
 Generate a Minimum Spanning Tree of all the points.
 For each point in the MST find the next closest point and connect with a
 corridor.
-

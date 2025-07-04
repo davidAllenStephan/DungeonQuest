@@ -1,8 +1,11 @@
 package davidmarino.quest.questmodels;
 
+import java.util.UUID;
+
 public class VillainCharacter extends MajorCharacter {
 
     public VillainCharacter(String name, String sex, String actor, String film, String year, String notes) {
+        super.id = UUID.randomUUID().toString();
         super.name = name;
         super.sex = sex;
         super.actor = actor;

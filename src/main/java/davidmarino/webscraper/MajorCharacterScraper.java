@@ -21,8 +21,8 @@ public class MajorCharacterScraper {
     @Autowired
     private static final Logger logger = LoggerFactory.getLogger(MajorCharacterScraper.class);
 
-    public static VillainCharacterCollection objectify() {
-        return new VillainCharacterCollection();
+    public static MajorCharacterCollection objectify() {
+        return new MajorCharacterCollection();
     }
 
     public MajorCharacterCollection getBossCollection() {
@@ -81,12 +81,6 @@ public class MajorCharacterScraper {
                 k++;
             }
         }
-
-        logger.info("villain: " + villainCollection.majorCharacters.toString());
-        logger.info("count: " + villainCollection.majorCharacters.size());
-
-//        logger.info("hero: " + heroCollection.majorCharacters.toString());
-//        logger.info("count: " + heroCollection.majorCharacters.size());
 
         return MajorCharacterScraper.objectify();
     }
