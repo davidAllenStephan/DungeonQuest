@@ -21,10 +21,6 @@ public class MajorCharacterScraper {
     @Autowired
     private static final Logger logger = LoggerFactory.getLogger(MajorCharacterScraper.class);
 
-    public static MajorCharacterCollection objectify() {
-        return new MajorCharacterCollection();
-    }
-
     public MajorCharacterCollection getMajorCharacterCollection() {
         Document doc = QuestScraper.getDocument("https://en.wikipedia.org/wiki/AFI%27s_100_Years...100_Heroes_%26_Villains");
         Element body = doc.body();
@@ -82,8 +78,7 @@ public class MajorCharacterScraper {
                 k++;
             }
         }
-
-        return MajorCharacterScraper.objectify();
+        return majorCharacterCollection;
     }
 
 }

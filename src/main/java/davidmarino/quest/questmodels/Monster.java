@@ -1,18 +1,23 @@
 package davidmarino.quest.questmodels;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Data
+@AllArgsConstructor
+@DynamoDBTable(tableName = "DungeonQuestMonsters")
 @Component
 public class Monster {
+    @DynamoDBHashKey(attributeName = "id")
     private final String id;
+    @DynamoDBAttribute(attributeName = "name")
     private final String name;
-
-    public Monster(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public Monster(String name) {
         id = UUID.randomUUID().toString();

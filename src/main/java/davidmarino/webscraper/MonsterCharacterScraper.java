@@ -19,9 +19,15 @@ public class MonsterCharacterScraper {
     @Autowired
     private final QuestScraper questScraper = new QuestScraper();
 
-    public static MonsterCollection objectify(Elements elementsToMonsterCategories, Elements elementsToMonsterIndividuals, HashMap<Element, Integer> lineNumbers) {
+    public MonsterCollection getMonsterCollection() {
+        Document doc = QuestScraper.getDocument("https://list.fandom.com/wiki/List_of_monsters");
+        Element body = doc.body();
+        questScraper.removeBlank(body);
+        HashMap<Element, Integer> lineNumberMap = questScraper.getLineNumbers(body);
+        Elements headlines = questScraper.getByClassName(body, "mw-headline", 2, 67);
+        Elements monsters = questScraper.getByTag(body, "a", 210, 42);
         MonsterCollection monsterCollection = new MonsterCollection();
-        ArrayList<Element> categoryElements = new ArrayList<>(elementsToMonsterCategories);
+        ArrayList<Element> categoryElements = new ArrayList<>(headlines);
         ArrayList<MonsterCategory> monsterCategories = new ArrayList<>();
         Map<Element, MonsterCategory> elementToMonsterCategory = new HashMap<>();
         for (Element element : categoryElements) {
@@ -30,11 +36,11 @@ public class MonsterCharacterScraper {
             monsterCategories.add(monsterCategory);
             elementToMonsterCategory.put(element, monsterCategory);
         }
-        for (Element element : elementsToMonsterIndividuals) {
-            int monsterLine = lineNumbers.get(element);
+        for (Element element : monsters) {
+            int monsterLine = lineNumberMap.get(element);
             MonsterCategory targetCategory = null;
             for (Element _element : categoryElements) {
-                int catLine = lineNumbers.get(_element);
+                int catLine = lineNumberMap.get(_element);
                 if (catLine < monsterLine) {
                     targetCategory = elementToMonsterCategory.get(_element);
                 } else {
@@ -53,16 +59,5 @@ public class MonsterCharacterScraper {
             monsterCollection.addCategory(category);
         }
         return monsterCollection;
-    }
-
-    public MonsterCollection getMonsterCollection() {
-        Document doc = QuestScraper.getDocument("https://list.fandom.com/wiki/List_of_monsters");
-        Element body = doc.body();
-        questScraper.removeBlank(body);
-        HashMap<Element, Integer> lineNumberMap = questScraper.getLineNumbers(body);
-        Elements headlines = questScraper.getByClassName(body, "mw-headline", 2, 67);
-        Elements monsters = questScraper.getByTag(body, "a", 210, 42);
-        MonsterCollection mc = MonsterCharacterScraper.objectify(headlines, monsters, lineNumberMap);
-        return mc;
     }
 }

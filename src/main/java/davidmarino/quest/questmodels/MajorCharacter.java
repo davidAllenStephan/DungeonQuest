@@ -3,12 +3,14 @@ package davidmarino.quest.questmodels;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @DynamoDBTable(tableName = "DungeonQuestCharacters")
+@Component
 public class MajorCharacter {
 
     @DynamoDBHashKey(attributeName = "id")

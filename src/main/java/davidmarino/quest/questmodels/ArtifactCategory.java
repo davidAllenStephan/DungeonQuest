@@ -15,10 +15,8 @@ import java.util.UUID;
 public class ArtifactCategory {
     @DynamoDBHashKey(attributeName = "id")
     private final String id;
-
     @DynamoDBAttribute(attributeName = "artifactCategoryTitle")
     private final String artifactCategoryTitle;
-
     @DynamoDBAttribute(attributeName = "artifactSubCategories")
     private final ArrayList<ArtifactSubCategory> artifactSubCategories;
 
