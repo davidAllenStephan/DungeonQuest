@@ -1,14 +1,25 @@
 package davidmarino.quest.questmodels;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import davidmarino.DynamoDbConfig;
+import davidmarino.webscraper.webscraperservice.DynamoDbUploadService;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 @Component
+@DynamoDBTable(tableName = "DungeonQuestArtifacts")
+@Data
 public class ArtifactCollection {
-    public String id;
-    public ArrayList<ArtifactCategory> artifactCategories;
+    @DynamoDBHashKey(attributeName = "id")
+    private final String id;
+
+    @DynamoDBAttribute(attributeName = "artifactCategories")
+    private final ArrayList<ArtifactCategory> artifactCategories;
 
     public ArtifactCollection() {
         id = UUID.randomUUID().toString();
@@ -20,9 +31,14 @@ public class ArtifactCollection {
         this.artifactCategories = artifactCategories;
     }
 
+    public void uploadToDynamoDB() {
+        DynamoDbConfig dynamoDbConfig = new DynamoDbConfig();
+        DynamoDbUploadService dynamoDbUploadService = new DynamoDbUploadService(dynamoDbConfig.amazonDynamoDB());
+        dynamoDbUploadService.uploadToDynamoDb(this);
+    }
+
     @Override
     public String toString() {
         return artifactCategories.toString();
     }
-
 }

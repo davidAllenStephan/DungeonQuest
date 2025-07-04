@@ -1,17 +1,27 @@
 package davidmarino.quest.questmodels;
 
-import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Data
+@Component
 public class Monster {
-    public String id;
-    private String name;
+    private final String id;
+    private final String name;
+
+    public Monster(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Monster(String name) {
         id = UUID.randomUUID().toString();
         this.name = name;
+    }
+
+    public Monster() {
+        id = UUID.randomUUID().toString();
+        name = "";
     }
 
     @Override

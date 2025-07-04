@@ -32,13 +32,13 @@ public class ArtifactScraper {
             if (element.tagName().equals("h2")) {
                 String categoryTitle = element.text().replace("[edit]", "").trim();
                 currentCategory = new ArtifactCategory(categoryTitle);
-                artifactCollection.artifactCategories.add(currentCategory);
-                currentSubCategory = null; // reset subcategory
+                artifactCollection.getArtifactCategories().add(currentCategory);
+                currentSubCategory = null;
             } else if (element.tagName().equals("h3")) {
                 if (currentCategory == null) continue;
                 String subCategoryTitle = element.text().replace("[edit]", "").trim();
                 currentSubCategory = new ArtifactSubCategory(subCategoryTitle);
-                currentCategory.artifactSubCategories.add(currentSubCategory);
+                currentCategory.getArtifactSubCategories().add(currentSubCategory);
             } else if (element.tagName().equals("ul")) {
                 if (currentSubCategory != null) {
                     for (Element li : element.select("li")) {
@@ -58,15 +58,15 @@ public class ArtifactScraper {
                             description = "";
                         }
                         Artifact artifact = new Artifact(name, description);
-                        currentSubCategory.artifacts.add(artifact);
+                        currentSubCategory.getArtifacts().add(artifact);
                     }
                 }
             }
 
         }
-        artifactCollection.artifactCategories.remove(0);
+        artifactCollection.getArtifactCategories().remove(0);
         for (int i = 0; i < 18; i++) {
-            artifactCollection.artifactCategories.remove(artifactCollection.artifactCategories.size() - 1);
+            artifactCollection.getArtifactCategories().remove(artifactCollection.getArtifactCategories().size() - 1);
         }
         return artifactCollection;
     }

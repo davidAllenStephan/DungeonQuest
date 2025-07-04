@@ -1,21 +1,33 @@
 package davidmarino.quest.questmodels;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
+@DynamoDBTable(tableName = "DungeonQuestArtifacts")
+@Data
 public class Artifact {
-    public String id;
-    public String name;
-    public String description;
+    @DynamoDBHashKey(attributeName = "id")
+    private final String id;
+    @DynamoDBAttribute(attributeName = "name")
+    private final String name;
+    @DynamoDBAttribute(attributeName = "description")
+    private final String description;
 
     public Artifact(String name, String description) {
-        this.id = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
     }
-    public Artifact() {
 
+    public Artifact() {
+        id = UUID.randomUUID().toString();
+        name = "";
+        description = "";
     }
 
     @Override

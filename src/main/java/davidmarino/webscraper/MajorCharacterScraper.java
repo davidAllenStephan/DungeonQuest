@@ -25,14 +25,13 @@ public class MajorCharacterScraper {
         return new MajorCharacterCollection();
     }
 
-    public MajorCharacterCollection getBossCollection() {
+    public MajorCharacterCollection getMajorCharacterCollection() {
         Document doc = QuestScraper.getDocument("https://en.wikipedia.org/wiki/AFI%27s_100_Years...100_Heroes_%26_Villains");
         Element body = doc.body();
         Elements heroesAndVillains = questScraper.getByTag(body, "td", 14, 0);
         List<Element> heroes = heroesAndVillains.subList(0, 305);
         List<Element> villains = heroesAndVillains.subList(304, heroesAndVillains.size());
-        HeroCharacterCollection heroCollection = new HeroCharacterCollection();
-        VillainCharacterCollection villainCollection = new VillainCharacterCollection();
+        MajorCharacterCollection majorCharacterCollection = new MajorCharacterCollection();
 
         ArrayList<String> heroStrings = new ArrayList<>();
         for (Element hero : heroes) {
@@ -43,12 +42,13 @@ public class MajorCharacterScraper {
         ArrayList<String> subHeroStrings = new ArrayList<>();
         while ((j * 6) + i != heroes.size()) {
             if (i == 6) {
-                heroCollection.majorCharacters.add(new HeroCharacter(subHeroStrings.get(0),
+                majorCharacterCollection.getMajorCharacters().add(new MajorCharacter(subHeroStrings.get(0),
                         subHeroStrings.get(1),
                         subHeroStrings.get(2),
                         subHeroStrings.get(3),
                         subHeroStrings.get(4),
-                        subHeroStrings.get(5)));
+                        subHeroStrings.get(5),
+                        "hero"));
                 i = 0;
                 j++;
                 subHeroStrings.clear();
@@ -67,12 +67,13 @@ public class MajorCharacterScraper {
         ArrayList<String> subVillainStrings = new ArrayList<>();
         while ((l * 6) + k != villains.size()) {
             if (k == 6) {
-                villainCollection.majorCharacters.add(new VillainCharacter(subVillainStrings.get(0),
+                majorCharacterCollection.getMajorCharacters().add(new MajorCharacter(subVillainStrings.get(0),
                         subVillainStrings.get(1),
                         subVillainStrings.get(2),
                         subVillainStrings.get(3),
                         subVillainStrings.get(4),
-                        subVillainStrings.get(5)));
+                        subVillainStrings.get(5),
+                        "villain"));
                 k = 0;
                 l++;
                 subVillainStrings.clear();
