@@ -4,7 +4,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.UUID;
 
 @Component
 @DynamoDBTable(tableName = "DungeonQuestMonsters")
-@Data
 public class MonsterCategory {
     @DynamoDBHashKey(attributeName = "id")
     private String id;
@@ -48,4 +46,27 @@ public class MonsterCategory {
         return stringBuilder.toString();
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMonsterCategoryTitle() {
+        return monsterCategoryTitle;
+    }
+
+    public void setMonsterCategoryTitle(String monsterCategoryTitle) {
+        this.monsterCategoryTitle = monsterCategoryTitle;
+    }
+
+    public ArrayList<Monster> getMonsters() {
+        return monsters;
+    }
+
+    public void setMonsters(ArrayList<Monster> monsters) {
+        this.monsters = monsters;
+    }
 }

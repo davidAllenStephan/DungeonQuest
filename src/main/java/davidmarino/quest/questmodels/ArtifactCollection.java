@@ -5,7 +5,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import davidmarino.DynamoDbConfig;
 import davidmarino.webscraper.webscraperservice.DynamoDbUploadService;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.UUID;
 
 @Component
 @DynamoDBTable(tableName = "DungeonQuestArtifacts")
-@Data
 public class ArtifactCollection {
     @DynamoDBHashKey(attributeName = "id")
     private String id;
@@ -40,5 +38,21 @@ public class ArtifactCollection {
     @Override
     public String toString() {
         return artifactCategories.toString();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ArrayList<ArtifactCategory> getArtifactCategories() {
+        return artifactCategories;
+    }
+
+    public void setArtifactCategories(ArrayList<ArtifactCategory> artifactCategories) {
+        this.artifactCategories = artifactCategories;
     }
 }

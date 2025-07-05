@@ -3,14 +3,10 @@ package davidmarino.quest.questmodels;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Data
-@AllArgsConstructor
 @DynamoDBTable(tableName = "DungeonQuestMonsters")
 @Component
 public class Monster {
@@ -32,5 +28,21 @@ public class Monster {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

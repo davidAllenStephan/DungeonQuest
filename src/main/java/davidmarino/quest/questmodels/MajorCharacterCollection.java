@@ -3,7 +3,6 @@ package davidmarino.quest.questmodels;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import davidmarino.DynamoDbConfig;
 import davidmarino.webscraper.webscraperservice.DynamoDbUploadService;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.UUID;
 
 @Component
 @DynamoDBTable(tableName = "DungeonQuestCharacters")
-@Data
 public class MajorCharacterCollection {
     @DynamoDBHashKey(attributeName = "id")
     private String id;
@@ -25,6 +23,22 @@ public class MajorCharacterCollection {
 
     public MajorCharacterCollection(ArrayList<MajorCharacter> majorCharacters) {
         this.id = UUID.randomUUID().toString();
+        this.majorCharacters = majorCharacters;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ArrayList<MajorCharacter> getMajorCharacters() {
+        return majorCharacters;
+    }
+
+    public void setMajorCharacters(ArrayList<MajorCharacter> majorCharacters) {
         this.majorCharacters = majorCharacters;
     }
 

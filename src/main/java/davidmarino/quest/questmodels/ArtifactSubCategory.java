@@ -2,9 +2,7 @@ package davidmarino.quest.questmodels;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,7 +10,6 @@ import java.util.UUID;
 
 @Component
 @DynamoDBTable(tableName = "DungeonQuestArtifacts")
-@Data
 public class ArtifactSubCategory {
     @DynamoDBHashKey(attributeName = "id")
     private String id;
@@ -44,5 +41,29 @@ public class ArtifactSubCategory {
     @Override
     public String toString() {
         return "[subCategoryTitle=" + subCategoryTitle + ", artifacts=" + artifacts + "]";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSubCategoryTitle() {
+        return subCategoryTitle;
+    }
+
+    public void setSubCategoryTitle(String subCategoryTitle) {
+        this.subCategoryTitle = subCategoryTitle;
+    }
+
+    public ArrayList<Artifact> getArtifacts() {
+        return artifacts;
+    }
+
+    public void setArtifacts(ArrayList<Artifact> artifacts) {
+        this.artifacts = artifacts;
     }
 }

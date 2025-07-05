@@ -3,13 +3,11 @@ package davidmarino.quest.questmodels;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
 @DynamoDBTable(tableName = "DungeonQuestArtifacts")
-@Data
 public class Artifact {
     @DynamoDBHashKey(attributeName = "id")
     private String id;
@@ -28,6 +26,30 @@ public class Artifact {
         id = UUID.randomUUID().toString();
         name = "";
         description = "";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import davidmarino.Parameters;
 import davidmarino.dungeon.dungeonmodels.Dungeon;
 import davidmarino.dungeon.dungeonmodels.DungeonCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;

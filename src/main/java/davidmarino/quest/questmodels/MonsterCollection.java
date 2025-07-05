@@ -5,13 +5,11 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import davidmarino.DynamoDbConfig;
 import davidmarino.webscraper.webscraperservice.DynamoDbUploadService;
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-@Data
 @Component
 @DynamoDBTable(tableName = "DungeonQuestMonsters")
 public class MonsterCollection {
@@ -48,5 +46,21 @@ public class MonsterCollection {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ArrayList<MonsterCategory> getMonsterCategories() {
+        return monsterCategories;
+    }
+
+    public void setMonsterCategories(ArrayList<MonsterCategory> monsterCategories) {
+        this.monsterCategories = monsterCategories;
     }
 }
