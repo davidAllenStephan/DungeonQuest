@@ -2,6 +2,7 @@ package davidmarino.quest.questmodels;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -14,13 +15,13 @@ import java.util.UUID;
 @Data
 public class ArtifactSubCategory {
     @DynamoDBHashKey(attributeName = "id")
-    private final String id;
+    private String id;
 
     @DynamoDBAttribute(attributeName = "subCategoryTitle")
-    private final String subCategoryTitle;
+    private String subCategoryTitle;
 
     @DynamoDBAttribute(attributeName = "artifacts")
-    private final ArrayList<Artifact> artifacts;
+    private ArrayList<Artifact> artifacts;
 
     public ArtifactSubCategory() {
         id = UUID.randomUUID().toString();

@@ -16,10 +16,10 @@ import java.util.UUID;
 @Data
 public class ArtifactCollection {
     @DynamoDBHashKey(attributeName = "id")
-    private final String id;
+    private String id;
 
     @DynamoDBAttribute(attributeName = "artifactCategories")
-    private final ArrayList<ArtifactCategory> artifactCategories;
+    private ArrayList<ArtifactCategory> artifactCategories;
 
     public ArtifactCollection() {
         id = UUID.randomUUID().toString();

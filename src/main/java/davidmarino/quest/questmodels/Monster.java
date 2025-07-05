@@ -15,9 +15,9 @@ import java.util.UUID;
 @Component
 public class Monster {
     @DynamoDBHashKey(attributeName = "id")
-    private final String id;
+    private String id;
     @DynamoDBAttribute(attributeName = "name")
-    private final String name;
+    private String name;
 
     public Monster(String name) {
         id = UUID.randomUUID().toString();

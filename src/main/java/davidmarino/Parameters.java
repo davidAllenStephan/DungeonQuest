@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  *
  * Class {@code Parameters} holds the values that influence the model.
@@ -81,8 +84,14 @@ public class Parameters {
     @JsonProperty("maxStepsPerChunk")
     public int maxStepsPerChunk = 20;
 
-    @JsonProperty("monsterScrapeUrl")
-    public String monsterScrapeUrl;
+    @JsonProperty("artifactCategories")
+    public String[] artifactCategories;
+
+    @JsonProperty("monsterCategories")
+    public String[] monsterCategories;
+
+    @JsonProperty("majorCharacters")
+    public String[] majorCharacters;
 
     public Parameters(int mapScale,
                       int numberOfDungeons,
@@ -106,7 +115,9 @@ public class Parameters {
                       double spreadChance,
                       int maxChunks,
                       int maxStepsPerChunk,
-                      String monsterScrapeUrl) {
+                      String[] artifactCategories,
+                      String[] monsterCategories,
+                      String[] majorCharacters) {
         this.mapScale = mapScale;
         this.numberOfDungeons = numberOfDungeons;
         this.numberOfRooms = numberOfRooms;
@@ -129,7 +140,9 @@ public class Parameters {
         this.spreadChance = spreadChance;
         this.maxChunks = maxChunks;
         this.maxStepsPerChunk = maxStepsPerChunk;
-        this.monsterScrapeUrl = monsterScrapeUrl;
+        this.artifactCategories = artifactCategories;
+        this.monsterCategories = monsterCategories;
+        this.majorCharacters = majorCharacters;
     }
     public Parameters() {
 

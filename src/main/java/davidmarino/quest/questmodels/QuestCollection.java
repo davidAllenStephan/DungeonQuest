@@ -20,9 +20,10 @@ public class QuestCollection {
     public QuestCollection(DungeonCollection dungeonCollection, Parameters parameters) {
         // Select the combinations of monsters, characters, and artifacts.
         // Then pass the collections into Quest to fill the madlibs.
+
         quests = new ArrayList<>();
         for (Dungeon dungeon : dungeonCollection.dungeons) {
-            quests.add(new Quest(dungeon));
+            quests.add(new Quest(dungeon, parameters));
         }
     }
 }

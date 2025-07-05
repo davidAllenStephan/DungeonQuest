@@ -16,9 +16,14 @@ import java.util.UUID;
 @DynamoDBTable(tableName = "DungeonQuestMonsters")
 public class MonsterCollection {
     @DynamoDBHashKey(attributeName = "id")
-    private final String id;
+    private String id;
     @DynamoDBAttribute(attributeName = "monsterCategories")
-    private final ArrayList<MonsterCategory> monsterCategories;
+    private ArrayList<MonsterCategory> monsterCategories;
+
+    public MonsterCollection(ArrayList<MonsterCategory> monsterCategories) {
+        id = UUID.randomUUID().toString();
+        this.monsterCategories = monsterCategories;
+    }
 
     public MonsterCollection() {
         id = UUID.randomUUID().toString();

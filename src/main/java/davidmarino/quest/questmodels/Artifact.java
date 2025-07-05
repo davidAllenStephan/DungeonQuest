@@ -12,11 +12,11 @@ import java.util.UUID;
 @Data
 public class Artifact {
     @DynamoDBHashKey(attributeName = "id")
-    private final String id;
+    private String id;
     @DynamoDBAttribute(attributeName = "name")
-    private final String name;
+    private String name;
     @DynamoDBAttribute(attributeName = "description")
-    private final String description;
+    private String description;
 
     public Artifact(String name, String description) {
         id = UUID.randomUUID().toString();

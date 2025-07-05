@@ -13,7 +13,6 @@ import java.util.UUID;
 @DynamoDBTable(tableName = "DungeonQuestCharacters")
 @Data
 public class MajorCharacterCollection {
-
     @DynamoDBHashKey(attributeName = "id")
     private String id;
     @DynamoDBAttribute(attributeName = "majorCharacters")

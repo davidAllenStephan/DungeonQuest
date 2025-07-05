@@ -15,7 +15,7 @@ public class MajorCharacter {
 
     @DynamoDBHashKey(attributeName = "id")
     private String id;
-    @DynamoDBAttribute(attributeName = "name")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "name-index", attributeName = "name")
     private String name;
     @DynamoDBAttribute(attributeName = "gender")
     private String gender;

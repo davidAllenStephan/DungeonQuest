@@ -14,11 +14,11 @@ import java.util.UUID;
 @Data
 public class ArtifactCategory {
     @DynamoDBHashKey(attributeName = "id")
-    private final String id;
+    private String id;
     @DynamoDBAttribute(attributeName = "artifactCategoryTitle")
-    private final String artifactCategoryTitle;
+    private String artifactCategoryTitle;
     @DynamoDBAttribute(attributeName = "artifactSubCategories")
-    private final ArrayList<ArtifactSubCategory> artifactSubCategories;
+    private ArrayList<ArtifactSubCategory> artifactSubCategories;
 
     public ArtifactCategory() {
         id = UUID.randomUUID().toString();

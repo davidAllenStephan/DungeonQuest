@@ -2,6 +2,7 @@ package davidmarino.quest.questmodels;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -14,11 +15,11 @@ import java.util.UUID;
 @Data
 public class MonsterCategory {
     @DynamoDBHashKey(attributeName = "id")
-    private final String id;
-    @DynamoDBAttribute(attributeName = "monsterCategoryTitle")
-    private final String monsterCategoryTitle;
+    private String id;
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "monsterCategoryTitle-index", attributeName = "monsterCategoryTitle")
+    private String monsterCategoryTitle;
     @DynamoDBAttribute(attributeName = "monsters")
-    private final ArrayList<Monster> monsters;
+    private ArrayList<Monster> monsters;
 
     public MonsterCategory() {
         id = UUID.randomUUID().toString();
