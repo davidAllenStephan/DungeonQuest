@@ -1,7 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-
 Resources:
+  DungeonQuestApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: DungeonQuestApi
+      StageName: Prod
+      Cors:
+        AllowMethods: "'POST,OPTIONS'"
+        AllowHeaders: "'Content-Type,X-Amz-Date'"
+        AllowOrigin: "'*'"
   DungeonQuestMainFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -20,5 +28,6 @@ Resources:
         DungeonQuestApi:
           Type: Api
           Properties:
+            RestApiId: !Ref DungeonQuestApi
             Path: /dungeonquest
             Method: post
