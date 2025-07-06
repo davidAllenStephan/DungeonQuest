@@ -1,0 +1,17 @@
+version = 0.1
+
+[default.deploy]
+stack_name = "dungeonquest-stack"
+s3_bucket = "dungeonquestbuildbucket"
+region = "us-east-2"
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+
+[default.deploy.parameters]
+stack_name = "dungeonquest-stack"
+resolve_s3 = true
+s3_prefix = "dungeonquest-stack"
+region = "us-east-2"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+disable_rollback = true

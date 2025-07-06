@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  DungeonQuestMainFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: DungeonQuestMainFunction
+      CodeUri: .
+      Handler: davidmarino.StreamLambdaHandler::handleRequest
+      Runtime: java21
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonDynamoDBFullAccess
+      Architectures:
+        - arm64
+      MemorySize: 512
+      Timeout: 30
+      Events:
+        DungeonQuestApi:
+          Type: Api
+          Properties:
+            Path: /dungeonquest
+            Method: post
