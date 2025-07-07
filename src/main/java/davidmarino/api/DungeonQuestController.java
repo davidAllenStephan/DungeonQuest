@@ -1,7 +1,8 @@
-package davidmarino;
+package davidmarino.api;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import davidmarino.api.ControllerUtil;
+import davidmarino.DungeonQuest;
+import davidmarino.Parameters;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import java.util.Map;
 @EnableWebMvc
 public class DungeonQuestController {
 
-    @PostMapping("/")
+    @PostMapping("/dungeonquest")
     public ResponseEntity dungeonQuest(@RequestBody Parameters parameters) {
         DungeonQuest dungeonQuest = new DungeonQuest(parameters);
         return ControllerUtil.getStringResponse(dungeonQuest.getJson(), 200);
