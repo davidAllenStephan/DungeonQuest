@@ -1,0 +1,20 @@
+Resources:
+  DungeonQuestMainFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: DungeonQuestMainFunction
+      CodeUri: s3://dungeonquestbuildbucket/9f4fc463640d075774c688778fe1f1b3
+      Handler: davidmarino.StreamLambdaHandler::handleRequest
+      Runtime: java21
+      Architectures:
+      - arm64
+      MemorySize: 512
+      Timeout: 30
+      Events:
+        DungeonQuestApi:
+          Type: Api
+          Properties:
+            Path: /dungeonquest
+            Method: post
+    Metadata:
+      SamResourceId: DungeonQuestMainFunction
