@@ -4,14 +4,25 @@ import davidmarino.dungeon.dungeonservice.RoomService;
 import davidmarino.dungeon.dungeonmodels.Edge;
 import davidmarino.dungeon.dungeonmodels.Room;
 import davidmarino.dungeon.dungeonmodels.Zone;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Set;
 
+@Component
 public class ZoneView {
-    public static void drawZone(Graphics2D g2, Zone zone) {
-        RoomView.drawRoom(g2, zone.room, zone.color);
+
+    public ZoneView() {
+
+    }
+
+    @Autowired
+    private RoomView roomView = new RoomView(new TileMap());
+
+    public void drawZone(Graphics2D g2, Zone zone) {
+        roomView.drawRoom(g2, zone.room);
 
         Font originalFont = g2.getFont();
         Font smallFont = originalFont.deriveFont(10f);
@@ -31,7 +42,7 @@ public class ZoneView {
         g2.setFont(originalFont);
     }
 
-    public static void drawZones(Graphics2D g2, ArrayList<Zone> zones, int edgeWeight) {
+    public void drawZones(Graphics2D g2, ArrayList<Zone> zones, int edgeWeight) {
         ArrayList<Room> rooms = new ArrayList<>();
         for (Zone zone : zones) {
             rooms.add(zone.room);

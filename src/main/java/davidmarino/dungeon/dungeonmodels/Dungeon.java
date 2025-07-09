@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 @Component
 public class Dungeon {
-    public transient ArrayList<Zone> zones;
+    public transient TileCanvas zones;
     @JsonProperty("dungeon_image")
     public String dungeonImage;
 
@@ -23,7 +23,7 @@ public class Dungeon {
     public Dungeon() {
         dungeonView = new DungeonView();
         dungeonService = new DungeonService();
-        zones = new ArrayList<>();
+        zones = new TileCanvas();
     }
 
     public Dungeon(Parameters parameters) {
