@@ -27,4 +27,8 @@ public class DungeonService {
         TileCanvas tileCanvas = new TileCanvas(tiles);
         return zoneService.generateZones(tileCanvas, numberOfRooms, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
     }
+
+    public void connectSites(TileCanvas tileCanvas) {
+        tileCanvas.primeMinSpanTree();  // This uses drawPath() internally
+    }
 }

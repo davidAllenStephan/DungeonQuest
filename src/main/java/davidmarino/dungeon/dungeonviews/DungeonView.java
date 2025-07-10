@@ -27,9 +27,6 @@ public class DungeonView extends DungeonQuestView {
         BufferedImage dungeonImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = dungeonImage.createGraphics();
 
-        /**
-         * n^2
-         */
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 Tile tile = tileCanvas.find(x, y);

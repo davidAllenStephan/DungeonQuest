@@ -2,8 +2,6 @@ package davidmarino.quest.questmodels;
 
 import davidmarino.Parameters;
 import davidmarino.dungeon.dungeonmodels.Dungeon;
-import davidmarino.dungeon.dungeonmodels.Tile;
-import davidmarino.dungeon.dungeonmodels.Zone;
 import davidmarino.quest.questservice.ArtifactCollectionService;
 import davidmarino.quest.questservice.MajorCharacterCollectionService;
 import davidmarino.quest.questservice.MonsterCollectionService;

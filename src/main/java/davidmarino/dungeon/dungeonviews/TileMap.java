@@ -22,7 +22,7 @@ public final class TileMap {
     public TileMap() {
         try {
             tiles.put(ZoneType.ZONE, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_Camping_16x16_Rock_1.png"))));
-            tiles.put(ZoneType.PATH, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_Camping_16x16_Rock_1.png"))));
+            tiles.put(ZoneType.CORRIDOR, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_Camping_16x16_Rock_1.png"))));
             tiles.put(ZoneType.SITE, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_Camping_16x16_Rock_1.png"))));
             tiles.put(ZoneType.NULL, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_City_Terrains_16x16_Sidewalk_4_10.png"))));
         } catch (IOException e) {
