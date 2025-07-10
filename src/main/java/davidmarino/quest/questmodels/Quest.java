@@ -2,6 +2,7 @@ package davidmarino.quest.questmodels;
 
 import davidmarino.Parameters;
 import davidmarino.dungeon.dungeonmodels.Dungeon;
+import davidmarino.dungeon.dungeonmodels.Tile;
 import davidmarino.dungeon.dungeonmodels.Zone;
 import davidmarino.quest.questservice.ArtifactCollectionService;
 import davidmarino.quest.questservice.MajorCharacterCollectionService;
@@ -39,10 +40,7 @@ public class Quest {
 
         QuestLogCollection questLogCollection = new QuestLogCollection(majorCharacterCollection, artifactCollection, monsterCollection);
         Random random = new Random();
-        for (Zone zone : dungeon.zones) {
-            QuestLogList questLogList = questLogCollection.questLogCollectionMap.get(zone.zoneType);
-            questLogs.add(questLogList.questLogs.get(random.nextInt(0, questLogList.questLogs.size())));
-        }
+
     }
 
 }

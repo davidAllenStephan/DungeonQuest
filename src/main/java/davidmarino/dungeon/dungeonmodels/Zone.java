@@ -1,17 +1,22 @@
 package davidmarino.dungeon.dungeonmodels;
 
+import org.springframework.stereotype.Component;
+
 import java.awt.*;
 
+@Component
 public class Zone {
     public int id;
-    public Room room;
 
     public ZoneType zoneType;
     public Color color;
 
-    public Zone(int id, Room room, ZoneType zoneType) {
+    public Zone() {
+
+    }
+
+    public Zone(int id, ZoneType zoneType) {
         this.id = id;
-        this.room = room;
         this.zoneType = zoneType;
         setColor(zoneType);
     }

@@ -1,6 +1,6 @@
 package davidmarino.dungeon.dungeonviews;
 
-import jakarta.annotation.PostConstruct;
+import davidmarino.dungeon.dungeonmodels.ZoneType;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
@@ -11,20 +11,20 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component
-public class TileMap {
+public final class TileMap {
 
-    private final Map<String, BufferedImage> tiles = new HashMap<>();
-    public BufferedImage getTile(String key) {
-        return tiles.get(key);
+    private final Map<ZoneType, BufferedImage> tiles = new HashMap<>();
+
+    public BufferedImage getTile(ZoneType zoneType) {
+        return tiles.get(zoneType);
     }
+
     public TileMap() {
         try {
-            tiles.put("topLeft", ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/23_MIlitary_Base_16x16_External_Wall_Internal_Corner_Top_Left.png"))));
-            tiles.put("topRight", ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/23_MIlitary_Base_16x16_External_Wall_Internal_Corner_Top_Right.png"))));
-            tiles.put("bottomLeft", ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/23_MIlitary_Base_16x16_External_Wall_Internal_Corner_Bottom_Left.png"))));
-            tiles.put("bottomRight", ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/23_MIlitary_Base_16x16_External_Wall_Internal_Corner_Bottom_Right.png"))));
-            tiles.put("wall", ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/23_MIlitary_Base_16x16_External_Wall_Middle.png"))));
-            tiles.put("floor", ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_City_Terrains_16x16_Sidewalk_4_10.png"))));
+            tiles.put(ZoneType.ZONE, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_Camping_16x16_Rock_1.png"))));
+            tiles.put(ZoneType.PATH, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_Camping_16x16_Rock_1.png"))));
+            tiles.put(ZoneType.SITE, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_Camping_16x16_Rock_1.png"))));
+            tiles.put(ZoneType.NULL, ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/static/ME_Singles_City_Terrains_16x16_Sidewalk_4_10.png"))));
         } catch (IOException e) {
             throw new RuntimeException("Failed to load tile images", e);
         }

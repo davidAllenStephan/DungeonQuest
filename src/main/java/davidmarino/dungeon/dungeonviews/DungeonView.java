@@ -1,8 +1,8 @@
 package davidmarino.dungeon.dungeonviews;
 
+import davidmarino.dungeon.dungeonmodels.Tile;
 import davidmarino.dungeon.dungeonmodels.TileCanvas;
 import davidmarino.DungeonQuestView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
@@ -11,22 +11,34 @@ import java.awt.image.BufferedImage;
 @Service
 public class DungeonView extends DungeonQuestView {
 
-    @Autowired
-    private ZoneView zoneView = new ZoneView();
-
     public DungeonView() {
 
     }
 
-    public String getBase64(TileCanvas tileCanvas, int[] backgroundColor, int edgeSize) {
-        int width = 1280;
-        int height = 1280;
-        BufferedImage dungeon = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2Dungeon = dungeon.createGraphics();
-        setBackground(g2Dungeon, new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]), width, height);
-        zoneView.drawZones(g2Dungeon, tileCanvas, edgeSize);
-        g2Dungeon.dispose();
-        return getBase64(dungeon);
+    public String getBase64(TileCanvas tileCanvas) {
+        int tileWidth = 16;
+        int tileHeight = 16;
+        int cols = tileCanvas.width;
+        int rows = tileCanvas.height;
+
+        int imageWidth = cols * tileWidth;
+        int imageHeight = rows * tileHeight;
+
+        BufferedImage dungeonImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = dungeonImage.createGraphics();
+
+        /**
+         * n^2
+         */
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                Tile tile = tileCanvas.find(x, y);
+                g.drawImage(tile.getTileAsset(), x * tileWidth, y * tileHeight, null);
+            }
+        }
+
+        g.dispose();
+        return getBase64(dungeonImage);
     }
 
 }

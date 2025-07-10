@@ -2,57 +2,61 @@ package davidmarino.dungeon.dungeonmodels;
 
 import org.springframework.stereotype.Component;
 
+import java.awt.Point;
 import java.util.*;
 
 @Component
 public class TileCanvas {
-    public ArrayList<ArrayList<Tile>> tileCanvas = new ArrayList<>();
+    private final Map<Point, Tile> tiles = new HashMap<>();
     public int width;
     public int height;
-    public Set<Tile> minSpanTree = new HashSet<>();
 
-    public TileCanvas() {
-        tileCanvas = new ArrayList<>();
-        width = tileCanvas.size();
-        height = tileCanvas.get(0).size();
-    }
+    public TileCanvas() {}
 
-    public TileCanvas(ArrayList<ArrayList<Tile>> tileCanvas) {
-        this.tileCanvas = tileCanvas;
-        width = tileCanvas.size();
-        height = tileCanvas.get(0).size();
-    }
-
-    public TileCanvas(Tile[][] tiles) {
-        ArrayList<ArrayList<Tile>> tileCanvas = new ArrayList<>();
-        for (Tile[] tile : tiles) {
-            ArrayList<Tile> tileList = new ArrayList<>(Arrays.asList(tile));
-            tileCanvas.add(tileList);
+    public TileCanvas(Tile[][] tileArray) {
+        this.width = tileArray.length;
+        this.height = tileArray[0].length;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Tile t = tileArray[x][y];
+                tiles.put(new Point(t.x, t.y), t);
+            }
         }
-        this.tileCanvas = tileCanvas;
-        width = tileCanvas.size();
-        height = tileCanvas.get(0).size();
+    }
+
+    public Tile find(int x, int y) {
+        return tiles.getOrDefault(new Point(x, y), Tile.empty(x, y));
+    }
+
+    public void setTile(Tile tile) {
+        tiles.put(new Point(tile.x, tile.y), tile);
+    }
+
+    public Collection<Tile> allTiles() {
+        return tiles.values();
     }
 
     public void primeMinSpanTree() {
         List<Tile> sites = new ArrayList<>();
-        for (ArrayList<Tile> row : tileCanvas) {
-            for (Tile tile : row) {
-                if (tile.zoneType == ZoneType.SITE) {
-                    sites.add(tile);
-                }
+        for (Tile tile : tiles.values()) {
+            if (tile.zoneType == ZoneType.SITE) {
+                sites.add(tile);
             }
         }
+
         if (sites.size() < 2) return;
+
         Set<Tile> visited = new HashSet<>();
         PriorityQueue<TileDistance> minHeap = new PriorityQueue<>(Comparator.comparingDouble(td -> td.distance));
         Tile start = sites.get(0);
         visited.add(start);
+
         for (Tile other : sites) {
             if (!other.equals(start)) {
                 minHeap.add(new TileDistance(start, other, distance(start, other)));
             }
         }
+
         while (!minHeap.isEmpty() && visited.size() < sites.size()) {
             TileDistance next = minHeap.poll();
             if (visited.contains(next.to)) continue;
@@ -66,22 +70,28 @@ public class TileCanvas {
         }
     }
 
-    private double distance(Tile a, Tile b) {
-        return Math.hypot(a.x - b.x, a.y - b.y);
-    }
-
     private void drawPath(Tile a, Tile b) {
         int x = a.x;
         int y = a.y;
         while (x != b.x) {
-            find(x, y).zoneType = ZoneType.PATH;
+            setZone(x, y, ZoneType.PATH);
             x += (b.x > x) ? 1 : -1;
         }
         while (y != b.y) {
-            find(x, y).zoneType = ZoneType.PATH;
+            setZone(x, y, ZoneType.PATH);
             y += (b.y > y) ? 1 : -1;
         }
-        find(x, y).zoneType = ZoneType.PATH;
+        setZone(x, y, ZoneType.PATH);
+    }
+
+    private void setZone(int x, int y, ZoneType zoneType) {
+        Tile tile = find(x, y);
+        tile.zoneType = zoneType;
+        setTile(tile);
+    }
+
+    private double distance(Tile a, Tile b) {
+        return Math.hypot(a.x - b.x, a.y - b.y);
     }
 
     private static class TileDistance {
@@ -95,18 +105,15 @@ public class TileCanvas {
         }
     }
 
-    public Tile find(int x, int y) {
-        return tileCanvas.get(x).get(y);
-    }
+    public void toZone(Tile tileSite, int zoneWidth, int zoneHeight, ZoneType zoneType) {
+        int startX = tileSite.x - zoneWidth / 2;
+        int endX = tileSite.x + zoneWidth / 2;
+        int startY = tileSite.y - zoneHeight / 2;
+        int endY = tileSite.y + zoneHeight / 2;
 
-    public void toZone(Tile tileSite, int width, int height, ZoneType zoneType) {
-        int startX = tileSite.x - width / 2;
-        int endX = tileSite.x + width / 2;
-        int startY = tileSite.y - height / 2;
-        int endY = tileSite.y + height / 2;
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
-                this.find(x, y).zoneType = zoneType;
+                setZone(x, y, zoneType);
             }
         }
     }

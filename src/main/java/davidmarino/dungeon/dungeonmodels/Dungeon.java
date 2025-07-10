@@ -7,8 +7,6 @@ import davidmarino.dungeon.dungeonviews.DungeonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-
 @Component
 public class Dungeon {
     public transient TileCanvas zones;
@@ -16,20 +14,23 @@ public class Dungeon {
     public String dungeonImage;
 
     @Autowired
-    private transient DungeonView dungeonView;
+    private transient DungeonView dungeonView = new DungeonView();
     @Autowired
-    private transient DungeonService dungeonService;
+    private transient DungeonService dungeonService = new DungeonService();
 
     public Dungeon() {
-        dungeonView = new DungeonView();
-        dungeonService = new DungeonService();
         zones = new TileCanvas();
     }
 
+    public Dungeon(int numberOfRooms, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
+        System.out.println("Creating Dungeon");
+        zones = dungeonService.getZones(numberOfRooms, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
+        zones.primeMinSpanTree();
+        dungeonImage = dungeonView.getBase64(zones);
+    }
+
     public Dungeon(Parameters parameters) {
-        dungeonView = new DungeonView();
-        dungeonService = new DungeonService();
         zones = dungeonService.getZones(parameters.numberOfRooms, parameters.minimumRoomWidth, parameters.minimumRoomHeight, parameters.maximumRoomWidth, parameters.maximumRoomHeight);
-        dungeonImage = dungeonView.getBase64(zones, parameters.backgroundColor, parameters.edgeSize);
+        dungeonImage = dungeonView.getBase64(zones);
     }
 }
