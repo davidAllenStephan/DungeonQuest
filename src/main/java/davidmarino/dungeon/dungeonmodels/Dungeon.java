@@ -23,7 +23,6 @@ public class Dungeon {
     }
 
     public Dungeon(int numberOfRooms, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
-        System.out.println("Creating Dungeon");
         zones = dungeonService.getZones(numberOfRooms, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
         zones.primeMinSpanTree();
         dungeonImage = dungeonView.getBase64(zones);
