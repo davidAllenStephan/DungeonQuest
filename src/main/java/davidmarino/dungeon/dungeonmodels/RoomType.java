@@ -1,16 +1,10 @@
 package davidmarino.dungeon.dungeonmodels;
 
-public enum ZoneType {
-    PATH,
-    NULL,
-    ZONE,
-    SITE,
-    ROOM,
-    CORRIDOR,
+public enum RoomType {
     TREASURE,
     BOSS,
     PUZZLE,
-    SAFE,
+    HEALTH,
     SECRET,
     VOID,
     ENTRANCE,

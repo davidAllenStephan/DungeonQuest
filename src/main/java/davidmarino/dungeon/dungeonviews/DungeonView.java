@@ -18,24 +18,27 @@ public class DungeonView extends DungeonQuestView {
     public String getBase64(TileCanvas tileCanvas) {
         int tileWidth = 16;
         int tileHeight = 16;
+
         int cols = tileCanvas.width;
         int rows = tileCanvas.height;
 
-        int imageWidth = cols * tileWidth;
-        int imageHeight = rows * tileHeight;
+        int upscaleWidth = cols * tileWidth;
+        int upscaleHeight = rows * tileHeight;
 
-        BufferedImage dungeonImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = dungeonImage.createGraphics();
+        BufferedImage largeImage = new BufferedImage(upscaleWidth, upscaleHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gLarge = largeImage.createGraphics();
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 Tile tile = tileCanvas.find(x, y);
-                g.drawImage(tile.getTileAsset(), x * tileWidth, y * tileHeight, null);
+                BufferedImage asset = tile.getTileAsset();
+                gLarge.drawImage(asset, x * tileWidth, y * tileHeight, null);
             }
         }
+        gLarge.dispose();
 
-        g.dispose();
-        return getBase64(dungeonImage);
+        return getBase64(largeImage);
     }
+
 
 }

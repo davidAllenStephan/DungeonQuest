@@ -20,9 +20,6 @@ public class DungeonCollection {
 
     public DungeonCollection(Parameters parameters) {
         dungeons = new ArrayList<>();
-        /**
-         * O(n)
-         */
         for (int i = 0; i < parameters.numberOfDungeons; i++) {
             dungeons.add(new Dungeon(parameters));
         }

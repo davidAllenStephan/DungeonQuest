@@ -10,8 +10,8 @@ public class ZoneService {
     @Autowired
     private final RoomService roomService = new RoomService();
 
-    public TileCanvas generateZones(TileCanvas tileCanvas, int numberOfRooms, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
-        roomService.generateRooms(tileCanvas, numberOfRooms, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
+    public TileCanvas generateZones(TileCanvas tileCanvas, int maximumRoomWidth, int maximumRoomHeight) {
+        roomService.generateRooms(tileCanvas, maximumRoomWidth, maximumRoomHeight);
         return tileCanvas;
     }
 }

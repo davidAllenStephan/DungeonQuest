@@ -22,14 +22,13 @@ public class Dungeon {
         zones = new TileCanvas();
     }
 
-    public Dungeon(int numberOfRooms, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
-        zones = dungeonService.getZones(numberOfRooms, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
-        dungeonService.connectSites(zones);
+    public Dungeon(int maximumRoomWidth, int maximumRoomHeight) {
+        zones = dungeonService.getZones(maximumRoomWidth, maximumRoomHeight);
         dungeonImage = dungeonView.getBase64(zones);
     }
 
     public Dungeon(Parameters parameters) {
-        zones = dungeonService.getZones(parameters.numberOfRooms, parameters.minimumRoomWidth, parameters.minimumRoomHeight, parameters.maximumRoomWidth, parameters.maximumRoomHeight);
+        zones = dungeonService.getZones(parameters.maximumRoomWidth, parameters.maximumRoomHeight);
         dungeonImage = dungeonView.getBase64(zones);
     }
 }

@@ -1,6 +1,6 @@
 package davidmarino.quest.questmodels;
 
-import davidmarino.dungeon.dungeonmodels.ZoneType;
+import davidmarino.dungeon.dungeonmodels.RoomType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Random;
 @Component
 public class QuestLogCollection {
 
-    public HashMap<ZoneType, QuestLogList> questLogCollectionMap = new HashMap<>();
+    public HashMap<RoomType, QuestLogList> questLogCollectionMap = new HashMap<>();
 
     public QuestLogCollection(MajorCharacterCollection majorCharacterCollection, ArtifactCollection artifactCollection, MonsterCollection monsterCollection) {
         Random rand = new Random();
@@ -24,10 +24,10 @@ public class QuestLogCollection {
         List<ArtifactCategory> artifactCategories = artifactCollection.getArtifactCategories();
         List<MonsterCategory> monsterCategories = monsterCollection.getMonsterCategories();
 
-        for (ZoneType zoneType : ZoneType.values()) {
+        for (RoomType roomType : RoomType.values()) {
             Artifact artifact = getRandomArtifact(rand, artifactCategories);
             Monster monster = getRandomMonster(rand, monsterCategories);
-            getQuestLogs(zoneType, majorCharacter, artifact, monster);
+            getQuestLogs(roomType, majorCharacter, artifact, monster);
         }
     }
 
@@ -50,37 +50,37 @@ public class QuestLogCollection {
         return monsters.get(rand.nextInt(monsters.size()));
     }
 
-    public void getQuestLogs(ZoneType zoneType, MajorCharacter majorCharacter, Artifact artifact, Monster monster) {
-        switch (zoneType) {
+    public void getQuestLogs(RoomType roomType, MajorCharacter majorCharacter, Artifact artifact, Monster monster) {
+        switch (roomType) {
             case ROOM:
-                questLogCollectionMap.put(ZoneType.ROOM, getRoomQuestLogs(majorCharacter));
+                questLogCollectionMap.put(RoomType.ROOM, getRoomQuestLogs(majorCharacter));
                 break;
             case CORRIDOR:
-                questLogCollectionMap.put(ZoneType.CORRIDOR, getCorridorQuestLogs(majorCharacter));
+                questLogCollectionMap.put(RoomType.CORRIDOR, getCorridorQuestLogs(majorCharacter));
                 break;
             case TREASURE:
-                questLogCollectionMap.put(ZoneType.TREASURE, getTreasureQuestLogs(majorCharacter, artifact));
+                questLogCollectionMap.put(RoomType.TREASURE, getTreasureQuestLogs(majorCharacter, artifact));
                 break;
             case BOSS:
-                questLogCollectionMap.put(ZoneType.BOSS, getBossQuestLogs(majorCharacter, monster));
+                questLogCollectionMap.put(RoomType.BOSS, getBossQuestLogs(majorCharacter, monster));
                 break;
             case PUZZLE:
-                questLogCollectionMap.put(ZoneType.PUZZLE, getPuzzleQuestLogs(majorCharacter));
+                questLogCollectionMap.put(RoomType.PUZZLE, getPuzzleQuestLogs(majorCharacter));
                 break;
             case SAFE:
-                questLogCollectionMap.put(ZoneType.SAFE, getSafeQuestLogs(majorCharacter));
+                questLogCollectionMap.put(RoomType.SAFE, getSafeQuestLogs(majorCharacter));
                 break;
             case SECRET:
-                questLogCollectionMap.put(ZoneType.SECRET, getSecretQuestLogs(majorCharacter));
+                questLogCollectionMap.put(RoomType.SECRET, getSecretQuestLogs(majorCharacter));
                 break;
             case VOID:
-                questLogCollectionMap.put(ZoneType.VOID, getVoidQuestLogs(majorCharacter));
+                questLogCollectionMap.put(RoomType.VOID, getVoidQuestLogs(majorCharacter));
                 break;
             case ENTRANCE:
-                questLogCollectionMap.put(ZoneType.ENTRANCE, getEntranceQuestLogs(majorCharacter));
+                questLogCollectionMap.put(RoomType.ENTRANCE, getEntranceQuestLogs(majorCharacter));
                 break;
             case EXIT:
-                questLogCollectionMap.put(ZoneType.EXIT, getExitQuestLogs(majorCharacter));
+                questLogCollectionMap.put(RoomType.EXIT, getExitQuestLogs(majorCharacter));
                 break;
         }
     }
@@ -93,7 +93,7 @@ public class QuestLogCollection {
         utilQuestLogs.add("Directly ahead is a dark corridor.");
         utilQuestLogs.add("To your right is a corridor to the _room_type room.");
         utilQuestLogs.add("To your right is a dark corridor.");
-        return new QuestLogList(utilQuestLogs, ZoneType.ROOM);
+        return new QuestLogList(utilQuestLogs, RoomType.ROOM);
     }
 
     public static QuestLogList getRoomQuestLogs(MajorCharacter majorCharacter) {
@@ -104,7 +104,7 @@ public class QuestLogCollection {
 
         roomQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(roomQuestLogs, ZoneType.ROOM);
+        return new QuestLogList(roomQuestLogs, RoomType.ROOM);
     }
 
     public static QuestLogList getCorridorQuestLogs(MajorCharacter majorCharacter) {
@@ -115,7 +115,7 @@ public class QuestLogCollection {
 
         corridorQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(corridorQuestLogs, ZoneType.CORRIDOR);
+        return new QuestLogList(corridorQuestLogs, RoomType.CORRIDOR);
     }
 
     public static QuestLogList getTreasureQuestLogs(MajorCharacter majorCharacter, Artifact artifact) {
@@ -128,7 +128,7 @@ public class QuestLogCollection {
                 .replaceAll("entity_", majorCharacter.getName())
                 .replaceAll("_item_", artifact.getName()));
 
-        return new QuestLogList(treasureQuestLogs, ZoneType.TREASURE);
+        return new QuestLogList(treasureQuestLogs, RoomType.TREASURE);
     }
 
     public static QuestLogList getBossQuestLogs(MajorCharacter majorCharacter, Monster monster) {
@@ -141,7 +141,7 @@ public class QuestLogCollection {
                 .replaceAll("entity_", majorCharacter.getName())
                 .replaceAll("_boss_name_", monster.getName()));
 
-        return new QuestLogList(bossQuestLogs, ZoneType.BOSS);
+        return new QuestLogList(bossQuestLogs, RoomType.BOSS);
     }
 
     public static QuestLogList getPuzzleQuestLogs(MajorCharacter majorCharacter) {
@@ -151,7 +151,7 @@ public class QuestLogCollection {
 
         puzzleQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(puzzleQuestLogs, ZoneType.PUZZLE);
+        return new QuestLogList(puzzleQuestLogs, RoomType.PUZZLE);
     }
 
     public static QuestLogList getSafeQuestLogs(MajorCharacter majorCharacter) {
@@ -162,7 +162,7 @@ public class QuestLogCollection {
 
         safeQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(safeQuestLogs, ZoneType.SAFE);
+        return new QuestLogList(safeQuestLogs, RoomType.SAFE);
     }
 
     public static QuestLogList getSecretQuestLogs(MajorCharacter majorCharacter) {
@@ -173,7 +173,7 @@ public class QuestLogCollection {
 
         secretQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(secretQuestLogs, ZoneType.SECRET);
+        return new QuestLogList(secretQuestLogs, RoomType.SECRET);
     }
 
     public static QuestLogList getVoidQuestLogs(MajorCharacter majorCharacter) {
@@ -184,7 +184,7 @@ public class QuestLogCollection {
 
         voidQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(voidQuestLogs, ZoneType.VOID);
+        return new QuestLogList(voidQuestLogs, RoomType.VOID);
     }
 
     public static QuestLogList getEntranceQuestLogs(MajorCharacter majorCharacter) {
@@ -195,7 +195,7 @@ public class QuestLogCollection {
 
         entranceQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(entranceQuestLogs, ZoneType.ENTRANCE);
+        return new QuestLogList(entranceQuestLogs, RoomType.ENTRANCE);
     }
 
     public static QuestLogList getExitQuestLogs(MajorCharacter majorCharacter) {
@@ -206,7 +206,7 @@ public class QuestLogCollection {
 
         exitQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(exitQuestLogs, ZoneType.EXIT);
+        return new QuestLogList(exitQuestLogs, RoomType.EXIT);
     }
 
 }

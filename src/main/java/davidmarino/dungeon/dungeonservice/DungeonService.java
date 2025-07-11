@@ -1,6 +1,5 @@
 package davidmarino.dungeon.dungeonservice;
 
-import davidmarino.dungeon.dungeonmodels.Tile;
 import davidmarino.dungeon.dungeonmodels.TileCanvas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +14,10 @@ public class DungeonService {
 
     }
 
-    public TileCanvas getZones(int numberOfRooms, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
-        int width = 540;
-        int height = 540;
-        Tile[][] tiles = new Tile[width][height];
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                tiles[x][y] = new Tile(x, y);
-            }
-        }
-        TileCanvas tileCanvas = new TileCanvas(tiles);
-        return zoneService.generateZones(tileCanvas, numberOfRooms, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
-    }
-
-    public void connectSites(TileCanvas tileCanvas) {
-        tileCanvas.primeMinSpanTree();  // This uses drawPath() internally
+    public TileCanvas getZones(int maximumRoomWidth, int maximumRoomHeight) {
+        int width = maximumRoomWidth;
+        int height = maximumRoomHeight;
+        TileCanvas tileCanvas = new TileCanvas(width, height);
+        return zoneService.generateZones(tileCanvas, maximumRoomWidth, maximumRoomHeight);
     }
 }

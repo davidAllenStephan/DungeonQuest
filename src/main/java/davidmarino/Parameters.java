@@ -93,6 +93,15 @@ public class Parameters {
     @JsonProperty("majorCharacters")
     public String[] majorCharacters;
 
+    @JsonProperty("leftMargin")
+    public int leftMargin;
+    @JsonProperty("rightMargin")
+    public int rightMargin;
+    @JsonProperty("topMargin")
+    public int topMargin;
+    @JsonProperty("bottomMargin")
+    public int bottomMargin;
+
     public Parameters(int mapScale,
                       int numberOfDungeons,
                       int numberOfRooms,
@@ -117,7 +126,8 @@ public class Parameters {
                       int maxStepsPerChunk,
                       String[] artifactCategories,
                       String[] monsterCategories,
-                      String[] majorCharacters) {
+                      String[] majorCharacters,
+    int leftMargin, int rightMargin, int topMargin, int bottomMargin) {
         this.mapScale = mapScale;
         this.numberOfDungeons = numberOfDungeons;
         this.numberOfRooms = numberOfRooms;
@@ -143,6 +153,10 @@ public class Parameters {
         this.artifactCategories = artifactCategories;
         this.monsterCategories = monsterCategories;
         this.majorCharacters = majorCharacters;
+        this.leftMargin = leftMargin;
+        this.rightMargin = rightMargin;
+        this.topMargin = topMargin;
+        this.bottomMargin = bottomMargin;
     }
     public Parameters() {
 

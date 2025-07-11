@@ -6,11 +6,26 @@ import java.util.*;
 
 @Component
 public class TileCanvas {
-    private Tile[] tiles1D;
+    private Tile[] tiles;
     public int width;
     public int height;
 
-    public TileCanvas() {}
+    public TileCanvas() {
+
+    }
+
+    public TileCanvas(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.tiles = new Tile[width * height];
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                tiles[index(x, y)] = new Tile(x, y);
+            }
+        }
+    }
+
 
     public void drawPath(Tile from, Tile to) {
         int x1 = from.x;
@@ -23,20 +38,20 @@ public class TileCanvas {
 
         if (horizontalFirst) {
             for (int x = x1; x != x2; x += Integer.compare(x2, x1)) {
-                find(x, y1).zoneType = ZoneType.CORRIDOR;
+                find(x, y1).roomBuilderType = RoomBuilderType.CORRIDOR;
             }
             for (int y = y1; y != y2; y += Integer.compare(y2, y1)) {
-                find(x2, y).zoneType = ZoneType.CORRIDOR;
+                find(x2, y).roomBuilderType = RoomBuilderType.CORRIDOR;
             }
         } else {
             for (int y = y1; y != y2; y += Integer.compare(y2, y1)) {
-                find(x1, y).zoneType = ZoneType.CORRIDOR;
+                find(x1, y).roomBuilderType = RoomBuilderType.CORRIDOR;
             }
             for (int x = x1; x != x2; x += Integer.compare(x2, x1)) {
-                find(x, y2).zoneType = ZoneType.CORRIDOR;
+                find(x, y2).roomBuilderType = RoomBuilderType.CORRIDOR;
             }
         }
-        find(x2, y2).zoneType = ZoneType.CORRIDOR;
+        find(x2, y2).roomBuilderType = RoomBuilderType.CORRIDOR;
     }
 
     private double distance(Tile a, Tile b) {
@@ -64,8 +79,8 @@ public class TileCanvas {
 
     public void primeMinSpanTree() {
         List<Tile> sites = new ArrayList<>();
-        for (Tile tile : tiles1D) {
-            if (tile.zoneType == ZoneType.SITE) {
+        for (Tile tile : tiles) {
+            if (tile.roomBuilderType == RoomBuilderType.SITE) {
                 sites.add(tile);
             }
         }
@@ -96,43 +111,30 @@ public class TileCanvas {
         }
     }
 
-
-    public TileCanvas(Tile[][] tileArray) {
-        this.width = tileArray.length;
-        this.height = tileArray[0].length;
-        tiles1D = new Tile[width * height];
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                setTile(tileArray[x][y]);
-            }
-        }
-    }
-
     private int index(int x, int y) {
         return y * width + x;
     }
 
     public Tile find(int x, int y) {
-        return tiles1D[y * width + x];
+        return tiles[y * width + x];
     }
 
-    public void setTile(Tile tile) {
-        tiles1D[index(tile.x, tile.y)] = tile;
+    public void setZone(int x, int y, RoomBuilderType roomBuilderType) {
+        find(x,y).roomBuilderType = roomBuilderType;
     }
 
-    public void setZone(int x, int y, ZoneType zoneType) {
-        find(x,y).zoneType = zoneType;
-    }
+    public void toZone(Tile tileSite, int zoneWidth, int zoneHeight, RoomBuilderType roomBuilderType) {
+        int halfWidth = zoneWidth / 2;
+        int halfHeight = zoneHeight / 2;
 
-    public void toZone(Tile tileSite, int zoneWidth, int zoneHeight, ZoneType zoneType) {
-        int startX = Math.max(0, tileSite.x - zoneWidth / 2);
-        int endX = Math.min(width - 1, tileSite.x + zoneWidth / 2);
-        int startY = Math.max(0, tileSite.y - zoneHeight / 2);
-        int endY = Math.min(height - 1, tileSite.y + zoneHeight / 2);
+        int startX = Math.max(0, tileSite.x - halfWidth);
+        int endX = Math.min(width - 1, tileSite.x + zoneWidth - halfWidth - 1);
+        int startY = Math.max(0, tileSite.y - halfHeight);
+        int endY = Math.min(height - 1, tileSite.y + zoneHeight - halfHeight - 1);
 
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {
-                setZone(x, y, zoneType);
+                setZone(x, y, roomBuilderType);
             }
         }
     }

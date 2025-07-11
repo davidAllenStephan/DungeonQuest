@@ -85,7 +85,7 @@ Note that all images are base64 encoded.
           {
             "questLogs": [
               {
-                "zoneType": "...",
+                "roomType": "...",
                 "questLog": "..."
               }
             ]

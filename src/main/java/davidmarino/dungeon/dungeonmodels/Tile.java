@@ -9,9 +9,10 @@ import java.awt.image.BufferedImage;
 public class Tile {
     public int x;
     public int y;
-    public ZoneType zoneType;
+    public TileType tileType;
+    public RoomBuilderType roomBuilderType;
 
-    private static final TileMap tileMap = new TileMap(); // Avoid @Autowired for manual creation
+    private static final TileMap tileMap = new TileMap();
 
     public Tile() {
     }
@@ -19,20 +20,16 @@ public class Tile {
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
-        this.zoneType = ZoneType.NULL; // Default type
+        this.roomBuilderType = RoomBuilderType.SITE;
     }
 
-    public Tile(int x, int y, ZoneType zoneType) {
+    public Tile(int x, int y, RoomBuilderType roomBuilderType) {
         this.x = x;
         this.y = y;
-        this.zoneType = zoneType;
-    }
-
-    public static Tile empty(int x, int y) {
-        return new Tile(x, y, ZoneType.NULL);
+        this.roomBuilderType = roomBuilderType;
     }
 
     public BufferedImage getTileAsset() {
-        return tileMap.getTile(zoneType);
+        return tileMap.getTile(tileType);
     }
 }
