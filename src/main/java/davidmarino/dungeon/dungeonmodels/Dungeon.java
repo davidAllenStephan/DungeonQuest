@@ -13,10 +13,8 @@ public class Dungeon {
     @JsonProperty("dungeon_image")
     public String dungeonImage;
 
-    @Autowired
-    private transient DungeonView dungeonView = new DungeonView();
-    @Autowired
-    private transient DungeonService dungeonService = new DungeonService();
+    private final transient DungeonView dungeonView = new DungeonView();
+    private final transient DungeonService dungeonService = new DungeonService();
 
     public Dungeon() {
         zones = new TileCanvas();

@@ -29,7 +29,7 @@ public class DungeonQuest {
     }
 
     public DungeonQuest(Parameters parameters) {
-        map = new Map(parameters);
+        map = null;
         dungeons = new DungeonCollection(parameters);
         quests = null;
     }

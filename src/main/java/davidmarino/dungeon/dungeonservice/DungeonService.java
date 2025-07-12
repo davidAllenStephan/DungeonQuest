@@ -15,9 +15,7 @@ public class DungeonService {
     }
 
     public TileCanvas getZones(int maximumRoomWidth, int maximumRoomHeight) {
-        int width = maximumRoomWidth;
-        int height = maximumRoomHeight;
-        TileCanvas tileCanvas = new TileCanvas(width, height);
-        return zoneService.generateZones(tileCanvas, maximumRoomWidth, maximumRoomHeight);
+        TileCanvas tileCanvas = new TileCanvas(maximumRoomWidth, maximumRoomHeight);
+        return zoneService.generateZones(tileCanvas);
     }
 }

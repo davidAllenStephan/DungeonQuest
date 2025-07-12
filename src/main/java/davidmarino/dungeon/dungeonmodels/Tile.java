@@ -10,23 +10,23 @@ public class Tile {
     public int x;
     public int y;
     public TileType tileType;
-    public RoomBuilderType roomBuilderType;
 
     private static final TileMap tileMap = new TileMap();
 
     public Tile() {
+        tileType = TileType.FLOOR;
     }
 
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
-        this.roomBuilderType = RoomBuilderType.SITE;
+        tileType = TileType.FLOOR;
     }
 
-    public Tile(int x, int y, RoomBuilderType roomBuilderType) {
+    public Tile(int x, int y, TileType tileType) {
         this.x = x;
         this.y = y;
-        this.roomBuilderType = roomBuilderType;
+        this.tileType = tileType;
     }
 
     public BufferedImage getTileAsset() {

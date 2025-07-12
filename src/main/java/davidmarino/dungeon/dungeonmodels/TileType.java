@@ -1,11 +1,10 @@
 package davidmarino.dungeon.dungeonmodels;
 
 public enum TileType {
-    WALL,
-    FRONT_WALL,
+    RIGHT_BORDER,
+    LEFT_BORDER,
+    FRONT_BORDER,
     FLOOR,
-    DOOR,
-    BACKGROUND,
-    LIGHT,
-    DECORATION
+    WALL,
+    TOP_WALL
 }

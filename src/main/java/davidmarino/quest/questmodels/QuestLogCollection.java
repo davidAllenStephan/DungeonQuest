@@ -52,12 +52,6 @@ public class QuestLogCollection {
 
     public void getQuestLogs(RoomType roomType, MajorCharacter majorCharacter, Artifact artifact, Monster monster) {
         switch (roomType) {
-            case ROOM:
-                questLogCollectionMap.put(RoomType.ROOM, getRoomQuestLogs(majorCharacter));
-                break;
-            case CORRIDOR:
-                questLogCollectionMap.put(RoomType.CORRIDOR, getCorridorQuestLogs(majorCharacter));
-                break;
             case TREASURE:
                 questLogCollectionMap.put(RoomType.TREASURE, getTreasureQuestLogs(majorCharacter, artifact));
                 break;
@@ -66,9 +60,6 @@ public class QuestLogCollection {
                 break;
             case PUZZLE:
                 questLogCollectionMap.put(RoomType.PUZZLE, getPuzzleQuestLogs(majorCharacter));
-                break;
-            case SAFE:
-                questLogCollectionMap.put(RoomType.SAFE, getSafeQuestLogs(majorCharacter));
                 break;
             case SECRET:
                 questLogCollectionMap.put(RoomType.SECRET, getSecretQuestLogs(majorCharacter));
@@ -85,38 +76,38 @@ public class QuestLogCollection {
         }
     }
 
-    public static QuestLogList getUtilQuestLogs() {
-        ArrayList<String> utilQuestLogs = new ArrayList<>();
-        utilQuestLogs.add("To your left is a corridor to the _room_type room.");
-        utilQuestLogs.add("To your left is a dark corridor.");
-        utilQuestLogs.add("Directly ahead is a corridor to the _room_type room.");
-        utilQuestLogs.add("Directly ahead is a dark corridor.");
-        utilQuestLogs.add("To your right is a corridor to the _room_type room.");
-        utilQuestLogs.add("To your right is a dark corridor.");
-        return new QuestLogList(utilQuestLogs, RoomType.ROOM);
-    }
+//    public static QuestLogList getUtilQuestLogs() {
+//        ArrayList<String> utilQuestLogs = new ArrayList<>();
+//        utilQuestLogs.add("To your left is a corridor to the _room_type room.");
+//        utilQuestLogs.add("To your left is a dark corridor.");
+//        utilQuestLogs.add("Directly ahead is a corridor to the _room_type room.");
+//        utilQuestLogs.add("Directly ahead is a dark corridor.");
+//        utilQuestLogs.add("To your right is a corridor to the _room_type room.");
+//        utilQuestLogs.add("To your right is a dark corridor.");
+//        return new QuestLogList(utilQuestLogs, RoomType.ROOM);
+//    }
 
-    public static QuestLogList getRoomQuestLogs(MajorCharacter majorCharacter) {
-        ArrayList<String> roomQuestLogs = new ArrayList<>();
-        roomQuestLogs.add("entity_ has entered an empty room.");
-        roomQuestLogs.add("entity_ finds remnants of a forgotten battle.");
-        roomQuestLogs.add("entity_ senses a faint magical presence.");
+//    public static QuestLogList getRoomQuestLogs(MajorCharacter majorCharacter) {
+//        ArrayList<String> roomQuestLogs = new ArrayList<>();
+//        roomQuestLogs.add("entity_ has entered an empty room.");
+//        roomQuestLogs.add("entity_ finds remnants of a forgotten battle.");
+//        roomQuestLogs.add("entity_ senses a faint magical presence.");
+//
+//        roomQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
+//
+//        return new QuestLogList(roomQuestLogs, RoomType.ROOM);
+//    }
 
-        roomQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
-
-        return new QuestLogList(roomQuestLogs, RoomType.ROOM);
-    }
-
-    public static QuestLogList getCorridorQuestLogs(MajorCharacter majorCharacter) {
-        ArrayList<String> corridorQuestLogs = new ArrayList<>();
-        corridorQuestLogs.add("entity_ walks cautiously through a narrow corridor.");
-        corridorQuestLogs.add("entity_ hears distant echoes from the corridor walls.");
-        corridorQuestLogs.add("entity_ steps on loose stones—best tread carefully.");
-
-        corridorQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
-
-        return new QuestLogList(corridorQuestLogs, RoomType.CORRIDOR);
-    }
+//    public static QuestLogList getCorridorQuestLogs(MajorCharacter majorCharacter) {
+//        ArrayList<String> corridorQuestLogs = new ArrayList<>();
+//        corridorQuestLogs.add("entity_ walks cautiously through a narrow corridor.");
+//        corridorQuestLogs.add("entity_ hears distant echoes from the corridor walls.");
+//        corridorQuestLogs.add("entity_ steps on loose stones—best tread carefully.");
+//
+//        corridorQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
+//
+//        return new QuestLogList(corridorQuestLogs, RoomType.CORRIDOR);
+//    }
 
     public static QuestLogList getTreasureQuestLogs(MajorCharacter majorCharacter, Artifact artifact) {
         ArrayList<String> treasureQuestLogs = new ArrayList<>();
@@ -154,16 +145,16 @@ public class QuestLogCollection {
         return new QuestLogList(puzzleQuestLogs, RoomType.PUZZLE);
     }
 
-    public static QuestLogList getSafeQuestLogs(MajorCharacter majorCharacter) {
-        ArrayList<String> safeQuestLogs = new ArrayList<>();
-        safeQuestLogs.add("entity_ finds a safe haven — time to rest.");
-        safeQuestLogs.add("A calm aura fills this room. entity_ feels rejuvenated.");
-        safeQuestLogs.add("entity_ lights a small fire and takes a moment to breathe.");
-
-        safeQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
-
-        return new QuestLogList(safeQuestLogs, RoomType.SAFE);
-    }
+//    public static QuestLogList getSafeQuestLogs(MajorCharacter majorCharacter) {
+//        ArrayList<String> safeQuestLogs = new ArrayList<>();
+//        safeQuestLogs.add("entity_ finds a safe haven — time to rest.");
+//        safeQuestLogs.add("A calm aura fills this room. entity_ feels rejuvenated.");
+//        safeQuestLogs.add("entity_ lights a small fire and takes a moment to breathe.");
+//
+//        safeQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
+//
+//        return new QuestLogList(safeQuestLogs, RoomType.SAFE);
+//    }
 
     public static QuestLogList getSecretQuestLogs(MajorCharacter majorCharacter) {
         ArrayList<String> secretQuestLogs = new ArrayList<>();
