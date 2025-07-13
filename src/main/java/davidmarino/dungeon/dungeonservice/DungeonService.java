@@ -14,13 +14,13 @@ public class DungeonService {
 
     }
 
-    public TileCanvas getRooms(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType) {
+    public TileCanvas getRooms(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType, DungeonShape dungeonShape) {
         TileCanvas room = new TileCanvas(maximumRoomWidth, maximumRoomHeight, dungeonType);
         tileCanvasService.setTileCanvas(room);
-        tileCanvasService.setDungeonShape(DungeonShape.SQUARE);
+        tileCanvasService.setDungeonShape(dungeonShape);
 
-        tileCanvasService.setWalls();
         tileCanvasService.setFloors();
+        tileCanvasService.setWalls();
         tileCanvasService.setBorders();
         tileCanvasService.setDecorations();
 

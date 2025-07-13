@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 /**
  *
  * Class {@code Parameters} holds the values that influence the model.
@@ -15,148 +12,129 @@ import java.util.ArrayList;
 @Component
 @Data
 public class Parameters {
-    @JsonProperty("mapScale")
+    // MAP
+    @JsonProperty("map_scale")
     public int mapScale = 5;
 
-    @JsonProperty("numberOfDungeons")
-    public int numberOfDungeons = 5;
-
-    @JsonProperty("numberOfRooms")
-    public int numberOfRooms = 10;
-
-    @JsonProperty("distanceBetweenRooms")
-    public int distanceBetweenRooms = 10;
-
-    @JsonProperty("minimumRoomWidth")
-    public int minimumRoomWidth = 20;
-
-    @JsonProperty("maximumRoomWidth")
-    public int maximumRoomWidth = 50;
-
-    @JsonProperty("minimumRoomHeight")
-    public int minimumRoomHeight = 20;
-
-    @JsonProperty("maximumRoomHeight")
-    public int maximumRoomHeight = 50;
-
-    @JsonProperty("vertexSize")
-    public int vertexSize = 5;
-
-    @JsonProperty("edgeSize")
-    public int edgeSize = 1;
-
-    @JsonProperty("numberOfLloydIterations")
+    @JsonProperty("map_smoothing_count")
     public int numberOfLloydIterations = 5;
 
-    @JsonProperty("waterLevel")
+    @JsonProperty("water_level")
     public double waterLevel = 0.4;
 
-    @JsonProperty("coastLevel")
+    @JsonProperty("coast_level")
     public double coastLevel = 0.45;
 
-    @JsonProperty("whiteCapLevel")
+    @JsonProperty("white_cap_level")
     public double whiteCapLevel = 0.85;
 
-    @JsonProperty("imageFileName")
-    public String imageFileName = "output/map.png";
-
-    @JsonProperty("backgroundColor")
-    public int[] backgroundColor = {255, 255, 255};
-
-    @JsonProperty("polygonVertexColor")
-    public int[] polygonVertexColor = {0, 0, 255};
-
-    @JsonProperty("polygonSiteColor")
-    public int[] polygonSiteColor = {255, 0, 0};
-
-    @JsonProperty("polygonBorderColor")
-    public int[] polygonBorderColor = {0, 0, 255};
-
-    @JsonProperty("startPercent")
+    @JsonProperty("erosion_start_percent")
     public double startPercent = 0.5;
 
-    @JsonProperty("spreadChance")
+    @JsonProperty("erosion_spread_percent")
     public double spreadChance = 0.8;
 
-    @JsonProperty("maxChunks")
+    @JsonProperty("erosion_max_spread")
     public int maxChunks = 20;
 
-    @JsonProperty("maxStepsPerChunk")
+    @JsonProperty("erosion_max_steps")
     public int maxStepsPerChunk = 20;
 
-    @JsonProperty("artifactCategories")
+    // DUNGEON
+    @JsonProperty("number_of_dungeons")
+    public int numberOfDungeons;
+
+    @JsonProperty("number_of_rooms")
+    public int numberOfRooms;
+
+    @JsonProperty("minimum_room_width")
+    public int minimumRoomWidth;
+
+    @JsonProperty("maximum_room_width")
+    public int maximumRoomWidth;
+
+    @JsonProperty("minimum_room_height")
+    public int minimumRoomHeight;
+
+    @JsonProperty("maximum_room_height")
+    public int maximumRoomHeight;
+
+    @JsonProperty("common_item_chance")
+    public double commonItemChance;
+
+    @JsonProperty("uncommon_item_chance")
+    public double uncommonItemChance;
+
+    @JsonProperty("rare_item_chance")
+    public double rareItemChance;
+
+    @JsonProperty("legendary_item_chance")
+    public double legendaryItemChance;
+
+    @JsonProperty("mystical_item_chance")
+    public double mysticalItemChance;
+
+    // QUEST
+    @JsonProperty("artifact_categories")
     public String[] artifactCategories;
 
-    @JsonProperty("monsterCategories")
+    @JsonProperty("monster_categories")
     public String[] monsterCategories;
 
-    @JsonProperty("majorCharacters")
+    @JsonProperty("major_characters")
     public String[] majorCharacters;
 
-    @JsonProperty("leftMargin")
-    public int leftMargin;
-    @JsonProperty("rightMargin")
-    public int rightMargin;
-    @JsonProperty("topMargin")
-    public int topMargin;
-    @JsonProperty("bottomMargin")
-    public int bottomMargin;
-
     public Parameters(int mapScale,
-                      int numberOfDungeons,
-                      int numberOfRooms,
-                      int distanceBetweenRooms,
-                      int minimumRoomWidth,
-                      int maximumRoomWidth,
-                      int minimumRoomHeight,
-                      int maximumRoomHeight,
-                      int vertexSize,
-                      int edgeSize,
                       int numberOfLloydIterations,
                       double waterLevel,
                       double coastLevel,
                       double whiteCapLevel,
-                      int[] backgroundColor,
-                      int[] polygonVertexColor,
-                      int[] polygonSiteColor,
-                      int[] polygonBorderColor,
                       double startPercent,
                       double spreadChance,
                       int maxChunks,
                       int maxStepsPerChunk,
+
+                      int numberOfDungeons,
+                      int numberOfRooms,
+                      int minimumRoomWidth,
+                      int maximumRoomWidth,
+                      int minimumRoomHeight,
+                      int maximumRoomHeight,
+                      double commonItemChance,
+                      double uncommonItemChance,
+                      double rareItemChance,
+                      double legendaryItemChance,
+                      double mysticalItemChance,
+
                       String[] artifactCategories,
                       String[] monsterCategories,
-                      String[] majorCharacters,
-    int leftMargin, int rightMargin, int topMargin, int bottomMargin) {
+                      String[] majorCharacters) {
+
         this.mapScale = mapScale;
-        this.numberOfDungeons = numberOfDungeons;
-        this.numberOfRooms = numberOfRooms;
-        this.distanceBetweenRooms = distanceBetweenRooms;
-        this.minimumRoomWidth = minimumRoomWidth;
-        this.maximumRoomWidth = maximumRoomWidth;
-        this.minimumRoomHeight = minimumRoomHeight;
-        this.maximumRoomHeight = maximumRoomHeight;
-        this.vertexSize = vertexSize;
-        this.edgeSize = edgeSize;
         this.numberOfLloydIterations = numberOfLloydIterations;
         this.waterLevel = waterLevel;
         this.coastLevel = coastLevel;
         this.whiteCapLevel = whiteCapLevel;
-        this.backgroundColor = backgroundColor;
-        this.polygonVertexColor = polygonVertexColor;
-        this.polygonSiteColor = polygonSiteColor;
-        this.polygonBorderColor = polygonBorderColor;
         this.startPercent = startPercent;
         this.spreadChance = spreadChance;
         this.maxChunks = maxChunks;
         this.maxStepsPerChunk = maxStepsPerChunk;
+
+        this.numberOfDungeons = numberOfDungeons;
+        this.numberOfRooms = numberOfRooms;
+        this.minimumRoomWidth = minimumRoomWidth;
+        this.maximumRoomWidth = maximumRoomWidth;
+        this.minimumRoomHeight = minimumRoomHeight;
+        this.maximumRoomHeight = maximumRoomHeight;
+        this.commonItemChance = commonItemChance;
+        this.uncommonItemChance = uncommonItemChance;
+        this.rareItemChance = rareItemChance;
+        this.legendaryItemChance = legendaryItemChance;
+        this.mysticalItemChance = mysticalItemChance;
+
         this.artifactCategories = artifactCategories;
         this.monsterCategories = monsterCategories;
         this.majorCharacters = majorCharacters;
-        this.leftMargin = leftMargin;
-        this.rightMargin = rightMargin;
-        this.topMargin = topMargin;
-        this.bottomMargin = bottomMargin;
     }
     public Parameters() {
 

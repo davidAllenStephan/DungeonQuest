@@ -2,38 +2,89 @@ package davidmarino.dungeon.dungeonmodels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import davidmarino.Parameters;
+import davidmarino.dungeon.dungeonmodels.enums.DungeonShape;
 import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import davidmarino.dungeon.dungeonservice.DungeonService;
 import davidmarino.dungeon.dungeonviews.DungeonView;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 @Component
 public class Dungeon {
-    public transient TileCanvas rooms;
 
-    @JsonProperty("dungeon_image")
-    public String dungeonImage;
-
-    @JsonProperty("dungeonType")
+    @JsonProperty("room_images")
+    public ArrayList<String> roomImages;
+    @JsonProperty("dungeon_type")
     public DungeonType dungeonType;
 
     private final transient DungeonView dungeonView = new DungeonView();
     private final transient DungeonService dungeonService = new DungeonService();
 
     public Dungeon() {
-        dungeonType = DungeonType.EMPTY;
-        rooms = new TileCanvas();
+        roomImages = null;
+        dungeonType = null;
     }
 
-    public Dungeon(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType) {
+    public Dungeon(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType, DungeonShape dungeonShape) {
         this.dungeonType = dungeonType;
-        rooms = dungeonService.getRooms(maximumRoomWidth, maximumRoomHeight, dungeonType);
-        dungeonImage = dungeonView.getBase64(rooms);
+        TileCanvas room = dungeonService.getRooms(maximumRoomWidth, maximumRoomHeight, dungeonType, dungeonShape);
+        switch (dungeonType) {
+            case TREASURE:
+                roomImages.add(dungeonView.getBase64(room, 12, 30));
+                break;
+            case FLOWER:
+                roomImages.add(dungeonView.getBase64(room, 20, 20));
+                break;
+            case STRENGTH:
+                roomImages.add(dungeonView.getBase64(room, 0, 3));
+                break;
+            case PUZZLE:
+                roomImages.add(dungeonView.getBase64(room, 0, 0));
+                break;
+            case HEALTH:
+                roomImages.add(dungeonView.getBase64(room, 14, 2));
+                break;
+            case SECRET:
+                roomImages.add(dungeonView.getBase64(room, 38, 8));
+                break;
+            case BOSS:
+                roomImages.add(dungeonView.getBase64(room, 27, 51));
+                break;
+        }
     }
 
     public Dungeon(Parameters parameters) {
-        dungeonType = DungeonType.EMPTY;
-        rooms = dungeonService.getRooms(parameters.maximumRoomWidth, parameters.maximumRoomHeight, dungeonType);
-        dungeonImage = dungeonView.getBase64(rooms);
+        Random random = new Random();
+        roomImages = new ArrayList<>();
+        for (int i = 0; i < parameters.numberOfRooms; i++) {
+            dungeonType = DungeonType.values()[random.nextInt(0, DungeonType.values().length)];
+            DungeonShape dungeonShape = DungeonShape.values()[random.nextInt(0, DungeonShape.values().length)];
+            TileCanvas room = dungeonService.getRooms(parameters.maximumRoomWidth, parameters.maximumRoomHeight, dungeonType, dungeonShape);
+            switch (dungeonType) {
+                case TREASURE:
+                    roomImages.add(dungeonView.getBase64(room, 12, 30));
+                    break;
+                case FLOWER:
+                    roomImages.add(dungeonView.getBase64(room, 20, 20));
+                    break;
+                case STRENGTH:
+                    roomImages.add(dungeonView.getBase64(room, 0, 3));
+                    break;
+                case PUZZLE:
+                    roomImages.add(dungeonView.getBase64(room, 0, 0));
+                    break;
+                case HEALTH:
+                    roomImages.add(dungeonView.getBase64(room, 14, 2));
+                    break;
+                case SECRET:
+                    roomImages.add(dungeonView.getBase64(room, 38, 8));
+                    break;
+                case BOSS:
+                    roomImages.add(dungeonView.getBase64(room, 27, 51));
+                    break;
+            }
+        }
     }
 }

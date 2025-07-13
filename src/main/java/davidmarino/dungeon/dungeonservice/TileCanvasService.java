@@ -157,16 +157,15 @@ public class TileCanvasService {
             for (int x = 0; x < width; x++) {
                 Tile tile = tileCanvas.find(x, y);
                 if (tile.tileStructureType == TileStructureType.FLOOR) {
-                    // 20% chance to place a decoration
                     if (random.nextDouble() < 0.2) {
-                        double foo = random.nextDouble();
-                        if (foo < 0.2) {
+                        double rarity = random.nextDouble();
+                        if (rarity < 0.5) {
                             tile.decorationTileType = TileDecorationType.DECORATION_COMMON;
-                        } else if (foo < 0.4) {
+                        } else if (rarity < 0.7) {
                             tile.decorationTileType = TileDecorationType.DECORATION_UNCOMMON;
-                        } else if (foo < 0.6) {
+                        } else if (rarity < 0.85) {
                             tile.decorationTileType = TileDecorationType.DECORATION_RARE;
-                        } else if (foo < 0.8) {
+                        } else if (rarity < 0.95) {
                             tile.decorationTileType = TileDecorationType.DECORATION_LEGENDARY;
                         } else {
                             tile.decorationTileType = TileDecorationType.DECORATION_MYSTICAL;

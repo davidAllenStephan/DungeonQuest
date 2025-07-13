@@ -98,6 +98,48 @@ public final class TileMap {
         healthReferences.put(TileDecorationType.DECORATION_LEGENDARY, new TileReference(decorationSheet, 3, 451));
         healthReferences.put(TileDecorationType.DECORATION_MYSTICAL, new TileReference(decorationSheet, 6, 80));
         decorationTileReferences.put(DungeonType.HEALTH, healthReferences);
+        Map<TileDecorationType, TileReference> treasureReferences = new HashMap<>();
+        treasureReferences.put(TileDecorationType.DECORATION_COMMON, new TileReference(decorationSheet, 14, 404));
+        treasureReferences.put(TileDecorationType.DECORATION_UNCOMMON, new TileReference(decorationSheet, 9, 432));
+        treasureReferences.put(TileDecorationType.DECORATION_RARE, new TileReference(decorationSheet, 10, 432));
+        treasureReferences.put(TileDecorationType.DECORATION_LEGENDARY, new TileReference(decorationSheet, 9, 1033));
+        treasureReferences.put(TileDecorationType.DECORATION_MYSTICAL, new TileReference(decorationSheet, 9, 1035));
+        decorationTileReferences.put(DungeonType.TREASURE, treasureReferences);
+        Map<TileDecorationType, TileReference> flowerReferences = new HashMap<>();
+        flowerReferences.put(TileDecorationType.DECORATION_COMMON, new TileReference(decorationSheet, 7, 910));
+        flowerReferences.put(TileDecorationType.DECORATION_UNCOMMON, new TileReference(decorationSheet, 7, 909));
+        flowerReferences.put(TileDecorationType.DECORATION_RARE, new TileReference(decorationSheet, 4, 825));
+        flowerReferences.put(TileDecorationType.DECORATION_LEGENDARY, new TileReference(decorationSheet, 3, 736));
+        flowerReferences.put(TileDecorationType.DECORATION_MYSTICAL, new TileReference(decorationSheet, 3, 610));
+        decorationTileReferences.put(DungeonType.FLOWER, flowerReferences);
+        Map<TileDecorationType, TileReference> puzzleReferences = new HashMap<>();
+        puzzleReferences.put(TileDecorationType.DECORATION_COMMON, new TileReference(decorationSheet, 14, 992)); // Snow Globe
+        puzzleReferences.put(TileDecorationType.DECORATION_UNCOMMON, new TileReference(decorationSheet, 6, 969)); // Puzzle
+        puzzleReferences.put(TileDecorationType.DECORATION_RARE, new TileReference(decorationSheet, 8, 970)); // Woman Painting
+        puzzleReferences.put(TileDecorationType.DECORATION_LEGENDARY, new TileReference(decorationSheet, 3, 686)); // Starry Night
+        puzzleReferences.put(TileDecorationType.DECORATION_MYSTICAL, new TileReference(decorationSheet, 14, 404)); // Globe
+        decorationTileReferences.put(DungeonType.PUZZLE, puzzleReferences);
+        Map<TileDecorationType, TileReference> strengthReferences = new HashMap<>();
+        strengthReferences.put(TileDecorationType.DECORATION_COMMON, new TileReference(decorationSheet, 15, 1000)); // Kettle Bell
+        strengthReferences.put(TileDecorationType.DECORATION_UNCOMMON, new TileReference(decorationSheet, 9, 999)); // Large White Weight
+        strengthReferences.put(TileDecorationType.DECORATION_RARE, new TileReference(decorationSheet, 11, 999)); // Large Black Weight
+        strengthReferences.put(TileDecorationType.DECORATION_LEGENDARY, new TileReference(decorationSheet, 12, 1009)); // Boom Box
+        strengthReferences.put(TileDecorationType.DECORATION_MYSTICAL, new TileReference(decorationSheet, 0, 1003)); // Yoga Ball
+        decorationTileReferences.put(DungeonType.STRENGTH, strengthReferences);
+        Map<TileDecorationType, TileReference> secretReferences = new HashMap<>();
+        secretReferences.put(TileDecorationType.DECORATION_COMMON, new TileReference(decorationSheet, 0, 976)); // Vase
+        secretReferences.put(TileDecorationType.DECORATION_UNCOMMON, new TileReference(decorationSheet, 2, 919)); // Plate
+        secretReferences.put(TileDecorationType.DECORATION_RARE, new TileReference(decorationSheet, 3, 736)); // Bag
+        secretReferences.put(TileDecorationType.DECORATION_LEGENDARY, new TileReference(decorationSheet, 8, 621)); // Stack Cash
+        secretReferences.put(TileDecorationType.DECORATION_MYSTICAL, new TileReference(decorationSheet, 2, 483)); // Suitcase
+        decorationTileReferences.put(DungeonType.SECRET, secretReferences);
+        Map<TileDecorationType, TileReference> bossReferences = new HashMap<>();
+        bossReferences.put(TileDecorationType.DECORATION_COMMON, new TileReference(decorationSheet, 14, 292)); // Knife
+        bossReferences.put(TileDecorationType.DECORATION_UNCOMMON, new TileReference(decorationSheet, 10, 214)); // Blood
+        bossReferences.put(TileDecorationType.DECORATION_RARE, new TileReference(decorationSheet, 9, 214)); // Blood 2
+        bossReferences.put(TileDecorationType.DECORATION_LEGENDARY, new TileReference(decorationSheet, 12, 205)); // Pentagram
+        bossReferences.put(TileDecorationType.DECORATION_MYSTICAL, new TileReference(decorationSheet, 11, 223)); // Bible
+        decorationTileReferences.put(DungeonType.BOSS, bossReferences);
     }
 
     public TileMap() {

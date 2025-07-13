@@ -17,7 +17,7 @@ public class DungeonView extends DungeonQuestView {
 
     }
 
-    public String getBase64(TileCanvas tileCanvas) {
+    public String getBase64(TileCanvas tileCanvas, int floorVariant, int topWallVariant) {
         int tileWidth = 16;
         int tileHeight = 16;
 
@@ -29,10 +29,6 @@ public class DungeonView extends DungeonQuestView {
 
         BufferedImage largeImage = new BufferedImage(upscaleWidth, upscaleHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D gLarge = largeImage.createGraphics();
-
-        Random random = new Random();
-        int floorVariant = random.nextInt(0, 10);
-        int topWallVariant = random.nextInt(0, 10);
 
         // 1. Draw base tile images
         for (int y = 0; y < rows; y++) {

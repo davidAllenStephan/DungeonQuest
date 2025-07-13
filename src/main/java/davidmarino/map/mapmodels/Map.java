@@ -44,7 +44,7 @@ public class Map {
         numberOfPoints = parameters.mapScale * 200;
 
         ArrayList<Polygon> polygons = mapService.getMapPolygons(numberOfPoints, parameters.numberOfLloydIterations, width, height, parameters.waterLevel, parameters.startPercent, parameters.spreadChance, parameters.maxChunks, parameters.maxStepsPerChunk, parameters.coastLevel);
-        BufferedImage mapBufferedImage = mapView.getGraphics2D(polygons, width, height, parameters.backgroundColor, parameters.waterLevel, parameters.coastLevel, parameters.whiteCapLevel);
+        BufferedImage mapBufferedImage = mapView.getGraphics2D(polygons, width, height, new int[]{255, 255, 255}, parameters.waterLevel, parameters.coastLevel, parameters.whiteCapLevel);
         mapImage = mapView.getBase64(mapBufferedImage);
         dungeonSites = siteCollectionService.getSites(polygons, parameters.waterLevel, parameters.numberOfDungeons, width, height);
     }

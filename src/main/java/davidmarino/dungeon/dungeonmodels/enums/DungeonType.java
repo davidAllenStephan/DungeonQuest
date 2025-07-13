@@ -2,12 +2,10 @@ package davidmarino.dungeon.dungeonmodels.enums;
 
 public enum DungeonType {
     TREASURE,
-    BOSS,
+    FLOWER,
+    STRENGTH,
     PUZZLE,
     HEALTH,
     SECRET,
-    VOID,
-    ENTRANCE,
-    EXIT,
-    EMPTY
+    BOSS,
 }

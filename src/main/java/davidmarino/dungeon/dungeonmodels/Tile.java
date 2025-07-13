@@ -7,6 +7,7 @@ import davidmarino.dungeon.dungeonviews.TileMap;
 import org.springframework.stereotype.Component;
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 @Component
 public class Tile {
@@ -21,7 +22,7 @@ public class Tile {
     public Tile() {
         tileStructureType = TileStructureType.FLOOR;
         decorationTileType = TileDecorationType.DECORATION_EMPTY;
-        dungeonType = DungeonType.EMPTY;
+        dungeonType = DungeonType.TREASURE;
     }
 
     public Tile(int x, int y, DungeonType dungeonType) {
@@ -33,13 +34,22 @@ public class Tile {
     }
 
     public BufferedImage getTileAsset(int floorVariant, int wallVariant) {
-        return switch (tileStructureType) {
-            case FLOOR -> tileMap.getFloorTile(floorVariant);
-            case WALL -> tileMap.getWallTile(wallVariant);
-            case TOP_WALL -> tileMap.getTopWallTile(wallVariant);
-            case EMPTY -> null;
-            default -> tileMap.getBorderTile(tileStructureType);
-        };
+        if (dungeonType == DungeonType.PUZZLE) {
+
+        }
+        switch (tileStructureType) {
+            case FLOOR:
+                if (dungeonType == DungeonType.PUZZLE) {
+                    Random random = new Random();
+                    return tileMap.getFloorTile(random.nextInt(0, 10));
+                } else {
+                    return tileMap.getFloorTile(floorVariant);
+                }
+            case WALL: return tileMap.getWallTile(wallVariant);
+            case TOP_WALL: return tileMap.getTopWallTile(wallVariant);
+            case EMPTY: return null;
+            default: return tileMap.getBorderTile(tileStructureType);
+        }
     }
 
     public BufferedImage getDecorationTileAsset() {

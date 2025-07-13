@@ -64,15 +64,6 @@ public class QuestLogCollection {
             case SECRET:
                 questLogCollectionMap.put(DungeonType.SECRET, getSecretQuestLogs(majorCharacter));
                 break;
-            case VOID:
-                questLogCollectionMap.put(DungeonType.VOID, getVoidQuestLogs(majorCharacter));
-                break;
-            case ENTRANCE:
-                questLogCollectionMap.put(DungeonType.ENTRANCE, getEntranceQuestLogs(majorCharacter));
-                break;
-            case EXIT:
-                questLogCollectionMap.put(DungeonType.EXIT, getExitQuestLogs(majorCharacter));
-                break;
         }
     }
 
@@ -165,39 +156,6 @@ public class QuestLogCollection {
         secretQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
         return new QuestLogList(secretQuestLogs, DungeonType.SECRET);
-    }
-
-    public static QuestLogList getVoidQuestLogs(MajorCharacter majorCharacter) {
-        ArrayList<String> voidQuestLogs = new ArrayList<>();
-        voidQuestLogs.add("entity_ steps into a realm where time stands still.");
-        voidQuestLogs.add("Shadows flicker in the void as entity_ ventures deeper.");
-        voidQuestLogs.add("The air grows heavy — entity_ is not alone in the void.");
-
-        voidQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
-
-        return new QuestLogList(voidQuestLogs, DungeonType.VOID);
-    }
-
-    public static QuestLogList getEntranceQuestLogs(MajorCharacter majorCharacter) {
-        ArrayList<String> entranceQuestLogs = new ArrayList<>();
-        entranceQuestLogs.add("entity_ stands before the dungeon’s entrance, heart pounding.");
-        entranceQuestLogs.add("The gate creaks open — entity_ takes the first step inside.");
-        entranceQuestLogs.add("entity_ enters the dungeon, determined to survive.");
-
-        entranceQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
-
-        return new QuestLogList(entranceQuestLogs, DungeonType.ENTRANCE);
-    }
-
-    public static QuestLogList getExitQuestLogs(MajorCharacter majorCharacter) {
-        ArrayList<String> exitQuestLogs = new ArrayList<>();
-        exitQuestLogs.add("entity_ sees daylight ahead — the exit is near.");
-        exitQuestLogs.add("entity_ escapes the dungeon, treasure in hand.");
-        exitQuestLogs.add("The journey ends as entity_ steps out of the shadows.");
-
-        exitQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
-
-        return new QuestLogList(exitQuestLogs, DungeonType.EXIT);
     }
 
 }
