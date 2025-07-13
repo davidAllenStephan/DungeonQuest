@@ -8,12 +8,14 @@ public class TileCanvas {
     private Tile[] tiles;
     public int width;
     public int height;
+    public DungeonType dungeonType;
 
     public TileCanvas() {
 
     }
 
     public TileCanvas(int width, int height, DungeonType dungeonType) {
+        this.dungeonType = dungeonType;
         this.width = width + 2;
         this.height = height + 3;
         this.tiles = new Tile[this.width * this.height];

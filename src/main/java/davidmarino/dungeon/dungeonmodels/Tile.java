@@ -33,10 +33,7 @@ public class Tile {
         this.dungeonType = dungeonType;
     }
 
-    public BufferedImage getTileAsset(int floorVariant, int wallVariant) {
-        if (dungeonType == DungeonType.PUZZLE) {
-
-        }
+    public BufferedImage getTileAsset(int floorVariant, int wallVariant, DungeonType dungeonType) {
         switch (tileStructureType) {
             case FLOOR:
                 if (dungeonType == DungeonType.PUZZLE) {

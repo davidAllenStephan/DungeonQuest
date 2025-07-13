@@ -16,19 +16,18 @@ public class Dungeon {
 
     @JsonProperty("room_images")
     public ArrayList<String> roomImages;
-    @JsonProperty("dungeon_type")
-    public DungeonType dungeonType;
+
+    @JsonProperty("room_types")
+    public ArrayList<DungeonType> roomTypes;
 
     private final transient DungeonView dungeonView = new DungeonView();
     private final transient DungeonService dungeonService = new DungeonService();
 
     public Dungeon() {
         roomImages = null;
-        dungeonType = null;
     }
 
     public Dungeon(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType, DungeonShape dungeonShape) {
-        this.dungeonType = dungeonType;
         TileCanvas room = dungeonService.getRooms(maximumRoomWidth, maximumRoomHeight, dungeonType, dungeonShape);
         switch (dungeonType) {
             case TREASURE:
@@ -58,10 +57,12 @@ public class Dungeon {
     public Dungeon(Parameters parameters) {
         Random random = new Random();
         roomImages = new ArrayList<>();
+        roomTypes = new ArrayList<>();
         for (int i = 0; i < parameters.numberOfRooms; i++) {
-            dungeonType = DungeonType.values()[random.nextInt(0, DungeonType.values().length)];
+            DungeonType dungeonType = DungeonType.values()[random.nextInt(0, DungeonType.values().length)];
             DungeonShape dungeonShape = DungeonShape.values()[random.nextInt(0, DungeonShape.values().length)];
             TileCanvas room = dungeonService.getRooms(parameters.maximumRoomWidth, parameters.maximumRoomHeight, dungeonType, dungeonShape);
+            roomTypes.add(dungeonType);
             switch (dungeonType) {
                 case TREASURE:
                     roomImages.add(dungeonView.getBase64(room, 12, 30));

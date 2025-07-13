@@ -35,7 +35,7 @@ public class DungeonView extends DungeonQuestView {
             for (int x = 0; x < cols; x++) {
                 Tile tile = tileCanvas.find(x, y);
                 if (tile != null) {
-                    BufferedImage asset = tile.getTileAsset(floorVariant, topWallVariant);
+                    BufferedImage asset = tile.getTileAsset(floorVariant, topWallVariant, tileCanvas.dungeonType);
                     gLarge.drawImage(asset, x * tileWidth, y * tileHeight, null);
                 }
             }
