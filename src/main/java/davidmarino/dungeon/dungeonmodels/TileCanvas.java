@@ -1,6 +1,7 @@
 package davidmarino.dungeon.dungeonmodels;
 
 import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
+import davidmarino.dungeon.dungeonservice.TileFactory;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,14 +15,14 @@ public class TileCanvas {
 
     }
 
-    public TileCanvas(int width, int height, DungeonType dungeonType) {
+    public TileCanvas(int width, int height, DungeonType dungeonType, TileFactory tileFactory) {
         this.dungeonType = dungeonType;
         this.width = width + 2;
         this.height = height + 3;
         this.tiles = new Tile[this.width * this.height];
         for (int x = 0; x < this.width; x++) {
             for (int y = 0; y < this.height; y++) {
-                tiles[index(x, y)] = new Tile(x, y, dungeonType);
+                tiles[index(x, y)] = tileFactory.createTile(x, y, dungeonType);
             }
         }
     }

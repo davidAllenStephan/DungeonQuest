@@ -5,6 +5,7 @@ import davidmarino.Parameters;
 import davidmarino.dungeon.dungeonmodels.enums.DungeonShape;
 import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import davidmarino.dungeon.dungeonservice.DungeonService;
+import davidmarino.dungeon.dungeonservice.TileFactory;
 import davidmarino.dungeon.dungeonviews.DungeonView;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +28,8 @@ public class Dungeon {
         roomImages = null;
     }
 
-    public Dungeon(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType, DungeonShape dungeonShape) {
-        TileCanvas room = dungeonService.getRooms(maximumRoomWidth, maximumRoomHeight, dungeonType, dungeonShape);
+    public Dungeon(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType, DungeonShape dungeonShape, TileFactory tileFactory) {
+        TileCanvas room = dungeonService.getRooms(maximumRoomWidth, maximumRoomHeight, dungeonType, dungeonShape, tileFactory);
         switch (dungeonType) {
             case TREASURE:
                 roomImages.add(dungeonView.getBase64(room, 12, 30));
@@ -54,14 +55,14 @@ public class Dungeon {
         }
     }
 
-    public Dungeon(Parameters parameters) {
+    public Dungeon(Parameters parameters, TileFactory tileFactory) {
         Random random = new Random();
         roomImages = new ArrayList<>();
         roomTypes = new ArrayList<>();
         for (int i = 0; i < parameters.numberOfRooms; i++) {
             DungeonType dungeonType = DungeonType.values()[random.nextInt(0, DungeonType.values().length)];
             DungeonShape dungeonShape = DungeonShape.values()[random.nextInt(0, DungeonShape.values().length)];
-            TileCanvas room = dungeonService.getRooms(parameters.maximumRoomWidth, parameters.maximumRoomHeight, dungeonType, dungeonShape);
+            TileCanvas room = dungeonService.getRooms(parameters.maximumRoomWidth, parameters.maximumRoomHeight, dungeonType, dungeonShape, tileFactory);
             roomTypes.add(dungeonType);
             switch (dungeonType) {
                 case TREASURE:

@@ -4,6 +4,7 @@ import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import davidmarino.dungeon.dungeonmodels.enums.TileDecorationType;
 import davidmarino.dungeon.dungeonmodels.enums.TileStructureType;
 import davidmarino.dungeon.dungeonviews.TileMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.awt.image.BufferedImage;
@@ -17,7 +18,7 @@ public class Tile {
     public TileDecorationType decorationTileType;
     public DungeonType dungeonType;
 
-    private static final TileMap tileMap = new TileMap();
+    private TileMap tileMap;
 
     public Tile() {
         tileStructureType = TileStructureType.FLOOR;
@@ -25,9 +26,15 @@ public class Tile {
         dungeonType = DungeonType.TREASURE;
     }
 
-    public Tile(int x, int y, DungeonType dungeonType) {
+    @Autowired
+    public void setTileMap(TileMap tileMap) {
+        this.tileMap = tileMap;
+    }
+
+    public Tile(int x, int y, DungeonType dungeonType, TileMap tileMap) {
         this.x = x;
         this.y = y;
+        this.tileMap = tileMap;
         tileStructureType = TileStructureType.FLOOR;
         decorationTileType = TileDecorationType.DECORATION_EMPTY;
         this.dungeonType = dungeonType;

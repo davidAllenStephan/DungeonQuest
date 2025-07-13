@@ -14,8 +14,8 @@ public class DungeonService {
 
     }
 
-    public TileCanvas getRooms(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType, DungeonShape dungeonShape) {
-        TileCanvas room = new TileCanvas(maximumRoomWidth, maximumRoomHeight, dungeonType);
+    public TileCanvas getRooms(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType, DungeonShape dungeonShape, TileFactory tileFactory) {
+        TileCanvas room = new TileCanvas(maximumRoomWidth, maximumRoomHeight, dungeonType, tileFactory);
         tileCanvasService.setTileCanvas(room);
         tileCanvasService.setDungeonShape(dungeonShape);
 

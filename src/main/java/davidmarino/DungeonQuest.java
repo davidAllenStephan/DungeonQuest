@@ -19,7 +19,6 @@ public class DungeonQuest {
     public QuestCollection quests;
 
     public DungeonQuest() {
-
     }
 
     public DungeonQuest(Map map, DungeonCollection dungeons, QuestCollection quests) {
@@ -33,6 +32,7 @@ public class DungeonQuest {
         dungeons = new DungeonCollection(parameters);
         quests = new QuestCollection(dungeons, parameters);
     }
+
 
     public static Map getMap(Parameters parameters) {
         return new Map(parameters);
