@@ -1,6 +1,6 @@
 package davidmarino.quest.questmodels;
 
-import davidmarino.dungeon.dungeonmodels.RoomType;
+import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Random;
 @Component
 public class QuestLogCollection {
 
-    public HashMap<RoomType, QuestLogList> questLogCollectionMap = new HashMap<>();
+    public HashMap<DungeonType, QuestLogList> questLogCollectionMap = new HashMap<>();
 
     public QuestLogCollection(MajorCharacterCollection majorCharacterCollection, ArtifactCollection artifactCollection, MonsterCollection monsterCollection) {
         Random rand = new Random();
@@ -24,10 +24,10 @@ public class QuestLogCollection {
         List<ArtifactCategory> artifactCategories = artifactCollection.getArtifactCategories();
         List<MonsterCategory> monsterCategories = monsterCollection.getMonsterCategories();
 
-        for (RoomType roomType : RoomType.values()) {
+        for (DungeonType dungeonType : DungeonType.values()) {
             Artifact artifact = getRandomArtifact(rand, artifactCategories);
             Monster monster = getRandomMonster(rand, monsterCategories);
-            getQuestLogs(roomType, majorCharacter, artifact, monster);
+            getQuestLogs(dungeonType, majorCharacter, artifact, monster);
         }
     }
 
@@ -50,28 +50,28 @@ public class QuestLogCollection {
         return monsters.get(rand.nextInt(monsters.size()));
     }
 
-    public void getQuestLogs(RoomType roomType, MajorCharacter majorCharacter, Artifact artifact, Monster monster) {
-        switch (roomType) {
+    public void getQuestLogs(DungeonType dungeonType, MajorCharacter majorCharacter, Artifact artifact, Monster monster) {
+        switch (dungeonType) {
             case TREASURE:
-                questLogCollectionMap.put(RoomType.TREASURE, getTreasureQuestLogs(majorCharacter, artifact));
+                questLogCollectionMap.put(DungeonType.TREASURE, getTreasureQuestLogs(majorCharacter, artifact));
                 break;
             case BOSS:
-                questLogCollectionMap.put(RoomType.BOSS, getBossQuestLogs(majorCharacter, monster));
+                questLogCollectionMap.put(DungeonType.BOSS, getBossQuestLogs(majorCharacter, monster));
                 break;
             case PUZZLE:
-                questLogCollectionMap.put(RoomType.PUZZLE, getPuzzleQuestLogs(majorCharacter));
+                questLogCollectionMap.put(DungeonType.PUZZLE, getPuzzleQuestLogs(majorCharacter));
                 break;
             case SECRET:
-                questLogCollectionMap.put(RoomType.SECRET, getSecretQuestLogs(majorCharacter));
+                questLogCollectionMap.put(DungeonType.SECRET, getSecretQuestLogs(majorCharacter));
                 break;
             case VOID:
-                questLogCollectionMap.put(RoomType.VOID, getVoidQuestLogs(majorCharacter));
+                questLogCollectionMap.put(DungeonType.VOID, getVoidQuestLogs(majorCharacter));
                 break;
             case ENTRANCE:
-                questLogCollectionMap.put(RoomType.ENTRANCE, getEntranceQuestLogs(majorCharacter));
+                questLogCollectionMap.put(DungeonType.ENTRANCE, getEntranceQuestLogs(majorCharacter));
                 break;
             case EXIT:
-                questLogCollectionMap.put(RoomType.EXIT, getExitQuestLogs(majorCharacter));
+                questLogCollectionMap.put(DungeonType.EXIT, getExitQuestLogs(majorCharacter));
                 break;
         }
     }
@@ -119,7 +119,7 @@ public class QuestLogCollection {
                 .replaceAll("entity_", majorCharacter.getName())
                 .replaceAll("_item_", artifact.getName()));
 
-        return new QuestLogList(treasureQuestLogs, RoomType.TREASURE);
+        return new QuestLogList(treasureQuestLogs, DungeonType.TREASURE);
     }
 
     public static QuestLogList getBossQuestLogs(MajorCharacter majorCharacter, Monster monster) {
@@ -132,7 +132,7 @@ public class QuestLogCollection {
                 .replaceAll("entity_", majorCharacter.getName())
                 .replaceAll("_boss_name_", monster.getName()));
 
-        return new QuestLogList(bossQuestLogs, RoomType.BOSS);
+        return new QuestLogList(bossQuestLogs, DungeonType.BOSS);
     }
 
     public static QuestLogList getPuzzleQuestLogs(MajorCharacter majorCharacter) {
@@ -142,7 +142,7 @@ public class QuestLogCollection {
 
         puzzleQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(puzzleQuestLogs, RoomType.PUZZLE);
+        return new QuestLogList(puzzleQuestLogs, DungeonType.PUZZLE);
     }
 
 //    public static QuestLogList getSafeQuestLogs(MajorCharacter majorCharacter) {
@@ -164,7 +164,7 @@ public class QuestLogCollection {
 
         secretQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(secretQuestLogs, RoomType.SECRET);
+        return new QuestLogList(secretQuestLogs, DungeonType.SECRET);
     }
 
     public static QuestLogList getVoidQuestLogs(MajorCharacter majorCharacter) {
@@ -175,7 +175,7 @@ public class QuestLogCollection {
 
         voidQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(voidQuestLogs, RoomType.VOID);
+        return new QuestLogList(voidQuestLogs, DungeonType.VOID);
     }
 
     public static QuestLogList getEntranceQuestLogs(MajorCharacter majorCharacter) {
@@ -186,7 +186,7 @@ public class QuestLogCollection {
 
         entranceQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(entranceQuestLogs, RoomType.ENTRANCE);
+        return new QuestLogList(entranceQuestLogs, DungeonType.ENTRANCE);
     }
 
     public static QuestLogList getExitQuestLogs(MajorCharacter majorCharacter) {
@@ -197,7 +197,7 @@ public class QuestLogCollection {
 
         exitQuestLogs.replaceAll(s -> s.replaceAll("entity_", majorCharacter.getName()));
 
-        return new QuestLogList(exitQuestLogs, RoomType.EXIT);
+        return new QuestLogList(exitQuestLogs, DungeonType.EXIT);
     }
 
 }

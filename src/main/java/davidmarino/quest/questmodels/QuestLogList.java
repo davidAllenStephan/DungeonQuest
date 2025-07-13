@@ -1,6 +1,6 @@
 package davidmarino.quest.questmodels;
 
-import davidmarino.dungeon.dungeonmodels.RoomType;
+import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ public class QuestLogList {
     public QuestLogList() {
         questLogs = new ArrayList<>();
     }
-    public QuestLogList(ArrayList<String> questLogs, RoomType roomType) {
+    public QuestLogList(ArrayList<String> questLogs, DungeonType dungeonType) {
         this.questLogs = new ArrayList<>();
         for (String questLog : questLogs) {
-            this.questLogs.add(new QuestLog(questLog, roomType));
+            this.questLogs.add(new QuestLog(questLog, dungeonType));
         }
     }
     @Override

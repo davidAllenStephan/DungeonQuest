@@ -1,21 +1,29 @@
 package davidmarino.dungeon.dungeonservice;
 
+import davidmarino.dungeon.dungeonmodels.enums.DungeonShape;
 import davidmarino.dungeon.dungeonmodels.TileCanvas;
-import org.springframework.beans.factory.annotation.Autowired;
+import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DungeonService {
 
-    @Autowired
-    private final ZoneService zoneService = new ZoneService();
+    TileCanvasService tileCanvasService = new TileCanvasService();
 
     public DungeonService() {
 
     }
 
-    public TileCanvas getZones(int maximumRoomWidth, int maximumRoomHeight) {
-        TileCanvas tileCanvas = new TileCanvas(maximumRoomWidth, maximumRoomHeight);
-        return zoneService.generateZones(tileCanvas);
+    public TileCanvas getRooms(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType) {
+        TileCanvas room = new TileCanvas(maximumRoomWidth, maximumRoomHeight, dungeonType);
+        tileCanvasService.setTileCanvas(room);
+        tileCanvasService.setDungeonShape(DungeonShape.SQUARE);
+
+        tileCanvasService.setWalls();
+        tileCanvasService.setFloors();
+        tileCanvasService.setBorders();
+        tileCanvasService.setDecorations();
+
+        return room;
     }
 }
