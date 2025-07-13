@@ -30,8 +30,10 @@ public class QuestCollection {
         ArtifactCollection artifactCollection = ArtifactCollectionService.getFromDynamoDb("145e864c-1120-4cb7-84f6-154b9351bf3f", artifactCategories);
         MonsterCollection monsterCollection = MonsterCollectionService.getFromDynamoDb("e23ab53f-d579-4485-9e2e-1db0293f659a", monsterCategories);
 
+        QuestLogCollection questLogCollection = new QuestLogCollection(majorCharacterCollection, artifactCollection, monsterCollection);
+
         for (Dungeon dungeon : dungeonCollection.dungeons) {
-            quests.add(new Quest(dungeon, majorCharacterCollection, artifactCollection, monsterCollection));
+            quests.add(new Quest(dungeon, questLogCollection));
         }
     }
 }

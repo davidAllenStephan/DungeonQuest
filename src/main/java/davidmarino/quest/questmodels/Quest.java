@@ -21,9 +21,8 @@ public class Quest {
         questLogs = new ArrayList<>();
     }
 
-    public Quest(Dungeon dungeon, MajorCharacterCollection majorCharacterCollection, ArtifactCollection artifactCollection, MonsterCollection monsterCollection) {
+    public Quest(Dungeon dungeon, QuestLogCollection questLogCollection) {
         questLogs = new ArrayList<>();
-        QuestLogCollection questLogCollection = new QuestLogCollection(majorCharacterCollection, artifactCollection, monsterCollection);
         Random random = new Random();
         for (DungeonType dungeonType : dungeon.roomTypes) {
             QuestLogList questLogList = questLogCollection.questLogCollectionMap.get(dungeonType);
