@@ -3,8 +3,6 @@ package davidmarino.quest.questservice;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import davidmarino.DynamoDbConfig;
-import davidmarino.quest.questmodels.MajorCharacter;
-import davidmarino.quest.questmodels.MajorCharacterCollection;
 import davidmarino.quest.questmodels.MonsterCategory;
 import davidmarino.quest.questmodels.MonsterCollection;
 import org.springframework.stereotype.Service;
