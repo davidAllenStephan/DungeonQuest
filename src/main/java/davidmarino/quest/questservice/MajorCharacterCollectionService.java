@@ -1,9 +1,9 @@
 package davidmarino.quest.questservice;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import davidmarino.DynamoDbConfig;
-import davidmarino.quest.questmodels.MajorCharacter;
-import davidmarino.quest.questmodels.MajorCharacterCollection;
+import davidmarino.quest.questmodels.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +23,23 @@ public class MajorCharacterCollectionService {
                 .toList();
 
         return new MajorCharacterCollection(new ArrayList<>(filteredCharacters));
+    }
+
+    public static ArrayList<String> getAllMajorCharacterNames() {
+        ArrayList<String> majorCharacterNames = new ArrayList<>();
+        DynamoDbConfig dynamoDbConfig = new DynamoDbConfig();
+        DynamoDBMapper mapper = new DynamoDBMapper(dynamoDbConfig.amazonDynamoDB());
+        List<MajorCharacterCollection> allCollections = mapper.scan(MajorCharacterCollection.class, new DynamoDBScanExpression());
+        for (MajorCharacterCollection collection : allCollections) {
+            if (collection.getMajorCharacters() == null) continue;
+            for (MajorCharacter character : collection.getMajorCharacters()) {
+                String name = character.getName();
+                if (name != null && !majorCharacterNames.contains(name)) {
+                    majorCharacterNames.add(name);
+                }
+            }
+        }
+        return majorCharacterNames;
     }
 
 }

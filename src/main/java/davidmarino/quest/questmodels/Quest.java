@@ -32,4 +32,9 @@ public class Quest {
         }
     }
 
+    @Override
+    public String toString() {
+        return questLogs.toString();
+    }
+
 }

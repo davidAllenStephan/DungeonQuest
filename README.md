@@ -30,67 +30,72 @@ This project is licensed under the [MIT license](http://opensource.org/licenses/
     "Content-Type": "application/json"
   },
   "body": {
-    "mapScale":5,
-    "numberOfRooms":10,
-    "distanceBetweenRooms":10,
-    "minimumRoomWidth":20,
-    "maximumRoomWidth":50,
-    "minimumRoomHeight":20,
-    "maximumRoomHeight":50,
-    "vertexSize":5,
-    "edgeSize":1,
-    "numberOfLloydIterations":5,
-    "waterLevel":0.4,
-    "coastLevel":0.45,
-    "whiteCapLevel":0.85,
-    "backgroundColor":[255,255,255],
-    "polygonVertexColor":[0,0,255],
-    "polygonSiteColor":[255,0,0],
-    "polygonBorderColor":[0,0,255],
-    "startPercent":0.5,
-    "spreadChance":0.8,
-    "maxChunks":20,
-    "maxStepsPerChunk":20,
-    "majorCharacters": ["Atticus Finch", "Indiana Jones", "Rick Blaine"],
-    "monsterCategories": ["Celtic mythology", "Egyptian mythology", "Greek mythology"],
-    "artifactCategories": ["Armor", "Swords", "Shields"]
+    "map_scale": 4,
+    "map_smoothing_count": 5,
+    "water_level": 0.4,
+    "coast_level": 0.45,
+    "white_cap_level": 0.85,
+    "erosion_start_percent": 0.5,
+    "erosion_spread_percent": 0.8,
+    "erosion_max_spread": 20,
+    "erosion_max_steps": 20,
+    "number_of_dungeons": 10,
+    "number_of_rooms": 10,
+    "minimum_room_width": 5,
+    "maximum_room_width": 10,
+    "minimum_room_height": 5,
+    "maximum_room_height": 10,
+    "common_item_chance": 0.5,
+    "uncommon_item_chance": 0.3,
+    "rare_item_chance": 0.15,
+    "legendary_item_chance": 0.04,
+    "mystical_item_chance": 0.01,
+    "major_characters": ["Atticus Finch", "Indiana Jones", "Rick Blaine"],
+    "monster_categories": ["Celtic mythology", "Egyptian mythology", "Greek mythology"],
+    "artifact_categories": ["Armor", "Swords", "Shields"]
   }
 }
 ```
 #### Response
 Note that all images are base64 encoded.
+
 ```json
-	{
-      "map": {
-        "dungeonSites": {
-          "sites": [
-            {
-              "dungeonSiteName": "...",
-              "x": 0,
-              "y": 0 
-            }
-          ]
-        },
-        "mapImage": "..."
-      },
-      "dungeons": {
-        "dungeons": [
+    {
+  "map": {
+    "dungeonSites": {
+      "sites": [
+        {
+          "dungeonSiteName": "...",
+          "x": 0,
+          "y": 0
+        }
+      ]
+    },
+    "mapImage": "..."
+  },
+  "dungeons": {
+    "dungeons": [
+      {
+        "rooms": [
           {
-            "dungeonImage": "..."
-          }
-        ]
-      },
-      "quests": {
-        "quests": [
-          {
-            "questLogs": [
-              {
-                "dungeonType": "...",
-                "questLog": "..."
-              }
-            ]
+            "roomImage": "...",
+            "roomType": "..."
           }
         ]
       }
-    }
+    ]
+  },
+  "quests": {
+    "quests": [
+      {
+        "questLogs": [
+          {
+            "dungeonType": "...",
+            "questLog": "..."
+          }
+        ]
+      }
+    ]
+  }
+}
 ```

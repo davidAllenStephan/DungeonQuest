@@ -43,4 +43,17 @@ public class DungeonQuest {
         return gson.toJson(this);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("DungeonQuest [map=");
+        builder.append(map);
+        builder.append(", dungeons=");
+        builder.append(dungeons);
+        builder.append(", quests=");
+        builder.append(quests);
+        builder.append("]");
+        return builder.toString();
+    }
+
 }

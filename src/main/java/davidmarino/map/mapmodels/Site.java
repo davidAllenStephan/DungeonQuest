@@ -21,4 +21,17 @@ public class Site {
     public Site() {
 
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Site [dungeon_site_name=");
+        builder.append(dungeonSiteName);
+        builder.append(", x=");
+        builder.append(x);
+        builder.append(", y=");
+        builder.append(y);
+        builder.append("]");
+        return builder.toString();
+    }
 }

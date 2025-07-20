@@ -1,6 +1,7 @@
 package davidmarino.quest.questservice;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import davidmarino.DynamoDbConfig;
 import davidmarino.quest.questmodels.ArtifactCategory;
 import davidmarino.quest.questmodels.ArtifactCollection;
@@ -36,6 +37,26 @@ public class ArtifactCollectionService {
                 .toList();
 
         return new ArtifactCollection(new ArrayList<>(filteredCategories));
+    }
+
+    public static ArrayList<String> getAllSubCategoryTitles() {
+        ArrayList<String> subCategoryTitles = new ArrayList<>();
+        DynamoDbConfig dynamoDbConfig = new DynamoDbConfig();
+        DynamoDBMapper mapper = new DynamoDBMapper(dynamoDbConfig.amazonDynamoDB());
+        List<ArtifactCollection> allCollections = mapper.scan(ArtifactCollection.class, new DynamoDBScanExpression());
+        for (ArtifactCollection collection : allCollections) {
+            if (collection.getArtifactCategories() == null) continue;
+            for (ArtifactCategory category : collection.getArtifactCategories()) {
+                if (category.getArtifactSubCategories() == null) continue;
+                for (ArtifactSubCategory subCategory : category.getArtifactSubCategories()) {
+                    String title = subCategory.getSubCategoryTitle();
+                    if (title != null && !subCategoryTitles.contains(title)) {
+                        subCategoryTitles.add(title);
+                    }
+                }
+            }
+        }
+        return subCategoryTitles;
     }
 
 }

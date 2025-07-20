@@ -36,4 +36,9 @@ public class QuestCollection {
             quests.add(new Quest(dungeon, questLogCollection));
         }
     }
+
+    @Override
+    public String toString() {
+        return quests.toString();
+    }
 }

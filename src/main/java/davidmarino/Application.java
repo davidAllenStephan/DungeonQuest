@@ -1,8 +1,5 @@
 package davidmarino;
 
-import davidmarino.dungeon.dungeonmodels.Dungeon;
-import davidmarino.dungeon.dungeonmodels.enums.DungeonShape;
-import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

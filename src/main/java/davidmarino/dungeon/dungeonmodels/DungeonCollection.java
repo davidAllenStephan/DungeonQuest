@@ -21,4 +21,9 @@ public class DungeonCollection {
             dungeons.add(new Dungeon(parameters, tileFactory));
         }
     }
+
+    @Override
+    public String toString() {
+        return dungeons.toString();
+    }
 }
