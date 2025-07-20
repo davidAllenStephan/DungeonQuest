@@ -1,6 +1,7 @@
 package davidmarino.dungeon.dungeonservice;
 
 import davidmarino.dungeon.dungeonmodels.Edge;
+import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import davidmarino.map.mapmodels.Line;
 import davidmarino.map.mapmodels.Point;
 import davidmarino.dungeon.dungeonmodels.Room;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class RoomService {
+public class DungeonMapService{
 
     public static Point findBoundIntersection(Room A, Room B) {
         Line intersection_AB = new Line(A.center, B.center);
@@ -86,22 +87,34 @@ public class RoomService {
         return mst;
     }
 
-    public static ArrayList<Room> generateRooms(int numberOfRooms, int width, int height, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
+    public static ArrayList<Room> generateRooms(ArrayList<DungeonType> dungeonTypes, int numberOfRooms, int width, int height, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
         ArrayList<Room> rooms = new ArrayList<>();
         for (int i = 0; i < numberOfRooms; i++) {
             if (rooms.isEmpty()) {
-                rooms.add(new Room(width, height, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight));
+                rooms.add(new Room(dungeonTypes.get(i), width, height, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight));
                 continue;
             }
             while (true) {
-                Room room = new Room(width, height, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
-                if (RoomService.isValid(rooms, room)) {
+                Room room = new Room(dungeonTypes.get(i), width, height, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
+                if (DungeonMapService.isValid(rooms, room)) {
                     rooms.add(room);
                     break;
                 }
             }
         }
         return rooms;
+    }
+
+    public static void connectRooms(ArrayList<Room> rooms) {
+        for (int i = 0; i < rooms.size(); i++) {
+            Room a = rooms.get(i);
+            for (int j = i + 1; j < rooms.size(); j++) {
+                Room b = rooms.get(j);
+                double distance = getDistance(a, b);
+                a.neighbors.put(b, distance);
+                b.neighbors.put(a, distance);
+            }
+        }
     }
 
 }

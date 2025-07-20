@@ -1,18 +1,29 @@
 package davidmarino.dungeon.dungeonservice;
 
-import davidmarino.dungeon.dungeonmodels.Zone;
+import davidmarino.dungeon.dungeonmodels.enums.DungeonShape;
+import davidmarino.dungeon.dungeonmodels.TileCanvas;
+import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 public class DungeonService {
+
+    TileCanvasService tileCanvasService = new TileCanvasService();
+
     public DungeonService() {
 
     }
-    public ArrayList<Zone> getZones(int numberOfRooms, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
-        int width = 400;
-        int height = 400;
-        return ZoneService.generateZones(numberOfRooms, width, height, minimumRoomWidth, minimumRoomHeight, maximumRoomWidth, maximumRoomHeight);
+
+    public TileCanvas getRooms(int maximumRoomWidth, int maximumRoomHeight, DungeonType dungeonType, DungeonShape dungeonShape, TileFactory tileFactory) {
+        TileCanvas room = new TileCanvas(maximumRoomWidth, maximumRoomHeight, dungeonType, tileFactory);
+        tileCanvasService.setTileCanvas(room);
+        tileCanvasService.setDungeonShape(dungeonShape);
+
+        tileCanvasService.setFloors();
+        tileCanvasService.setWalls();
+        tileCanvasService.setBorders();
+        tileCanvasService.setDecorations();
+
+        return room;
     }
 }

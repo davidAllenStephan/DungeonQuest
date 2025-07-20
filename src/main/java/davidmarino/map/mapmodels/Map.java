@@ -29,6 +29,8 @@ public class Map {
     private transient int width;
     private transient int height;
     private transient int numberOfPoints;
+    @Autowired
+    private SiteCollection siteCollection;
 
     public Map() {
 
@@ -44,9 +46,20 @@ public class Map {
         numberOfPoints = parameters.mapScale * 200;
 
         ArrayList<Polygon> polygons = mapService.getMapPolygons(numberOfPoints, parameters.numberOfLloydIterations, width, height, parameters.waterLevel, parameters.startPercent, parameters.spreadChance, parameters.maxChunks, parameters.maxStepsPerChunk, parameters.coastLevel);
-        BufferedImage mapBufferedImage = mapView.getGraphics2D(polygons, width, height, parameters.backgroundColor, parameters.waterLevel, parameters.coastLevel, parameters.whiteCapLevel);
+        BufferedImage mapBufferedImage = mapView.getGraphics2D(polygons, width, height, new int[]{255, 255, 255}, parameters.waterLevel, parameters.coastLevel, parameters.whiteCapLevel);
         mapImage = mapView.getBase64(mapBufferedImage);
         dungeonSites = siteCollectionService.getSites(polygons, parameters.waterLevel, parameters.numberOfDungeons, width, height);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Dungeon sites:\n");
+        stringBuilder.append(siteCollection);
+        stringBuilder.append("\n");
+        stringBuilder.append("Map:\n");
+        stringBuilder.append(mapImage);
+        return stringBuilder.toString();
     }
 
     public String getJson() {

@@ -17,4 +17,9 @@ public class SiteCollection {
     public SiteCollection(ArrayList<Site> sites) {
         this.sites = sites;
     }
+
+    @Override
+    public String toString() {
+        return sites.toString();
+    }
 }

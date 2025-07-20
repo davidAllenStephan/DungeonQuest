@@ -32,11 +32,7 @@ public class DungeonQuestView {
     }
 
     public String getBase64(BufferedImage image) {
-        BufferedImage resizedImage = new BufferedImage(500, 500, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(image, 0, 0, 500, 500, null);
-        g.dispose();
-        byte[] bytes = getBytes(resizedImage);
+        byte[] bytes = getBytes(image);
         return Base64.getEncoder().encodeToString(bytes);
     }
 

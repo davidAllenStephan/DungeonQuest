@@ -1,23 +1,23 @@
 package davidmarino.quest.questmodels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import davidmarino.dungeon.dungeonmodels.ZoneType;
+import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 
 public class QuestLog {
     @JsonProperty("zoneType")
-    public ZoneType zoneType;
+    public DungeonType dungeonType;
     @JsonProperty("questLog")
     public String questLog;
 
-    public QuestLog(String questLog, ZoneType zoneType) {
+    public QuestLog(String questLog, DungeonType dungeonType) {
         this.questLog = questLog;
-        this.zoneType = zoneType;
+        this.dungeonType = dungeonType;
     }
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("QuestLog [zoneType=");
-        builder.append(zoneType);
+        builder.append(dungeonType);
         builder.append(", questLog=");
         builder.append(questLog);
         builder.append("]");

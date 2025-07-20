@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
+
 Resources:
   DungeonQuestApi:
     Type: AWS::Serverless::Api
@@ -7,9 +8,10 @@ Resources:
       Name: DungeonQuestApi
       StageName: Prod
       Cors:
-        AllowMethods: "'POST,OPTIONS'"
+        AllowMethods: "'GET,POST,OPTIONS'"
         AllowHeaders: "'Content-Type,X-Amz-Date'"
         AllowOrigin: "'*'"
+
   DungeonQuestMainFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -25,9 +27,30 @@ Resources:
       MemorySize: 512
       Timeout: 30
       Events:
-        DungeonQuestApi:
+        DungeonQuestApiPost:
           Type: Api
           Properties:
             RestApiId: !Ref DungeonQuestApi
             Path: /dungeonquest
             Method: post
+
+        ArtifactSubcategoriesGet:
+          Type: Api
+          Properties:
+            RestApiId: !Ref DungeonQuestApi
+            Path: /artifact-subcategories
+            Method: get
+
+        MajorCharactersGet:
+          Type: Api
+          Properties:
+            RestApiId: !Ref DungeonQuestApi
+            Path: /major-characters
+            Method: get
+
+        MonsterCategoriesGet:
+          Type: Api
+          Properties:
+            RestApiId: !Ref DungeonQuestApi
+            Path: /monster-categories
+            Method: get

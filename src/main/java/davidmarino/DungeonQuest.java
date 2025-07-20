@@ -19,7 +19,6 @@ public class DungeonQuest {
     public QuestCollection quests;
 
     public DungeonQuest() {
-
     }
 
     public DungeonQuest(Map map, DungeonCollection dungeons, QuestCollection quests) {
@@ -34,6 +33,7 @@ public class DungeonQuest {
         quests = new QuestCollection(dungeons, parameters);
     }
 
+
     public static Map getMap(Parameters parameters) {
         return new Map(parameters);
     }
@@ -41,6 +41,19 @@ public class DungeonQuest {
     public String getJson() {
         Gson gson = new Gson();
         return gson.toJson(this);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("DungeonQuest [map=");
+        builder.append(map);
+        builder.append(", dungeons=");
+        builder.append(dungeons);
+        builder.append(", quests=");
+        builder.append(quests);
+        builder.append("]");
+        return builder.toString();
     }
 
 }

@@ -1,6 +1,7 @@
 package davidmarino.quest.questservice;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import davidmarino.DynamoDbConfig;
 import davidmarino.quest.questmodels.MonsterCategory;
 import davidmarino.quest.questmodels.MonsterCollection;
@@ -23,5 +24,22 @@ public class MonsterCollectionService {
                 .toList();
 
         return new MonsterCollection(new ArrayList<>(filteredCategories));
+    }
+
+    public static ArrayList<String> getAllMonsterCategories() {
+        ArrayList<String> monsterCategories = new ArrayList<>();
+        DynamoDbConfig dynamoDbConfig = new DynamoDbConfig();
+        DynamoDBMapper mapper = new DynamoDBMapper(dynamoDbConfig.amazonDynamoDB());
+        List<MonsterCollection> allCollections = mapper.scan(MonsterCollection.class, new DynamoDBScanExpression());
+        for (MonsterCollection monsterCollection: allCollections) {
+            if (monsterCollection.getMonsterCategories() == null) continue;
+            for (MonsterCategory category: monsterCollection.getMonsterCategories()) {
+                String name = category.getMonsterCategoryTitle();
+                if (name != null && !monsterCategories.contains(name)) {
+                    monsterCategories.add(name);
+                }
+            }
+        }
+        return monsterCategories;
     }
 }

@@ -1,5 +1,6 @@
 package davidmarino.dungeon.dungeonmodels;
 
+import davidmarino.dungeon.dungeonmodels.enums.DungeonType;
 import davidmarino.map.mapmodels.Point;
 
 import java.util.ArrayList;
@@ -17,19 +18,10 @@ public class Room {
     public double yRadius;
     public ArrayList<Point> bounds;
     public HashMap<Room, Double> neighbors;
+    public DungeonType type;
 
-    public Room(Point center, double xRadius, double yRadius) {
-        this.center = center;
-        this.xRadius = xRadius;
-        this.yRadius = yRadius;
-        bounds = new ArrayList<>();
-        bounds.add(new Point(center.x + xRadius, center.y + yRadius));
-        bounds.add(new Point(center.x - xRadius, center.y + yRadius));
-        bounds.add(new Point(center.x - xRadius, center.y - yRadius));
-        bounds.add(new Point(center.x + xRadius, center.y - yRadius));
-    }
-
-    public Room(int width, int height, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
+    public Room(DungeonType type, int width, int height, int minimumRoomWidth, int minimumRoomHeight, int maximumRoomWidth, int maximumRoomHeight) {
+        this.type = type;
         while (true) {
             Random random = new Random();
             center = new Point(random.nextDouble(0, width), random.nextDouble(0, height));
