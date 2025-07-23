@@ -1,20 +1,25 @@
-<h1>Dungeon Quest</h1>
+![Dungeon Quest Logo](./DungeonQuestLogo.png)
 
 ![GitHub Release](https://img.shields.io/github/v/release/davidAllenStephan/map)
 ![GitHub License](https://img.shields.io/github/license/davidAllenStephan/map)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/davidAllenStephan/map)
 ![GitHub last commit](https://img.shields.io/github/last-commit/davidAllenStephan/map)
 
-
-This is built using the implementation guide made by Amit Patel at [http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/](http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/) 
-
 ## License
 This project is licensed under the [MIT license](http://opensource.org/licenses/mit-license.php)
 
+## Website
+https://dungeonquest-77fa9.web.app/
 
 ## API
 ### Example
 #### Request
+```
+curl -X POST https://2t9633uwf6.execute-api.us-east-2.amazonaws.com/Prod/dungeonquest \
+  -H "Content-Type: application/json" \
+  -d {DungeonQuestBody}
+```
+##### Body
 ```json
 {
   "path": "/dungeonquest",
@@ -50,8 +55,6 @@ This project is licensed under the [MIT license](http://opensource.org/licenses/
 }
 ```
 #### Response
-Note that all images are base64 encoded.
-
 ```json
     {
   "map": {
@@ -92,3 +95,27 @@ Note that all images are base64 encoded.
   }
 }
 ```
+## Command Line Interface
+### Menu
+```
+╔══════════════════════════════════════════════════════════════╗
+║                    DungeonQuest Command Line                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+Type '!help' for detailed command information or try these commands:
+• !params          - View current parameter settings
+• !map             - Generate a map
+• !dungeon         - Generate a dungeon overview and room
+• !quest           - Generate a single quest
+• !lists           - View available quest content
+• !quit            - Exit the application
+```
+### Map Generation
+```
+DungeonQuest> !map
+Generating map...
+Exported to: map.html
+View it in your browser: file:/Users/davidmarino/Desktop/DungeonQuest/map.html
+Map generated successfully! Open 'map.html' in your browser to view.
+```
+![Map View](./map_view.png)
